@@ -2,7 +2,7 @@
 
 ## authors
 **Ben Allen**  
-Github:[@](https://www.github.com/)  
+Github:[@AllenStudent](https://www.github.com/AllenStudent)  
 Email:[allebenj@mail.gvsu.edu](mailto:allebenj@mail.gvsu.edu)  
 
 **Devin Elenbaase**  
