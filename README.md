@@ -6,7 +6,7 @@ Github:[@AllenStudent](https://www.github.com/AllenStudent)
 Email:[allebenj@mail.gvsu.edu](mailto:allebenj@mail.gvsu.edu)  
 
 **Devin Elenbaase**  
-Github:[@](https://www.github.com/)  
+Github:[@](https://www.github.com/elenbaad)  
 Email:[elenbaad@mail.gvsu.edu](mailto:elenbaad@mail.gvsu.edu)  
 
 **Bryan VanDyke**  
