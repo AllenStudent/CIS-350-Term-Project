@@ -16,9 +16,10 @@ Email:[vandybry@mail.gvsu.edu](mailto:vandybry@mail.gvsu.edu)
 **WIP**
 ## Synopsis
 **Studious** is planned to be an android-based student organizational assistant, with primary feature goals being...
-**1:** Calendar/Event-planner to allow students to keep track of their upcoming exams, projects, presentations, and etc. in one place.
-**2:** Ability to keep track of how many work-hours have been committed to a single project/goal.
-**3:** Ability to set weekly goals/to-do lists for work-hours put toward specific projects.
+1. Calendar/Event-planner to allow students to keep track of their upcoming exams, projects, presentations, and etc. in one place.
+2. Ability to keep track of how many work-hours have been committed to a single project/goal.
+3. Ability to set weekly goals/to-do lists for work-hours put toward specific projects.
+ 
 
 This will assist a student in organizing and using their time efficiently through the chaos that is college scheduling.
 
