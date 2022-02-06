@@ -1,5 +1,13 @@
 # CIS-350-Term-Project
 
+## INSTALL
+1. Clone this repository in your intellij IdeasProject directory.
+2. If you already have an android project copy the local.properties into project.
+3. If you don't, rename local.properties.bak to local.properties and set the skd.dir
+4. Open project. Intellij will take a few minutes to rebuild gradle.
+5. Build project
+6. Run project. You may have to create/configure a virtual android phone first.
+
 ## Authors
 **Ben Allen**  
 Github:[@AllenStudent](https://www.github.com/AllenStudent)  
