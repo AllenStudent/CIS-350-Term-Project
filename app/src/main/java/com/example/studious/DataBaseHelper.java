@@ -11,6 +11,7 @@ import java.util.ArrayList;
 
 /* responsible for managing the SQLite database */
 public class DataBaseHelper extends SQLiteOpenHelper {
+    /* cureent database and schema. */
     public static final String DATABASE_NAME = "items.db";
     public static final String TABLE_ITEMS = "ITEMS";
     public static final String COL_ID = "ID";
@@ -32,13 +33,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTableStatement);
     }
 
-    /* database version changed. update schema. */
+    /* database version (most likely the schema) changed.
+    update to new db. */
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         /* code goes here */
     }
 
-    /* add item to database. */
+    /* add item to database.
+     * Let ContentValues and SQLiteDatabase handle all the backend sql
+     * type stuff. */
     public boolean addItem(Items items) {
         /* class to store values */
         ContentValues cv = new ContentValues();
@@ -57,6 +61,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean deleteItem(int id) {
         /* open database. locks database? */
         SQLiteDatabase db = this.getWritableDatabase();
+        /* somewhat overcomplicate. I could have just done
+         * COL_ID + " = " + id
+         * and left the last parameter null. But it illustrated
+         * a function of the class. */
         int n_deleted = db.delete(
                 TABLE_ITEMS,
                 COL_ID + "= ? ",
@@ -65,14 +73,19 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return n_deleted > 0;
     }
 
+    /* again let SQLiteDatabase handle all the nasty backend sql stuff.
+    Also helpfull later if the schema changes, we dont have to constantly
+    be rewrting sql statments.
+     */
     ArrayList<Items> listItems() {
-        String queryString = "SELECT * FROM " + TABLE_ITEMS;
-
-        /* open read only database. doesn't have to wait for
-        write permission'*/
+        /* open read only database. It doesn't have to wait for
+        write permission'. Which takes significantly longer since it
+        has to wait for everybody trying to write before us to finish.
+        In this case it's only us but there are probably added complexity
+        behind the scenes for locking that will slow it down. */
         SQLiteDatabase db = this.getReadableDatabase();
 
-        /* variable to store data */
+        /* variable to store data. ArrayList CIS163 :)  */
         ArrayList<Items> returnList = new ArrayList<>();
 
         /* get all items in table */
@@ -83,6 +96,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 null,
+                /* sort by newest added first. */
                 COL_ID + " DESC"
         );
 
@@ -93,11 +107,14 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             do
             {
                 /* pull data from cursor. */
+                /* get data by its column name. more flexible than assuming
+                title is col 0, type in col 3, etc.
+                */
                 int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID));
                 String titleText = cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE));
                 int itemType = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ITEMTYPE));
 
-                /* copy data into our item model. */
+                /* copy data into our item class. */
                 Items items = new Items(itemId, titleText, itemType);
 
                 /* add to List. */

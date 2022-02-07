@@ -99,16 +99,24 @@ public class MainActivity extends AppCompatActivity {
             new ItemTouchHelper(
                     new ItemTouchHelper.SimpleCallback(
                             0,
+                            /* set and item swipable left or right. */
                             ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT
                     ) {
+                        /* dragable callback. not used. */
                         @Override
                         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                             return false;
                         }
 
+                        /* swipeable callback. when an item is swiped this is called. */
                         @Override
                         public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
+                            /* When ItemAdapter binds the data I also set the (optional) Tag
+                            to the Primary (ID) key of the database. That way we can
+                            get the exact key needed to access the item in the db.
+                             */
                             int id = (int) viewHolder.itemView.getTag();
+                            /* delete using items primary key value. */
                             delete_item(id);
                         }
                     }).attachToRecyclerView(recyclerView);
@@ -116,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
         }
         else
         {
+            /* Empty Database. */
             recyclerView.setVisibility(View.GONE);
             Toast.makeText(
                             MainActivity.this,
@@ -124,7 +133,8 @@ public class MainActivity extends AppCompatActivity {
                     .show();
         }
 
-
+        /* set the listeners for the FAB buttons.
+        * When a button is clicked this callback is callled. */
         fab_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -163,26 +173,34 @@ public class MainActivity extends AppCompatActivity {
     private void delete_item(final int id) {
         /* delete that item from database. */
         dataBaseHelper.deleteItem(id);
+        /* updateDataset() slaps the dbAdapter upside the head to tell
+        it the data has changed. There's supposed to be a more elegant way to
+        do this, but I haven't found it.
+
+        listItems() is just fetching a fresh copy of the data, and
+        updateDataset() will bind it to the adapter.
+         */
         dbAdapter.updateDataset(dataBaseHelper.listItems());
     }
 
-    /*  add item to database.
+    /*  Add item dialog.
+        add item to database.
         update internal data.
         refresh recycler view .
     */
     private void addTaskDialog(final int type, final String type_name) {
         LayoutInflater inflater = LayoutInflater.from(this);
-        /* use add item dialog */
+        /* use add_item dialog */
         View subView = inflater.inflate(R.layout.add_item, null);
 
-        /* get edit text id */
+        /* get edit text field id */
         final EditText titleField = subView.findViewById(R.id.et_title);
 
         /* use alert dialog */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         /* set title */
         builder.setTitle("Add " + type_name);
-        /* user our add item activity */
+        /* user our add_item activity */
         builder.setView(subView);
 
         builder.create();

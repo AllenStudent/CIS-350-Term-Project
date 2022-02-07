@@ -24,7 +24,8 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
         this.context = context;
     }
 
-    // create new view. invoked by layout manager.
+    // create new view holder. invoked by layout manager. requested by
+    // recycler view.
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -36,7 +37,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
         return viewHolder;
     }
 
-    /* display data at position. */
+    /* recycler wants to display data at position. */
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // get data based on position
@@ -45,8 +46,12 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
         // update view from data
         holder.tvType.setText(String.valueOf(item.getType()));
         holder.tvTitle.setText(item.getItemTitle());
+        /* store the primary key value for this item. This make a lot of
+        things later much much easier. */
         holder.itemView.setTag(item.getId());
 
+        /* load the drawable file and set for this item.
+        * We might be able to load these just once in the constructor. */
         Drawable myDrawable;
         switch (item.getType())
         {
@@ -82,6 +87,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
                 break;
 
         }
+        /* set the image. duh. */
         holder.ivIcon.setImageDrawable(myDrawable);
     }
 
@@ -92,10 +98,41 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
     }
 
 
+    /* my function. makes it easier when adding and deleting. */
     public void updateDataset(ArrayList<Items> listItems) {
         this.listItems = listItems;
 
         /* blunt hammer to notify data has changed */
         notifyDataSetChanged();
+
+        /*
+        Most of these seem to be based around items being added, move,
+        delete, or modified in our bound data (listItems). Not the
+        underlying data for listItems has changed.
+
+        In 'theory' we could perform two separate operation. Modify the Db.
+        Then manually modify listItems and then call the one of the following
+        as appropriate.
+
+        notifyItemChanged()
+        notifyItemInserted()
+        notifyItemMoved()
+        notifyItemRangeChanged()
+        notifyItemRangeInserted()
+        notifyItemRangeRemoved()
+        notifyItemRemoved()
+
+        Nothing says the order in our bound data (listItems) has to be
+        the same data or the same order as the db.
+
+        For example, we could only read alerts into listItems and then
+        randomize them. We can also then 'delete' something from listItems
+        and are not required to delete it from the db.
+
+        Same goes for RecyclerView. We can remove an item from there
+        and not remove it from listItems. The three sections are only
+        as couple as we want them.
+
+        */
     }
 }

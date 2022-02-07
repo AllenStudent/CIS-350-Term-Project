@@ -6,7 +6,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-/* custom view holder. */
+/* custom view holder.
+    supposedly this exists to offload a bunch of overhead, more efficient,
+    bring world peace, or something. (Legacy) ListView was simpler but
+    much less functional and had a much higher overhead. */
 public class ItemViewHolder extends RecyclerView.ViewHolder{
     TextView tvTitle;
     TextView tvType;
