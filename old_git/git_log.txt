@@ -1,0 +1,78 @@
+commit 9cdfa73923ad12d49e253ec77761d9f8c506a14b
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Sat Feb 5 23:31:16 2022 -0500
+
+    Added custom icons to list.
+
+commit d701769153b8ce1bbada9a46ca3230d90729fb79
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Sat Feb 5 22:30:07 2022 -0500
+
+    done with basic app.
+
+commit 3479199165d09b7d0896760cd402797764331f70
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Sat Feb 5 21:25:58 2022 -0500
+
+    add delete by swipe
+
+commit 1c8b5d4adffc17a269e15b102f1eaebe85f79fa0
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Sat Feb 5 16:53:09 2022 -0500
+
+    import expandable fab library
+    https://github.com/nambicompany/expandable-fab
+
+commit 1bcb27643affc8d6939a97d1100ce06730cd0e1c
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Sat Feb 5 15:15:19 2022 -0500
+
+    cealn up activities
+
+commit ff9f7d0f31a7c875fb4e22c9753d3dbcc654073c
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Sat Feb 5 14:02:32 2022 -0500
+
+    got recycler view working
+
+commit ff63c16085ca5966fe341f0e95a52e562984fc87
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Fri Feb 4 16:21:45 2022 -0500
+
+    More comments added.
+
+commit 2c4e41a98c4e386e7b8938f92e779ee9eb1d1bb1
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Fri Feb 4 15:58:42 2022 -0500
+
+    Update comments.
+
+commit 346dd651754857c13f9783f1467f8c72e2e40f94
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Mon Jan 31 08:39:58 2022 -0500
+
+    Note on what needs to be changed.
+
+commit 6c02cf8fc3053c1060c1b154783adb6be1525c5c
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Sun Jan 30 17:00:57 2022 -0500
+
+    Add basic save to sqlite.
+
+commit e9de6465df84b4bb554a76decac1ee5c5b92f64a
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Sun Jan 30 10:28:16 2022 -0500
+
+    save some sqlite stuff
+
+commit d77c98e96de88f6bc82586846dcbee8807e85ce5
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Wed Jan 26 17:11:57 2022 -0500
+
+    Add readme file.
+
+commit ffe7e6b08b3ab9a2e9934e16790c72f7de487544
+Author: Bryan VanDyke <bryan.vandyke@gmail.com>
+Date:   Wed Jan 26 17:04:28 2022 -0500
+
+    Initial commit
