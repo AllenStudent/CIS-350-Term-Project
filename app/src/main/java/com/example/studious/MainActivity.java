@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         /* set the listeners for the FAB buttons.
-        * When a button is clicked this callback is callled. */
+        * When a button is clicked this callback is called. */
         fab_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
