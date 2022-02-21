@@ -14,8 +14,8 @@
 ### Now - things that probably should be started immediately.
 1. Junit tests. We need for the code coverage section.  
     Low hanging fruit:
-   1. Items Class. All setters and getters
-   2. DataBaseHelp. Should only have to test: create, add, delete
+   1. ~~Items Class. All setters and getters~~
+   2. DataBaseHelp. Should only have to test: ~~create, add, get, updatedelete~~, returnList  
    3. ItemViewHold. It's like three line. Prob need to google how to set it up in junit.
 2. Use Case Descriptions. There is **HIGH** volume of writing that needs to be done on those. I dropped his template into the writeup, and set the Id and name, I haven't had time for anything else.
 

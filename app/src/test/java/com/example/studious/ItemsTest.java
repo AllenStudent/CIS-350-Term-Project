@@ -55,4 +55,20 @@ public class ItemsTest {
         assertTrue(t.toString().contains("itemTitle='By'"));
         assertTrue(t.toString().contains("type=5"));
     }
+
+    @Test
+    public void testEquals(){
+        Items s = new Items(0,"By",5);
+        Items t = new Items(5,"By",5);
+        assertEquals(s, t);
+    }
+
+    @Test
+    public void testNotEquals(){
+        Items s = new Items(0,"By",5);
+        Items t = new Items(5,"a",5);
+        Items u = new Items(5,"By",0);
+        assertNotEquals(s, t);
+        assertNotEquals(s, u);
+    }
 }

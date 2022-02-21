@@ -1,5 +1,7 @@
 package com.example.studious;
 
+import androidx.annotation.Nullable;
+
 /**
  * Model of data items in database.
  */
@@ -15,6 +17,17 @@ public class Items {
     }
 
     public Items() {
+    }
+
+    @Override
+    public boolean equals(@Nullable Object obj) {
+        if (obj == this)
+            return true;
+
+        Items o = (Items)obj;
+
+        return o.itemTitle.equals(this.itemTitle)
+                && o.type == this.type;
     }
 
     public int getId() {

@@ -11,21 +11,35 @@ import java.util.ArrayList;
 
 /* responsible for managing the SQLite database */
 public class DataBaseHelper extends SQLiteOpenHelper {
-    /* cureent database and schema. */
+    public boolean onCreateCalled = false;
+    public boolean onUpgradeCalled = false;
+
+    /* current database and schema. */
     public static final String DATABASE_NAME = "items.db";
     public static final String TABLE_ITEMS = "ITEMS";
     public static final String COL_ID = "ID";
     public static final String COL_TITLE = "TITLE";
     public static final String COL_ITEMTYPE = "ITEMTYPE";
+    public static final int version = 1;
 
     public DataBaseHelper(@Nullable Context context) {
-        super(context, DATABASE_NAME, null, 1);
+        super(context, DATABASE_NAME, null, version);
+    }
+
+    public DataBaseHelper(
+            @Nullable Context context,
+            @Nullable String name,
+            @Nullable SQLiteDatabase.CursorFactory factory,
+            int version) {
+        super(context, name, factory, version);
     }
 
 
     /* database doesn't exist. create. */
     @Override
     public void onCreate(SQLiteDatabase db) {
+        onCreateCalled = true;
+
         String createTableStatement = "CREATE TABLE " + TABLE_ITEMS + " ("
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_TITLE + " TEXT, " + COL_ITEMTYPE + " INT)";
@@ -37,13 +51,22 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     update to new db. */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
+        onUpgradeCalled = true;
+
         /* code goes here */
     }
 
     /* add item to database.
      * Let ContentValues and SQLiteDatabase handle all the backend sql
      * type stuff. */
-    public boolean addItem(Items items) {
+
+    /**
+     * Insert one item of data into database.
+     *
+     * @param items data to be inserted
+     * @return row id newly inserted row, -1 if and error occurred.
+     */
+    public long addItem(Items items) {
         /* class to store values */
         ContentValues cv = new ContentValues();
 
@@ -53,12 +76,87 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         /* open database. locks database? */
         SQLiteDatabase db = this.getWritableDatabase();
-        long insert = db.insert(TABLE_ITEMS, null, cv);
-        return insert != -1;
+        return db.insert(TABLE_ITEMS, null, cv);
+    }
+
+    /**
+     * Update data in one row
+     *
+     * @param item data in Items format
+     * @return true if row was updated
+     */
+    public boolean updateItem(Items item) {
+        /* class to store values */
+        ContentValues cv = new ContentValues();
+
+        /* add data */
+        cv.put(COL_TITLE, item.getItemTitle());
+        cv.put(COL_ITEMTYPE, item.getType());
+
+        /* open database. locks database? */
+        SQLiteDatabase db = this.getWritableDatabase();
+        int updated = db.update(
+                TABLE_ITEMS,
+                cv,
+                COL_ID + " = " + item.getId(),
+                null);
+        return updated == 1;
+    }
+
+    /**
+     * get data for one row in database
+     *
+     * @param id row id to retrieve
+     * @return data in Items Class format
+     */
+    public Items getItem(long id) {
+        Items item = null;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(
+                TABLE_ITEMS,
+                null,
+                COL_ID + " = " + id,
+                null,
+                null,
+                null,
+                null
+        );
+
+        if (cursor != null && cursor.moveToFirst())
+        {
+            /* pull data from cursor. */
+            /* get data by its column name. more flexible than assuming
+            title is col 0, type in col 3, etc.
+            */
+            int itemId = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ID));
+            String titleText = cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE));
+            int itemType = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ITEMTYPE));
+
+            /* copy data into our item class. */
+            item = new Items(itemId, titleText, itemType);
+
+
+        }
+
+        /* clean up. */
+        cursor.close();
+
+        /* clean up. */
+        db.close();
+
+        return item;
     }
 
     /* delete item from database. */
-    public boolean deleteItem(int id) {
+
+    /**
+     * Delete one item from database.
+     *
+     * @param id row id of item to be deleted
+     * @return true if row id was deleted
+     */
+    public boolean deleteItem(long id) {
         /* open database. locks database? */
         SQLiteDatabase db = this.getWritableDatabase();
         /* somewhat overcomplicate. I could have just done
@@ -67,15 +165,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
          * a function of the class. */
         int n_deleted = db.delete(
                 TABLE_ITEMS,
-                COL_ID + "= ? ",
-                new String[]{Integer.toString(id)});
+                COL_ID + "=" + id,
+                null);
         db.close();
         return n_deleted > 0;
     }
 
     /* again let SQLiteDatabase handle all the nasty backend sql stuff.
-    Also helpfull later if the schema changes, we dont have to constantly
-    be rewrting sql statments.
+    Also, helpfully later if the schema changes, we don't have to constantly
+    be rewriting sql statements.
+     */
+
+    /**
+     * Get entire database in format to use in ItemAdapter.
+     *
+     * @return ArrayList of all items in database in Items Class format
      */
     ArrayList<Items> listItems() {
         /* open read only database. It doesn't have to wait for
