@@ -24,27 +24,36 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public boolean onUpgradeCalled = false;
 
     /* current database and schema. */
+    /** database name. **/
     public static final String DATABASE_NAME = "items.db";
+    /** main table name. **/
     public static final String TABLE_ITEMS = "ITEMS";
+    /** current table column names. **/
     public static final String COL_ID = "ID";
     public static final String COL_TITLE = "TITLE";
     public static final String COL_ITEMTYPE = "ITEMTYPE";
+    /** current database version. **/
     public static final int version = 1;
 
     /**
+     * Constructor a new database helper.
      *
-     * @param context
+     * @param context Interface to global information about an
+     *                application environment.
      */
     public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, version);
     }
 
     /**
+     * Constructor a new database helper.
      *
-     * @param context
-     * @param name
-     * @param factory
-     * @param version
+     * @param context Interface to global information about an
+     *                application environment. Used to get paths to db.
+     * @param name    Database name to open or create. null for in memory db.
+     * @param factory used for creating cursor objects. null for default.
+     * @param version Database version. If the db is older onUpgrade is
+     *                called.
      */
     public DataBaseHelper(
             @Nullable Context context,
@@ -55,10 +64,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
 
-    /* database doesn't exist. create. */
     /**
+     * database doesn't exist. create.
      *
-     * @param db
+     * @param db SQLiteDatabase. the db.
      */
     @Override
     public void onCreate(SQLiteDatabase db) {
@@ -71,26 +80,28 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         db.execSQL(createTableStatement);
     }
 
-    /* database version (most likely the schema) changed.
-    update to new db. */
+
     /**
+     * database version (most likely the schema) changed.
+     * update to new db.
      *
-     * @param sqLiteDatabase
-     * @param oldVersion
-     * @param newVersion
+     * @param sqLiteDatabase SQLiteDatabase. the db.
+     * @param oldVersion     The version of the db we opened.
+     * @param newVersion     The current version of the database for this app.
      */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         onUpgradeCalled = true;
 
         /* code goes here */
+        //ALTER TABLE
     }
 
-    /* add item to database.
-     * Let ContentValues and SQLiteDatabase handle all the backend sql
-     * type stuff. */
+
     /**
      * Insert one item of data into database.
+     * Let ContentValues and SQLiteDatabase handle all the
+     * backend sql type stuff.
      *
      * @param items data to be inserted
      * @return row id newly inserted row, -1 if and error occurred.
@@ -169,7 +180,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
         /* clean up. */
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
 
         /* clean up. */
         db.close();
@@ -178,6 +190,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /* delete item from database. */
+
     /**
      * Delete one item from database.
      *
@@ -199,12 +212,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return n_deleted > 0;
     }
 
-    /* again let SQLiteDatabase handle all the nasty backend sql stuff.
-    Also, helpfully later if the schema changes, we don't have to constantly
-    be rewriting sql statements.
-     */
+
     /**
      * Get entire database in format to use in ItemAdapter.
+     * again let SQLiteDatabase handle all the nasty backend sql stuff.
+     * Also, helpfully later if the schema changes, we don't have to
+     * constantly be rewriting sql statements.
      *
      * @return ArrayList of all items in database in Items Class format
      */
@@ -255,7 +268,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         }
 
         /* clean up. */
-        cursor.close();
+        if (cursor != null)
+            cursor.close();
 
         /* clean up. */
         db.close();
