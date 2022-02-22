@@ -1,18 +1,18 @@
 package com.example.studious;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.*;
+import android.widget.EditText;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 
@@ -22,7 +22,7 @@ import java.util.ArrayList;
  * @author Ben Allen
  * @author Devin Elenbaase
  * @author Bryan VanDyke
- * @version Realease 1
+ * @version Release 1
  */
 public class MainActivity extends AppCompatActivity {
     /** type items tracked by the app. **/
@@ -62,8 +62,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     /**
+     * Initialize main activity.
      *
-     * @param savedInstanceState
+     * @param savedInstanceState previous instance data.
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,11 +88,11 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab_alarm = findViewById(R.id.efab_alarm);
         FloatingActionButton fab_todo = findViewById(R.id.efab_todo);
 
-        /* Recycler needs a layout manager. */
+        /* RecyclerView needs a layout manager. */
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        /* adapter doesn't change in size or width. optimize recycler. */
+        /* adapter layout doesn't change in size or width. optimize recycler. */
         recyclerView.hasFixedSize();
 
         /* manage database */
@@ -115,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
                             /* set and item swipeable left or right. */
                             ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT
                     ) {
-                        /* dragable callback. not used. */
+                        /* draggable callback. not used. */
                         @Override
                         public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
                             return false;
@@ -148,44 +149,19 @@ public class MainActivity extends AppCompatActivity {
 
         /* set the listeners for the FAB buttons.
          * When a button is clicked this callback is called. */
-        fab_calendar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addTaskDialog(TYPE_CALENDER, "Calendar");
-            }
-        });
-
-        fab_reminder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addTaskDialog(TYPE_REMINDER, "Reminder");
-            }
-        });
-
-        fab_alarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addTaskDialog(TYPE_ALARM, "Alarm");
-            }
-        });
-
-        fab_todo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                addTaskDialog(TYPE_TODO, "Todo");
-            }
-        });
-
-
+        fab_calendar.setOnClickListener(view -> addTaskDialog(TYPE_CALENDER, "Calendar"));
+        fab_reminder.setOnClickListener(view -> addTaskDialog(TYPE_REMINDER, "Reminder"));
+        fab_alarm.setOnClickListener(view -> addTaskDialog(TYPE_ALARM, "Alarm"));
+        fab_todo.setOnClickListener(view -> addTaskDialog(TYPE_TODO, "Todo"));
     }
 
-    /*  delete item from database.
-        update internal data.
-        refresh recycler view .
-    */
 
     /**
-     * @param id
+     * Delete item from database.
+     * Update internal data.
+     * Refresh recycler view .
+     *
+     * @param id row id of item to delete.
      */
     private void delete_item(final int id) {
         /* delete that item from database. */
@@ -200,15 +176,14 @@ public class MainActivity extends AppCompatActivity {
         dbAdapter.updateDataset(dataBaseHelper.listItems());
     }
 
-    /*  Add item dialog.
-        add item to database.
-        update internal data.
-        refresh recycler view .
-    */
-
     /**
-     * @param type
-     * @param type_name
+     * Add item dialog.
+     * Add item to database.
+     * Update internal data.
+     * Refresh recycler view .
+     *
+     * @param type      item type
+     * @param type_name title or description of item.
      */
     private void addTaskDialog(final int type, final String type_name) {
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -227,45 +202,36 @@ public class MainActivity extends AppCompatActivity {
 
         builder.create();
         /* set buttons and names */
-        builder.setPositiveButton("Add " + type_name, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                /* read entered input */
-                final String title = titleField.getText().toString().trim();
-                if (!TextUtils.isEmpty(title))
-                {
-                    Items newItem = new Items(-1, title, type);
-                    /* add to database */
-                    dataBaseHelper.addItem(newItem);
-                    /* update dataset in adapter */
-                    dbAdapter.updateDataset(dataBaseHelper.listItems());
-
-                    /* close dialog */
-                    //finish();
-                    //overridePendingTransition(0, 0);
-
-                    /* go back to who called us. */
-                    //startActivity(getIntent());
-                    //overridePendingTransition(0, 0);
-                }
-                else
-                {
-                    Toast.makeText(MainActivity.this, "Something went wrong. Check your input values", Toast.LENGTH_LONG).show();
-                }
-            }
-        });
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(MainActivity.this, "Task cancelled", Toast.LENGTH_LONG).show();
-            }
-        });
+        builder.setPositiveButton("Add " + type_name,
+                (dialog, which) -> {
+                    /* read entered input */
+                    final String title = titleField.getText().toString().trim();
+                    if (!TextUtils.isEmpty(title))
+                    {
+                        Items newItem = new Items(-1, title, type);
+                        /* add to database */
+                        dataBaseHelper.addItem(newItem);
+                        /* update dataset in adapter */
+                        dbAdapter.updateDataset(dataBaseHelper.listItems());
+                    }
+                    else
+                    {
+                        Toast.makeText(MainActivity.this,
+                                "Something went wrong. Check your input values",
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+        builder.setNegativeButton("Cancel",
+                (dialog, which) -> Toast.makeText(
+                        MainActivity.this,
+                        "Task cancelled",
+                        Toast.LENGTH_LONG).show());
         /* show our new fancy dialog. */
         builder.show();
     }
 
     /**
-     *
+     * Clean up before application is closed.
      */
     @Override
     protected void onDestroy() {
