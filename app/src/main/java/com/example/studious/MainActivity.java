@@ -16,7 +16,16 @@ import androidx.appcompat.app.AlertDialog;
 
 import java.util.ArrayList;
 
+/**
+ * Main code for the application.
+ *
+ * @author Ben Allen
+ * @author Devin Elenbaase
+ * @author Bryan VanDyke
+ * @version Realease 1
+ */
 public class MainActivity extends AppCompatActivity {
+    /** type items tracked by the app. **/
     public static final int TYPE_CALENDER = 0;
     public static final int TYPE_TODO = 1;
     public static final int TYPE_REMINDER = 2;
@@ -46,12 +55,16 @@ public class MainActivity extends AppCompatActivity {
      */
 
 
-    /* helps manage database. */
+    /** helps manage database. */
     private DataBaseHelper dataBaseHelper;
-    /* current data adapter for recyclerView */
+    /** current data adapter for recyclerView */
     private ItemAdaptor dbAdapter;
 
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
             new ItemTouchHelper(
                     new ItemTouchHelper.SimpleCallback(
                             0,
-                            /* set and item swipable left or right. */
+                            /* set and item swipeable left or right. */
                             ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT
                     ) {
                         /* dragable callback. not used. */
@@ -134,7 +147,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
         /* set the listeners for the FAB buttons.
-        * When a button is clicked this callback is called. */
+         * When a button is clicked this callback is called. */
         fab_calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -170,6 +183,10 @@ public class MainActivity extends AppCompatActivity {
         update internal data.
         refresh recycler view .
     */
+
+    /**
+     * @param id
+     */
     private void delete_item(final int id) {
         /* delete that item from database. */
         dataBaseHelper.deleteItem(id);
@@ -188,6 +205,11 @@ public class MainActivity extends AppCompatActivity {
         update internal data.
         refresh recycler view .
     */
+
+    /**
+     * @param type
+     * @param type_name
+     */
     private void addTaskDialog(final int type, final String type_name) {
         LayoutInflater inflater = LayoutInflater.from(this);
         /* use add_item dialog */
@@ -242,6 +264,9 @@ public class MainActivity extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     *
+     */
     @Override
     protected void onDestroy() {
         super.onDestroy();

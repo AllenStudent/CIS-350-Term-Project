@@ -11,21 +11,41 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-
+/**
+ * responsible for managing the SQLite database
+ *
+ * @author Ben Allen
+ * @author Devin Elenbaase
+ * @author Bryan VanDyke
+ * @version Release 1
+ */
 public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
-    /* data the recycler is displaying */
+    /** data the recycler is displaying **/
     private ArrayList<Items> listItems;
+    /** Layout Inflater **/
     private LayoutInflater inflater;
+    /** device context **/
     private Context context;
 
+    /**
+     * constructor of ItemAdapter
+     * @param context device context
+     * @param listItems Data to initialize adapter to.
+     */
     ItemAdaptor(Context context, ArrayList<Items> listItems) {
         this.listItems = listItems;
         this.inflater = LayoutInflater.from(context);
         this.context = context;
     }
 
-    // create new view holder. invoked by layout manager. requested by
-    // recycler view.
+    /**
+     * create new view holder. invoked by layout manager. requested by
+     *     recycler view.
+     *
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,7 +57,12 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
         return viewHolder;
     }
 
-    /* recycler wants to display data at position. */
+    /**
+     * recycler wants to display data at position.
+     *
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         // get data based on position
@@ -91,7 +116,10 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
         holder.ivIcon.setImageDrawable(myDrawable);
     }
 
-    /* number of items in list */
+    /**
+     * Get the number of items in the list.
+     * @return number of items.
+     */
     @Override
     public int getItemCount() {
         return listItems.size();
@@ -99,6 +127,10 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
 
 
     /* my function. makes it easier when adding and deleting. */
+    /**
+     * Update ItemAdapter to new data.
+     * @param listItems an ArrayList of Items.
+     */
     public void updateDataset(ArrayList<Items> listItems) {
         this.listItems = listItems;
 

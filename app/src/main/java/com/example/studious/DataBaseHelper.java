@@ -9,9 +9,18 @@ import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
-/* responsible for managing the SQLite database */
+/**
+ * responsible for managing the SQLite database
+ *
+ * @author Ben Allen
+ * @author Devin Elenbaase
+ * @author Bryan VanDyke
+ * @version Release 1
+ */
 public class DataBaseHelper extends SQLiteOpenHelper {
+    /** record if onCreate was called **/
     public boolean onCreateCalled = false;
+    /** record if OnUpgrade was called **/
     public boolean onUpgradeCalled = false;
 
     /* current database and schema. */
@@ -22,10 +31,21 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COL_ITEMTYPE = "ITEMTYPE";
     public static final int version = 1;
 
+    /**
+     *
+     * @param context
+     */
     public DataBaseHelper(@Nullable Context context) {
         super(context, DATABASE_NAME, null, version);
     }
 
+    /**
+     *
+     * @param context
+     * @param name
+     * @param factory
+     * @param version
+     */
     public DataBaseHelper(
             @Nullable Context context,
             @Nullable String name,
@@ -36,6 +56,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
 
     /* database doesn't exist. create. */
+    /**
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         onCreateCalled = true;
@@ -49,6 +73,12 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
     /* database version (most likely the schema) changed.
     update to new db. */
+    /**
+     *
+     * @param sqLiteDatabase
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         onUpgradeCalled = true;
@@ -59,7 +89,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /* add item to database.
      * Let ContentValues and SQLiteDatabase handle all the backend sql
      * type stuff. */
-
     /**
      * Insert one item of data into database.
      *
@@ -149,7 +178,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /* delete item from database. */
-
     /**
      * Delete one item from database.
      *
@@ -175,7 +203,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     Also, helpfully later if the schema changes, we don't have to constantly
     be rewriting sql statements.
      */
-
     /**
      * Get entire database in format to use in ItemAdapter.
      *
