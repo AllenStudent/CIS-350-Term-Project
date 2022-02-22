@@ -19,16 +19,18 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class ItemViewHolder extends RecyclerView.ViewHolder {
     /** Textview for title in items_list activity. **/
-    TextView tvTitle;
+    public final TextView tvTitle;
 
     /** Textview for item type in items_list activity. **/
-    TextView tvType;
+    public final TextView tvType;
 
     /** Textview for icon in items_list activity. **/
-    ImageView ivIcon;
+    public final ImageView ivIcon;
 
     /**
-     * @param itemView
+     * Initialize ItemViewHolder
+     *
+     * @param itemView activity view
      */
     public ItemViewHolder(@NonNull View itemView) {
         super(itemView);
@@ -37,6 +39,4 @@ public class ItemViewHolder extends RecyclerView.ViewHolder {
         tvTitle = itemView.findViewById(R.id.tv_title);
         tvType = itemView.findViewById(R.id.tv_type);
     }
-
-
 }
