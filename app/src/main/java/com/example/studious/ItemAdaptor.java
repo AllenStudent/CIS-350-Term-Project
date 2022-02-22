@@ -1,7 +1,7 @@
 package com.example.studious;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 
 /**
- * responsible for managing the SQLite database
+ * Responsible for storing active data. Fulfill requests from
+ * RecyclerView.
  *
  * @author Ben Allen
  * @author Devin Elenbaase
@@ -23,13 +24,14 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
     /** data the recycler is displaying **/
     private ArrayList<Items> listItems;
     /** Layout Inflater **/
-    private LayoutInflater inflater;
+    private final LayoutInflater inflater;
     /** device context **/
-    private Context context;
+    private final Context context;
 
     /**
      * constructor of ItemAdapter
-     * @param context device context
+     *
+     * @param context   device context
      * @param listItems Data to initialize adapter to.
      */
     ItemAdaptor(Context context, ArrayList<Items> listItems) {
@@ -39,12 +41,13 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
     }
 
     /**
-     * create new view holder. invoked by layout manager. requested by
-     *     recycler view.
+     * Construct new view holder.
+     * Invoked by layout manager.
+     * Requested by recycler view.
      *
-     * @param parent
-     * @param viewType
-     * @return
+     * @param parent   view group this will be added to.
+     * @param viewType view type of the view.
+     * @return a new view holder of the given type.
      */
     @NonNull
     @Override
@@ -53,15 +56,14 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
         View view = inflater.inflate(R.layout.items_list, parent, false);
 
         // new view holder instance
-        ItemViewHolder viewHolder = new ItemViewHolder(view);
-        return viewHolder;
+        return new ItemViewHolder(view);
     }
 
     /**
      * recycler wants to display data at position.
      *
-     * @param holder
-     * @param position
+     * @param holder   view holder to be updated.
+     * @param position position in the dataset.
      */
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
@@ -72,11 +74,11 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
         holder.tvType.setText(String.valueOf(item.getType()));
         holder.tvTitle.setText(item.getItemTitle());
         /* store the primary key value for this item. This make a lot of
-        things later much much easier. */
+        things later much, much easier. */
         holder.itemView.setTag(item.getId());
 
         /* load the drawable file and set for this item.
-        * We might be able to load these just once in the constructor. */
+         * We might be able to load these just once in the constructor. */
         Drawable myDrawable;
         switch (item.getType())
         {
@@ -118,6 +120,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
 
     /**
      * Get the number of items in the list.
+     *
      * @return number of items.
      */
     @Override
@@ -129,8 +132,10 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
     /* my function. makes it easier when adding and deleting. */
     /**
      * Update ItemAdapter to new data.
+     *
      * @param listItems an ArrayList of Items.
      */
+    @SuppressLint("NotifyDataSetChanged") // Sometimes a nail is a nail, and you use a hammer.
     public void updateDataset(ArrayList<Items> listItems) {
         this.listItems = listItems;
 
