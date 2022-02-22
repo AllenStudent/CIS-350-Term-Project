@@ -71,4 +71,22 @@ public class ItemsTest {
         assertNotEquals(s, t);
         assertNotEquals(s, u);
     }
+
+    @Test
+    public void testEqualsNull(){
+        Items t = new Items(0,"By",5);
+        assertNotEquals(t, null);
+    }
+
+    @Test
+    public void testEqualsSelf(){
+        Items t = new Items(0,"By",5);
+        assertEquals(t, t);
+    }
+
+    @Test
+    public void testEqualsNotClass(){
+        Items t = new Items(0,"By",5);
+        assertNotEquals(t, "String");
+    }
 }

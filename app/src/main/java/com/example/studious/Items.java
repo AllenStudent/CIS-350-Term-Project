@@ -1,5 +1,6 @@
 package com.example.studious;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 /**
@@ -19,10 +20,10 @@ public class Items {
     private int type;
 
     /**
-     * Constructor of Items clase
-     * @param id datavase row id for item. -1 is fine for item to be added
+     * Constructor of the Items class.
+     * @param id database row id for item. -1 is fine for item to be added
      *           to database.
-     * @param itemTitle Title or descrtiption of item.
+     * @param itemTitle Title or description of item.
      * @param type Type of item to be added. See MainActivity for item
      *             types.
      */
@@ -35,13 +36,19 @@ public class Items {
     /**
      * Compare two Items instances for equality.
      * Note: id is ignored.
-     * @param obj item to campare to.
+     * @param obj item to compare to.
      * @return ture if items are equal. false if they are not.
      */
     @Override
     public boolean equals(@Nullable Object obj) {
+        if (obj == null)
+            return false;
+
         if (obj == this)
             return true;
+
+        if (getClass() != obj.getClass())
+            return false;
 
         Items o = (Items) obj;
 
@@ -102,6 +109,7 @@ public class Items {
      * @return representation of item.
      */
     @Override
+    @NonNull
     public String toString() {
         return "Items{" +
                 "id=" + id +
