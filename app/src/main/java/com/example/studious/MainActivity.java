@@ -25,10 +25,13 @@ import java.util.ArrayList;
  * @version Release 1
  */
 public class MainActivity extends AppCompatActivity {
-    /** type items tracked by the app. **/
-    public static final int TYPE_CALENDER = 0;
+    /** Calendar Type **/
+    public static final int TYPE_CALENDAR = 0;
+    /** To Do Type **/
     public static final int TYPE_TODO = 1;
+    /** Reminder Type **/
     public static final int TYPE_REMINDER = 2;
+    /** Alarm Type **/
     public static final int TYPE_ALARM = 3;
 
     /*
@@ -149,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* set the listeners for the FAB buttons.
          * When a button is clicked this callback is called. */
-        fab_calendar.setOnClickListener(view -> addTaskDialog(TYPE_CALENDER, "Calendar"));
+        fab_calendar.setOnClickListener(view -> addTaskDialog(TYPE_CALENDAR, "Calendar"));
         fab_reminder.setOnClickListener(view -> addTaskDialog(TYPE_REMINDER, "Reminder"));
         fab_alarm.setOnClickListener(view -> addTaskDialog(TYPE_ALARM, "Alarm"));
         fab_todo.setOnClickListener(view -> addTaskDialog(TYPE_TODO, "Todo"));

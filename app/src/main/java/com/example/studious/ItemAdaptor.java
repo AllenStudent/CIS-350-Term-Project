@@ -88,7 +88,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
                         this.context.getTheme()
                 );
                 break;
-            case MainActivity.TYPE_CALENDER:
+            case MainActivity.TYPE_CALENDAR:
                 myDrawable = this.context.getResources().getDrawable(
                         R.drawable.ic_outline_calendar_month_24,
                         this.context.getTheme()
@@ -130,6 +130,7 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
 
 
     /* my function. makes it easier when adding and deleting. */
+
     /**
      * Update ItemAdapter to new data.
      *

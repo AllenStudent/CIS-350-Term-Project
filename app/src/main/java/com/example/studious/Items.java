@@ -21,11 +21,12 @@ public class Items {
 
     /**
      * Constructor of the Items class.
-     * @param id database row id for item. -1 is fine for item to be added
-     *           to database.
+     *
+     * @param id        database row id for item. -1 is fine for item to be added
+     *                  to database.
      * @param itemTitle Title or description of item.
-     * @param type Type of item to be added. See MainActivity for item
-     *             types.
+     * @param type      Type of item to be added. See MainActivity for item
+     *                  types.
      */
     public Items(int id, String itemTitle, int type) {
         this.id = id;
@@ -36,6 +37,7 @@ public class Items {
     /**
      * Compare two Items instances for equality.
      * Note: id is ignored.
+     *
      * @param obj item to compare to.
      * @return ture if items are equal. false if they are not.
      */
@@ -58,6 +60,7 @@ public class Items {
 
     /**
      * Get the row item of an item.
+     *
      * @return row id of item.
      */
     public int getId() {
@@ -66,6 +69,7 @@ public class Items {
 
     /**
      * Set the row id of an item.
+     *
      * @param id number to set row id.
      */
     public void setId(int id) {
@@ -74,6 +78,7 @@ public class Items {
 
     /**
      * Get the title or description of item.
+     *
      * @return title
      */
     public String getItemTitle() {
@@ -82,6 +87,7 @@ public class Items {
 
     /**
      * Set the title or description of item.
+     *
      * @param itemTitle string to set title to.
      */
     public void setItemTitle(String itemTitle) {
@@ -90,6 +96,7 @@ public class Items {
 
     /**
      * Get the type value of item.
+     *
      * @return item type
      */
     public int getType() {
@@ -98,6 +105,7 @@ public class Items {
 
     /**
      * set the item type.
+     *
      * @param type integer the set the item type.
      */
     public void setType(int type) {
@@ -106,6 +114,7 @@ public class Items {
 
     /**
      * String representation of item
+     *
      * @return representation of item.
      */
     @Override

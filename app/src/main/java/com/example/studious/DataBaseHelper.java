@@ -28,12 +28,89 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "items.db";
     /** main table name. **/
     public static final String TABLE_ITEMS = "ITEMS";
-    /** current table column names. **/
+    /** Id. Primary key. **/
     public static final String COL_ID = "ID";
+    /** Title or description **/
     public static final String COL_TITLE = "TITLE";
+    /** Type of item **/
     public static final String COL_ITEMTYPE = "ITEMTYPE";
     /** current database version. **/
     public static final int version = 1;
+
+
+    /* Release 2 schema
+        startDate String?
+        endDate String?
+        startTime String?
+        endTime string?
+        dayOfTheWeek String? SuMTuWThFSa
+        done/finished/disable boolean or int?
+
+        repeat: every # [day, week, month, year]
+
+        Calendar - Notification
+            1. Single day
+            2. Multi-day (range)
+            3. All day
+            4. Time One
+            5. Time Range
+            6. date Range but only on Tu Th (DoW)
+
+
+        Alarm - alarm & default alarm sound
+            1. One time alarm
+            2. alarm repeated every day
+            3. alarm repeated on Tu Th
+            4. Disable (not delete alarm)
+
+        Reminder - notification & notification sound
+            1. one time
+            2. daily, weekly, on a certain day?
+
+        To-Do - notification?
+           1. No date no time
+           2. Date, and/or time
+           3. mark done
+           4. auto- sub-divide??
+
+
+        https://developer.android.com/training/scheduling/alarms
+            Set an inexact alarm
+                Deliver an alarm after a specific time
+                Deliver an alarm during a time window
+            Set an exact alarm
+            Set a repeating alarm
+            Cancel an alarm
+            Start an alarm when the device restarts
+            Invoke alarms while the device is in Doze mode
+
+
+        https://developer.android.com/reference/android/app/AlarmManager
+            AlarmManager - https://www.youtube.com/watch?v=yrpimdBRk5Q
+            ~~Notification Channels - https://www.youtube.com/watch?v=ub4_f6ksxL0~~
+            Notifications Tutorial - https://www.youtube.com/playlist?list=PLrnPJCHvNZuCN52QwGu7YTSLIMrjCF0gM
+                Part 1 or 10 - https://www.youtube.com/watch?v=tTbd1Mfi-Sk&t=0s
+            TimePickerDialog  -  https://www.youtube.com/watch?v=QMwaNN_aM3U
+            JobScheduler - https://www.youtube.com/watch?v=3EQWmME-hNA&list=PLrnPJCHvNZuBhmqlWEQfvxbNtY6B_XJ3n
+            Simple Firebase Notification in 3 Minutes - https://www.youtube.com/watch?v=JVokoelQ1RI&list=PLrnPJCHvNZuDR7-cBjRXssxYK0Y5EEKzr
+            BroadcastReceiver Tutorial - https://www.youtube.com/playlist?list=PLrnPJCHvNZuBqr_0AS9BPXgU6gvNeai5S
+                Part 1 of 8 - https://www.youtube.com/watch?v=8FJ3oOpHszc&list=PLrnPJCHvNZuBqr_0AS9BPXgU6gvNeai5S
+
+
+        https://developer.android.com/guide/components/broadcasts#receiving-broadcasts
+            Receiving broadcasts
+                Manifest-declared receivers
+                    Specify the <receiver> element in your app's manifest.
+                    Subclass BroadcastReceiver and implement onReceive(Context, Intent)
+                Context-registered receivers
+                    Create an instance of BroadcastReceiver.
+                    Create an IntentFilter and register the receiver by calling
+                    To stop receiving broadcasts, call
+
+
+
+     */
+
 
     /**
      * Constructor a new database helper.

@@ -2,23 +2,28 @@ package com.example.studious;
 
 import android.database.sqlite.SQLiteDatabase;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import org.junit.runner.RunWith;
-import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
 
-import static org.junit.Assert.*;
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
+import static org.junit.Assert.*;
 
 
+/**
+ * Unit tests for the DatabaseHelper.
+ **/
 @RunWith(AndroidJUnit4.class)
 public class DataBaseHelperTest {
 
+    /** Dummy name for testing database. **/
     public static final String DATABASE_NAME = "unit_test_items.db";
     private DataBaseHelper databaseHelper;
 
+    /** Create a temporary database. */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         //        getApplicationContext().deleteDatabase(DataBaseHelper.DATABASE_NAME);
         //        databaseHelper = new DataBaseHelper(getApplicationContext());
         getApplicationContext().deleteDatabase(DATABASE_NAME);
@@ -30,13 +35,15 @@ public class DataBaseHelperTest {
                 DataBaseHelper.version);
     }
 
+    /** Delete temporary database. */
     @After
-    public void tearDown() throws Exception {
+    public void tearDown() {
         databaseHelper.close();
         getApplicationContext().deleteDatabase(DATABASE_NAME);
     }
 
 
+    /** test help open or create new database. */
     @Test
     public void testSetup() {
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
@@ -46,6 +53,7 @@ public class DataBaseHelperTest {
         database.close();
     }
 
+    /** Test closing of the database helper. */
     @Test
     public void testClose() {
         databaseHelper = new DataBaseHelper(
@@ -60,6 +68,7 @@ public class DataBaseHelperTest {
         assertFalse(database.isOpen());
     }
 
+    /** Test helper creates database on first run of application. */
     @Test
     public void onCreate() {
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
@@ -69,6 +78,7 @@ public class DataBaseHelperTest {
         database.close();
     }
 
+    /** Test helper upgrades older databases. */
     @Test
     public void onUpgrade() {
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
@@ -80,6 +90,7 @@ public class DataBaseHelperTest {
         database.close();
     }
 
+    /** Test of addItem. */
     @Test
     public void addItem() {
         String title = "debug alarm";
@@ -89,6 +100,7 @@ public class DataBaseHelperTest {
         assertNotEquals(row_id, -1);
     }
 
+    /** test of updateItem. */
     @Test
     public void updateItem() {
         // add
@@ -115,6 +127,7 @@ public class DataBaseHelperTest {
         assertEquals(newItem, updateItem);
     }
 
+    /** Test of deleteItem. */
     @Test
     public void deleteItem() {
         // add
@@ -128,10 +141,11 @@ public class DataBaseHelperTest {
         assertTrue(success);
     }
 
+    /** Test of getItem. */
     @Test
     public void getItem() {
         String title = "debug cal";
-        int type = MainActivity.TYPE_CALENDER;
+        int type = MainActivity.TYPE_CALENDAR;
         Items newItem = new Items(-1, title, type);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
@@ -143,7 +157,9 @@ public class DataBaseHelperTest {
         assertEquals(row_id, I.getId());
     }
 
+    /** test of listItems. */
     @Test
     public void listItems() {
+        fail("Implement me!!!!");
     }
 }

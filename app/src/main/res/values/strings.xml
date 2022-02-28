@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">studious</string>
     <string name="welcome_text">Hello! I\'m a droid.</string>
-    <string name="typeCalender">Calender</string>
+    <string name="typeCalendar">Calendar</string>
     <string name="typeTodo">Todo</string>
     <string name="typeReminder">Reminder</string>
     <string name="typeAlarm">Alarm</string>
