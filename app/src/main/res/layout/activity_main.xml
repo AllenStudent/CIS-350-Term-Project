@@ -36,7 +36,7 @@
                 app:efab_icon="@drawable/ic_outline_add_24"
                 app:efab_iconAnimationRotationDeg="-225"
                 app:efab_closingAnticipateTension="0"
-                app:label_text="Add"
+                app:label_text="@string/ButtonAdd"
                 tools:ignore="SpeakableTextPresentCheck"/>
         <com.nambimobile.widgets.efab.FabOption
                 android:id="@+id/efab_calendar"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 app:fab_color="#5283F5"
                 app:fab_icon="@drawable/ic_outline_calendar_month_24"
-                app:label_text="Cal"
+                app:label_text="@string/typeCalendar"
                 app:label_backgroundColor="#0000FF"/>
         <com.nambimobile.widgets.efab.FabOption
                 android:id="@+id/efab_todo"
@@ -52,7 +52,7 @@
                 android:layout_height="wrap_content"
                 app:fab_color="#DCC608"
                 app:fab_icon="@drawable/ic_outline_check_circle_24"
-                app:label_text="todo"
+                app:label_text="@string/typeTodo"
                 app:label_backgroundColor="#FF9800"/>
         <com.nambimobile.widgets.efab.FabOption
                 android:id="@+id/efab_reminder"
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 app:fab_color="#007F00"
                 app:fab_icon="@drawable/ic_outline_circle_notifications_24"
-                app:label_text="Reminder"
+                app:label_text="@string/typeReminder"
                 app:label_backgroundColor="#7F7F00"/>
         <com.nambimobile.widgets.efab.FabOption
                 android:id="@+id/efab_alarm"
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 app:fab_color="#FF8800"
                 app:fab_icon="@drawable/ic_outline_access_alarm_24"
-                app:label_text="Alarm"
+                app:label_text="@string/typeAlarm"
                 app:label_backgroundColor="#F44336"
                 app:label_textColor="#FFFFFF"
         />
