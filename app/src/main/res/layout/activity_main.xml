@@ -32,7 +32,7 @@
                 android:layout_gravity="bottom|end"
                 android:layout_marginBottom="@dimen/efab_ui_margin_medium"
                 android:layout_marginEnd="@dimen/efab_ui_margin_medium"
-                app:efab_color="#9374DE"
+                app:efab_color="@color/studious_blue"
                 app:efab_icon="@drawable/ic_outline_add_24"
                 app:efab_iconAnimationRotationDeg="-225"
                 app:efab_closingAnticipateTension="0"
