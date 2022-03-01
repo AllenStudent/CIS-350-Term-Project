@@ -5,6 +5,6 @@
     <string name="typeReminder">Reminder</string>
     <string name="typeAlarm">Alarm</string>
     <string name="ButtonAdd">Add</string>
-    <string name="TitleHint">Add Title</string>
     <string name="ButtonCancel">Cancel</string>
+    <string name="TitleHint">Add Title</string>
 </resources>

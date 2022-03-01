@@ -152,10 +152,10 @@ public class MainActivity extends AppCompatActivity {
 
         /* set the listeners for the FAB buttons.
          * When a button is clicked this callback is called. */
-        fab_calendar.setOnClickListener(view -> addTaskDialog(TYPE_CALENDAR, "Calendar"));
-        fab_reminder.setOnClickListener(view -> addTaskDialog(TYPE_REMINDER, "Reminder"));
-        fab_alarm.setOnClickListener(view -> addTaskDialog(TYPE_ALARM, "Alarm"));
-        fab_todo.setOnClickListener(view -> addTaskDialog(TYPE_TODO, "Todo"));
+        fab_calendar.setOnClickListener(view -> addTaskDialog(TYPE_CALENDAR, getString(R.string.typeCalendar)));
+        fab_reminder.setOnClickListener(view -> addTaskDialog(TYPE_REMINDER, getString(R.string.typeReminder)));
+        fab_alarm.setOnClickListener(view -> addTaskDialog(TYPE_ALARM, getString(R.string.typeAlarm)));
+        fab_todo.setOnClickListener(view -> addTaskDialog(TYPE_TODO, getString(R.string.typeTodo)));
     }
 
 
@@ -205,7 +205,7 @@ public class MainActivity extends AppCompatActivity {
 
         builder.create();
         /* set buttons and names */
-        builder.setPositiveButton("Add " + type_name,
+        builder.setPositiveButton(getString(R.string.ButtonAdd) + " " + type_name,
                 (dialog, which) -> {
                     /* read entered input */
                     final String title = titleField.getText().toString().trim();
@@ -224,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
                                 Toast.LENGTH_LONG).show();
                     }
                 });
-        builder.setNegativeButton("Cancel",
+        builder.setNegativeButton(getString(R.string.ButtonCancel),
                 (dialog, which) -> Toast.makeText(
                         MainActivity.this,
                         "Task cancelled",
