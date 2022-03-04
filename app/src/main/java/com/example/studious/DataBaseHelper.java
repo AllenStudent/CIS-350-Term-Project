@@ -37,80 +37,53 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /** current database version. **/
     public static final int version = 1;
 
+    /*
+            Tutorials
 
-    /* Release 2 schema
-        startDate String?
-        endDate String?
-        startTime String?
-        endTime string?
-        dayOfTheWeek String? SuMTuWThFSa
-        done/finished/disable boolean or int?
+            Playlist of youtube videos
+            The 3 part tutorial had a good combination of the different parts.
+            https://www.youtube.com/playlist?list=PLw2_IqRi5KfkAU-X06L7Vsh3g-_ga5R_5
 
-        repeat: every # [day, week, month, year]
-
-        Calendar - Notification
-            1. Single day
-            2. Multi-day (range)
-            3. All day
-            4. Time One
-            5. Time Range
-            6. date Range but only on Tu Th (DoW)
-
-
-        Alarm - alarm & default alarm sound
-            1. One time alarm
-            2. alarm repeated every day
-            3. alarm repeated on Tu Th
-            4. Disable (not delete alarm)
-
-        Reminder - notification & notification sound
-            1. one time
-            2. daily, weekly, on a certain day?
-
-        To-Do - notification?
-           1. No date no time
-           2. Date, and/or time
-           3. mark done
-           4. auto- sub-divide??
+            some Sqlite stuff
+            https://www.tutorialspoint.com/android/android_sqlite_database.htm
+            https://developer.android.com/reference/android/database/sqlite/SQLiteCursor
+            https://aboutreact.com/see-saved-data-of-the-sqlite-database-in-device/
+            https://www.sqlitetutorial.net/sqlite-date/
+            https://www.sqlite.org/datatype3.html#datetime
+            https://stackoverflow.com/questions/8291673/how-to-add-new-column-to-android-sqlite-database
+            https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#public-methods_1
+            https://findnerd.com/list/view/How-to-remove-item-from-RecyclerView-DataBase-Sqlite-helper-classRecyclerView/12515/
+            https://www.tabnine.com/code/java/methods/android.database.sqlite.SQLiteOpenHelper/getReadableDatabase
+            https://stackoverflow.com/questions/26711050/what-is-the-difference-between-query-and-rawquery-in-sqlite-and-which-one-is/26711112
 
 
-        https://developer.android.com/training/scheduling/alarms
-            Set an inexact alarm
-                Deliver an alarm after a specific time
-                Deliver an alarm during a time window
-            Set an exact alarm
-            Set a repeating alarm
-            Cancel an alarm
-            Start an alarm when the device restarts
-            Invoke alarms while the device is in Doze mode
-
-
-        https://developer.android.com/reference/android/app/AlarmManager
-            AlarmManager - https://www.youtube.com/watch?v=yrpimdBRk5Q
-            ~~Notification Channels - https://www.youtube.com/watch?v=ub4_f6ksxL0~~
-            Notifications Tutorial - https://www.youtube.com/playlist?list=PLrnPJCHvNZuCN52QwGu7YTSLIMrjCF0gM
-                Part 1 or 10 - https://www.youtube.com/watch?v=tTbd1Mfi-Sk&t=0s
-            TimePickerDialog  -  https://www.youtube.com/watch?v=QMwaNN_aM3U
-            JobScheduler - https://www.youtube.com/watch?v=3EQWmME-hNA&list=PLrnPJCHvNZuBhmqlWEQfvxbNtY6B_XJ3n
-            Simple Firebase Notification in 3 Minutes - https://www.youtube.com/watch?v=JVokoelQ1RI&list=PLrnPJCHvNZuDR7-cBjRXssxYK0Y5EEKzr
-            BroadcastReceiver Tutorial - https://www.youtube.com/playlist?list=PLrnPJCHvNZuBqr_0AS9BPXgU6gvNeai5S
-                Part 1 of 8 - https://www.youtube.com/watch?v=8FJ3oOpHszc&list=PLrnPJCHvNZuBqr_0AS9BPXgU6gvNeai5S
-
-
-        https://developer.android.com/guide/components/broadcasts#receiving-broadcasts
-            Receiving broadcasts
-                Manifest-declared receivers
-                    Specify the <receiver> element in your app's manifest.
-                    Subclass BroadcastReceiver and implement onReceive(Context, Intent)
-                Context-registered receivers
-                    Create an instance of BroadcastReceiver.
-                    Create an IntentFilter and register the receiver by calling
-                    To stop receiving broadcasts, call
+            recyclerview
+            https://developer.android.com/guide/topics/ui/layout/recyclerview
+            https://github.com/android/views-widgets-samples/tree/main/RecyclerView/
+            https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
+            https://github.com/codepath/android_guides/wiki/Using-the-RecyclerView
+            https://www.stacktips.com/tutorials/android/android-recyclerview-example
+            https://developer.android.com/jetpack/androidx/releases/recyclerview
+            https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter
+            https://stackoverflow.com/questions/42176807/how-do-i-load-a-sqlite-database-into-recyclerview
+            https://github.com/android/views-widgets-samples
 
 
 
+            On my to get to list:
+
+                TimePickerDialog
+                https://www.youtube.com/watch?v=QMwaNN_aM3U
+
+                DatePicket
+                https://developer.android.com/reference/android/widget/DatePicker
+
+                CalendarVeiw - Not sure if is userfull
+                https://www.youtube.com/watch?v=hHjFIG0TtA0&list=PL7kJVa0DqITk1Kgz1E-nbyySgSVxMwRbm&index=3&t=10s
+
+                Tutorial series on Notifications
+                https://www.youtube.com/playlist?list=PLrnPJCHvNZuCN52QwGu7YTSLIMrjCF0gM
      */
-
 
     /**
      * Constructor a new database helper.
@@ -266,7 +239,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         return item;
     }
 
-    /* delete item from database. */
 
     /**
      * Delete one item from database.
