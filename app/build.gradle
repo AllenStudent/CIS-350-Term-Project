@@ -21,14 +21,20 @@ android {
     }
 
     buildTypes {
-        debug {
-            testCoverageEnabled true
-        }
+            debug {
+                testCoverageEnabled true
+            }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+//    project.gradle.taskGraph.whenReady {
+//        connectedDebugAndroidTest {
+//            ignoreFailures = true
+//        }
+//    }
 }
 
 dependencies {
