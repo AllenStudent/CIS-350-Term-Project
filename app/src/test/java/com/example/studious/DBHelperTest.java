@@ -1,77 +1,38 @@
 package com.example.studious;
 
 import android.database.sqlite.SQLiteDatabase;
-import androidx.test.ext.junit.runners.AndroidJUnit4;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.robolectric.RobolectricTestRunner;
+import org.robolectric.RuntimeEnvironment;
 
-import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static org.junit.Assert.*;
 
-/*
-    coverage: all test have to pass first
-    short version:
-    add: debug { testCoverageEnabled true }
-    to (if not already there): buildTypes {
-    have virtual device running
-    run in terminal: ./gradlew createDebugCoverageReport
-
-    work around failed tests
-    add: debug { testCoverageEnabled true }
-    to (if not already there): buildTypes {
-
-    add: project.gradle.taskGraph.whenReady {
-            connectedDebugAndroidTest {
-                ignoreFailures = true
-            }
-        }
-    have virtual device running
-    run in terminal: ./gradlew createDebugCoverageReport
-    maybe: ./gradlew createDebugCoverageReport --continue
-    report in:  \CIS-350-Term-Project\app\build\reports\coverage\androidTest\debug
-
-
-    ./gradlew clean
-
-
-    https://developer.android.com/studio/test/command-line
-    ./gradlew test
-    ./gradlew connectedAndroidTest
-
- */
 
 /**
  * Unit tests for the DatabaseHelper.
  **/
-@RunWith(AndroidJUnit4.class)
-public class DataBaseHelperTest {
+@RunWith(RobolectricTestRunner.class)
+public class DBHelperTest {
 
     /** Dummy name for testing database. **/
-    public static final String DATABASE_NAME = "unit_test_items.db";
     private DataBaseHelper databaseHelper;
 
     /** Create a temporary database. */
     @Before
     public void setUp() {
-        //        getApplicationContext().deleteDatabase(DataBaseHelper.DATABASE_NAME);
-        //        databaseHelper = new DataBaseHelper(getApplicationContext());
-        getApplicationContext().deleteDatabase(DATABASE_NAME);
-        // create shiny new test database
-        databaseHelper = new DataBaseHelper(
-                getApplicationContext(),
-                DATABASE_NAME,  // create debug database.
-                null,
-                DataBaseHelper.version);
+        RuntimeEnvironment.getApplication().deleteDatabase(DataBaseHelper.DATABASE_NAME);
+        databaseHelper = new DataBaseHelper(RuntimeEnvironment.getApplication());
     }
 
     /** Delete temporary database. */
     @After
     public void tearDown() {
         databaseHelper.close();
-        getApplicationContext().deleteDatabase(DATABASE_NAME);
+        RuntimeEnvironment.getApplication().deleteDatabase(DataBaseHelper.DATABASE_NAME);
     }
 
 
@@ -88,11 +49,6 @@ public class DataBaseHelperTest {
     /** Test closing of the database helper. */
     @Test
     public void testClose() {
-        databaseHelper = new DataBaseHelper(
-                getApplicationContext(),
-                null,  // in memory db
-                null,
-                DataBaseHelper.version);
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         assertNotNull(database);
         assertTrue(database.isOpen());
