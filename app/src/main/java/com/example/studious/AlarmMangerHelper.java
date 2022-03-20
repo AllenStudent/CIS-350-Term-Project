@@ -11,9 +11,6 @@ import java.util.Calendar;
  * Class to help with setting system Alarms through AlarmManager
  */
 public class AlarmMangerHelper {
-    /** arbitrary number. **/
-    private static final int REQUEST_CODE = 17;
-
     /** Manager of system alarms. **/
     private final AlarmManager alarmManager;
 
@@ -30,6 +27,7 @@ public class AlarmMangerHelper {
     //    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
     //    c.set(Calendar.MINUTE, minute);
     //    c.set(Calendar.SECOND, 0);
+    // c.get(Calendar.DAY_OF_MONTH);
 
 
     /*  set()
@@ -98,8 +96,11 @@ public class AlarmMangerHelper {
      */
 
 
-    public void createRepeating(){}
-    public void createInexactRepeating(){}
+    public void createRepeating() {
+    }
+
+    public void createInexactRepeating() {
+    }
 
     /**
      * Create Alarm callback.
@@ -114,7 +115,11 @@ public class AlarmMangerHelper {
         Intent intent = new Intent(context, AlertReceiver.class);
         intent.putExtra("id", id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                (int)id, // REQUEST_CODE,
+                intent,
+                0);
 
         /*
         This method is like setExact(int, long, android.app.PendingIntent),
@@ -142,7 +147,11 @@ public class AlarmMangerHelper {
         Intent intent = new Intent(context, AlertReceiver.class);
         intent.putExtra("id", id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                (int)id, //REQUEST_CODE,
+                intent,
+                0);
 
         // setExact for Alarms only
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
@@ -162,12 +171,14 @@ public class AlarmMangerHelper {
         Intent intent = new Intent(context, AlertReceiver.class);
         intent.putExtra("id", id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                (int)id, //REQUEST_CODE,
+                intent,
+                0);
 
         //
         alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-
-
     }
 
     /**
@@ -178,9 +189,12 @@ public class AlarmMangerHelper {
      */
     public void cancelAlarm(Calendar c, long id) {
         Intent intent = new Intent(context, AlertReceiver.class);
-        intent.putExtra("id", id);
 
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                (int)id, //REQUEST_CODE,
+                intent,
+                0);
 
         alarmManager.cancel(pendingIntent);
     }
@@ -189,25 +203,25 @@ public class AlarmMangerHelper {
      * Turn on reboot notification if we have any alarms we want to
      * persist across a reboot. (probably all of them.)
      */
-    private void turnOnReBootReceiver(){
-//        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
-//        PackageManager pm = context.getPackageManager();
-//
-//        pm.setComponentEnabledSetting(receiver,
-//                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-//                PackageManager.DONT_KILL_APP);
+    private void turnOnReBootReceiver() {
+        //        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
+        //        PackageManager pm = context.getPackageManager();
+        //
+        //        pm.setComponentEnabledSetting(receiver,
+        //                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+        //                PackageManager.DONT_KILL_APP);
     }
 
     /**
      * Turn off reboot notifications if we have no active alarms.
      */
-    private void turnOffReBootReceiver(){
-//        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
-//        PackageManager pm = context.getPackageManager();
-//
-//        pm.setComponentEnabledSetting(receiver,
-//                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-//                PackageManager.DONT_KILL_APP);
+    private void turnOffReBootReceiver() {
+        //        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
+        //        PackageManager pm = context.getPackageManager();
+        //
+        //        pm.setComponentEnabledSetting(receiver,
+        //                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+        //                PackageManager.DONT_KILL_APP);
     }
 
 }
