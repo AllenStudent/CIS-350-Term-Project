@@ -11,6 +11,8 @@ import androidx.annotation.Nullable;
  * @author Bryan VanDyke
  * @version Release 1
  */
+
+//NEEDS TO BE DONE: add in functionality for a parent calendar type item; find way to link the items.
 public class Items {
     /** row id in the database **/
     private int id;
