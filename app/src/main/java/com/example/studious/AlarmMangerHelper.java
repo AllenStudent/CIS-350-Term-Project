@@ -4,6 +4,7 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import java.util.Calendar;
 
@@ -11,6 +12,8 @@ import java.util.Calendar;
  * Class to help with setting system Alarms through AlarmManager
  */
 public class AlarmMangerHelper {
+    private static final String TAG = "AlarmMangerHelper";
+
     /** Manager of system alarms. **/
     private final AlarmManager alarmManager;
 
@@ -95,11 +98,52 @@ public class AlarmMangerHelper {
         Schedule a repeating alarm.
      */
 
+    /**
+     * Schedule a repeating alarm.
+     * @param c
+     * @param id
+     */
+    public void createRepeating(Calendar c, long id) {
+        Intent intent = new Intent(context, AlertReceiver.class);
+        intent.putExtra("id", id);
 
-    public void createRepeating() {
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                (int)id, // REQUEST_CODE,
+                intent,
+                0);
+
+        alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,  // wake up device
+                //                AlarmManager.RTC,  // don't wake up device
+                c.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        );
     }
 
-    public void createInexactRepeating() {
+    /**
+     * Schedule a repeating alarm that has inexact trigger time requirements
+     * @param c
+     * @param id
+     */
+    public void createInexactRepeating(Calendar c, long id) {
+        Intent intent = new Intent(context, AlertReceiver.class);
+        intent.putExtra("id", id);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                (int)id, // REQUEST_CODE,
+                intent,
+                0);
+
+        alarmManager.setInexactRepeating(
+                AlarmManager.RTC_WAKEUP,  // wake up device
+//                AlarmManager.RTC,  // don't wake up device
+                c.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+                );
     }
 
     /**
@@ -110,8 +154,8 @@ public class AlarmMangerHelper {
      *
      * @param c
      */
-    //    public void createAlarm(Context context, Calendar c, long id) {
     public void createAlarm(Calendar c, long id) {
+        Log.d(TAG, "createAlarm was triggered");
         Intent intent = new Intent(context, AlertReceiver.class);
         intent.putExtra("id", id);
 
@@ -131,7 +175,6 @@ public class AlarmMangerHelper {
                         c.getTimeInMillis(), pendingIntent
                 );
         alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
-
     }
 
     /**
@@ -142,8 +185,8 @@ public class AlarmMangerHelper {
      *
      * @param c
      */
-    //    public void createCalendarAlert(Context context, Calendar c, long id) {
     public void createCalendarAlert(Calendar c, long id) {
+        Log.d(TAG, "createCalendarAlert was triggered");
         Intent intent = new Intent(context, AlertReceiver.class);
         intent.putExtra("id", id);
 
@@ -198,6 +241,8 @@ public class AlarmMangerHelper {
 
         alarmManager.cancel(pendingIntent);
     }
+
+
 
     /**
      * Turn on reboot notification if we have any alarms we want to
