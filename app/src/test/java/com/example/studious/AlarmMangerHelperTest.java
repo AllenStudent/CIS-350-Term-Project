@@ -7,23 +7,17 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.util.Log;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
-import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowAlarmManager;
-import org.robolectric.shadows.ShadowApplication;
 import org.robolectric.shadows.ShadowLog;
 
 import java.util.Calendar;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.robolectric.Shadows.shadowOf;
 
 /*
@@ -52,11 +46,11 @@ public class AlarmMangerHelperTest {
 
     @Before
     public void setUp() throws Exception {
+        Log.d(TAG, "setUp was triggered");
         context = RuntimeEnvironment.getApplication();
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         shadowAlarmManager = shadowOf(alarmManager);
         alarmMangerHelper = new AlarmMangerHelper(context);
-        Log.d(TAG, "setUp was triggered");
     }
 
     @After
@@ -409,6 +403,21 @@ public class AlarmMangerHelperTest {
         assertEquals(0, shadowAlarmManager.getScheduledAlarms().size());
     }
 
+    @Ignore
+    @Test
+    public void alertReceiverOnReceive() throws InterruptedException {
+        Log.d(TAG, "alertReceiverOnCreate was triggered");
+        int id0 = 0;
+        Intent intent = new Intent(context, AlertReceiver.class);
+        assertNotNull(intent);
+        Calendar c = Calendar.getInstance();
+        AlertReceiver.ar_got = false;
+        alarmMangerHelper.createAlarm(c, id0);
+        Thread.sleep(2000);
+        boolean r = AlertReceiver.ar_got;
+        Log.d(TAG, "AlertReceiver.ar_got " + r);
+        assertTrue(r);
+    }
 
 
 }
