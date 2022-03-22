@@ -12,6 +12,14 @@ import org.robolectric.RuntimeEnvironment;
 import static org.junit.Assert.*;
 
 
+/*
+ NOTE: for coverage has to be run as JUNIT test.
+ (the red green back to back arrows. under edit configurations)
+ add to jvm options
+ -ea -noverify
+ */
+
+
 /**
  * Unit tests for the DatabaseHelper.
  **/
