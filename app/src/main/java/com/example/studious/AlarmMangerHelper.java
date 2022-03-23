@@ -20,11 +20,26 @@ public class AlarmMangerHelper {
     /** Applications system context. **/
     private final Context context;
 
+    /**
+     * constructor for AlarmManagerHelper
+     *
+     * @param context Application Context
+     */
     public AlarmMangerHelper(Context context) {
         this.context = context;
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
+    /**
+     * Create a unique pending (system token) intent for this item.
+     *
+     * Since we're not using a filter, this is going to use our unique
+     * row id for a unique request code. id is also stored in intent
+     * data for retrieval from the broadcast receiver.
+     *
+     * @param id unique id. Use row id from database.
+     * @return PendingIntent
+     */
     public PendingIntent createPendingIntent(int id) {
         if (id < 0)
             return null;
@@ -39,6 +54,15 @@ public class AlarmMangerHelper {
                 0);
     }
 
+    /**
+     * Find (an alarm) Pending intent for id.
+     *
+     * Not a check for an existing alarm but (it's close enough for
+     * hand grenades) we are going to use it that way.
+     *
+     * @param id id unique id. Use row id from database.
+     * @return found PendingIntent. Not null if alarm exists.
+     */
     public PendingIntent findPendingIntent(int id) {
         if (id < 0)
             return null;
@@ -47,21 +71,27 @@ public class AlarmMangerHelper {
                 this.context,
                 id,
                 intent,
-                PendingIntent.FLAG_NO_CREATE
+                PendingIntent.FLAG_NO_CREATE // return null in intent doesn't exist
         );
     }
 
 
+    /**
+     *  Process and item to add, delete, or modify an alarm.
+     *
+     * @param item instance of Items class.
+     * @return true if successful. false on error.
+     */
     public boolean processItem(Items item) {
         int id = item.getId();
         int type = item.getType();
 
-        boolean alarmExist = (null == findPendingIntent(id));
-        boolean needsAlarm = false; // check if item should have active alarm
-
-
         if (id < 0)
             return false;
+
+        boolean alarmExist = (null == findPendingIntent(id));
+        //  process item attributes to see if it needs an alarm
+        boolean needsAlarm = false; // check if item should have active alarm
 
         switch (type)
         {
@@ -86,17 +116,161 @@ public class AlarmMangerHelper {
         {
             cancelAlarm(id);
         }
+        else if (needsAlarm && alarmExist){
+            // is same data
+                // do nothing
 
+            // updated data
+                // update alarm
 
+                // or delete and recreate.
+        }
         return true;
     }
 
 
-    //    Calendar c = Calendar.getInstance();
-    //    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-    //    c.set(Calendar.MINUTE, minute);
-    //    c.set(Calendar.SECOND, 0);
-    // c.get(Calendar.DAY_OF_MONTH);
+
+    /**
+     * Schedule a repeating alarm.
+     *
+     * @param c Calendar item with date and time information.
+     * @param id database (unique) row id of item.
+     */
+    public void createRepeating(Calendar c, int id) {
+        PendingIntent pendingIntent = createPendingIntent(id);
+        alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,  // wake up device
+                //                AlarmManager.RTC,  // don't wake up device
+                c.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        );
+    }
+
+    /**
+     * Schedule a repeating alarm that has inexact trigger time requirements
+     *
+     * @param c Calendar item with date and time information.
+     * @param id database (unique) row id of item.
+     */
+    public void createInexactRepeating(Calendar c, int id) {
+        PendingIntent pendingIntent = createPendingIntent(id);
+        alarmManager.setInexactRepeating(
+                AlarmManager.RTC_WAKEUP,  // wake up device
+                //                AlarmManager.RTC,  // don't wake up device
+                c.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        );
+    }
+
+    /**
+     * Create Alarm callback.
+     * <p>
+     * Sets system alarm Icon.
+     * Will fire if phone is in doze mode.
+     *
+     * @param c Calendar item with date and time information.
+     */
+    public void createAlarm(Calendar c, int id) {
+        Log.d(TAG, "createAlarm was triggered");
+        PendingIntent pendingIntent = createPendingIntent(id);
+
+        /*
+        This method is like setExact(int, long, android.app.PendingIntent),
+        but implies RTC_WAKEUP.
+        sets alarm icon and wakes in doze mode
+         */
+        AlarmManager.AlarmClockInfo alarmClockInfo =
+                new AlarmManager.AlarmClockInfo(
+                        c.getTimeInMillis(), pendingIntent
+                );
+        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
+    }
+
+    /**
+     * Create Calendar Alert Callback
+     * <p>
+     * Does not set system alarm Icon.
+     * Will fire if phone is in doze mode.
+     *
+     * @param c Calendar item with date and time information.
+     */
+    public void createCalendarAlert(Calendar c, int id) {
+        Log.d(TAG, "createCalendarAlert was triggered");
+        PendingIntent pendingIntent = createPendingIntent(id);
+
+        // setExact for Alarms only
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+    /**
+     * Create Alert Callback.
+     * <p>
+     * Will not fire in doze mode.
+     * Will not be called before time.
+     * System will batch these together.
+     * May be delayed until system convenient
+     *
+     * @param c Calendar item with date and time information.
+     */
+    public void createAlert(Calendar c, int id) {
+        PendingIntent pendingIntent = createPendingIntent(id);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
+
+    /**
+     * cancel an alarm
+     *
+     * @param id unique (row) id of item.
+     */
+    public void cancelAlarm(int id) {
+        PendingIntent pendingIntent = findPendingIntent(id);
+        if (null != pendingIntent)
+        {
+            /* belt */
+            alarmManager.cancel(pendingIntent);
+            /* suspenders */
+            pendingIntent.cancel();
+        }
+    }
+
+
+    /**
+     * Turn on reboot notification if we have any alarms we want to
+     * persist across a reboot. (probably all of them.)
+     */
+    private void turnOnReBootReceiver() {
+        //        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
+        //        PackageManager pm = context.getPackageManager();
+        //
+        //        pm.setComponentEnabledSetting(receiver,
+        //                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+        //                PackageManager.DONT_KILL_APP);
+    }
+
+    /**
+     * Turn off reboot notifications if we have no active alarms.
+     */
+    private void turnOffReBootReceiver() {
+        //        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
+        //        PackageManager pm = context.getPackageManager();
+        //
+        //        pm.setComponentEnabledSetting(receiver,
+        //                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+        //                PackageManager.DONT_KILL_APP);
+    }
+
+}
+
+
+
+//    Calendar c = Calendar.getInstance();
+//    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//    c.set(Calendar.MINUTE, minute);
+//    c.set(Calendar.SECOND, 0);
+// c.get(Calendar.DAY_OF_MONTH);
 
 
     /*  set()
@@ -105,9 +279,9 @@ public class AlarmMangerHelper {
         the alarm never goes off before the supplied trigger time.
      */
 
-    /*  setAndAllowWhileIdle() -  fire in doze mode
+/*  setAndAllowWhileIdle() -  fire in doze mode
 
-     */
+ */
 
     /*  setWindow()
         Deliver an alarm during a time window
@@ -124,7 +298,7 @@ public class AlarmMangerHelper {
         you must declare the "Alarms & reminders" special app access;
         otherwise, a SecurityException occurs.
 
-        setExact() - alarm unless sleepy (defered until next window)
+        setExact() - alarm unless sleepy (deferred until next window)
             Invoke an alarm at a nearly precise time in the future,
             as long as other battery-saving measures aren't in effect.
 
@@ -163,135 +337,3 @@ public class AlarmMangerHelper {
 
         Schedule a repeating alarm.
      */
-
-    /**
-     * Schedule a repeating alarm.
-     *
-     * @param c
-     * @param id
-     */
-    public void createRepeating(Calendar c, int id) {
-        PendingIntent pendingIntent = createPendingIntent(id);
-        alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP,  // wake up device
-                //                AlarmManager.RTC,  // don't wake up device
-                c.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-        );
-    }
-
-    /**
-     * Schedule a repeating alarm that has inexact trigger time requirements
-     *
-     * @param c
-     * @param id
-     */
-    public void createInexactRepeating(Calendar c, int id) {
-        PendingIntent pendingIntent = createPendingIntent(id);
-        alarmManager.setInexactRepeating(
-                AlarmManager.RTC_WAKEUP,  // wake up device
-                //                AlarmManager.RTC,  // don't wake up device
-                c.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-        );
-    }
-
-    /**
-     * Create Alarm callback.
-     * <p>
-     * Sets system alarm Icon.
-     * Will fire if phone is in doze mode.
-     *
-     * @param c
-     */
-    public void createAlarm(Calendar c, int id) {
-        Log.d(TAG, "createAlarm was triggered");
-        PendingIntent pendingIntent = createPendingIntent(id);
-
-        /*
-        This method is like setExact(int, long, android.app.PendingIntent),
-        but implies RTC_WAKEUP.
-        sets alarm icon and wakes in doze mode
-         */
-        AlarmManager.AlarmClockInfo alarmClockInfo =
-                new AlarmManager.AlarmClockInfo(
-                        c.getTimeInMillis(), pendingIntent
-                );
-        alarmManager.setAlarmClock(alarmClockInfo, pendingIntent);
-    }
-
-    /**
-     * Create Calendar Alert Callback
-     * <p>
-     * Does not set system alarm Icon.
-     * Will fire if phone is in doze mode.
-     *
-     * @param c
-     */
-    public void createCalendarAlert(Calendar c, int id) {
-        Log.d(TAG, "createCalendarAlert was triggered");
-        PendingIntent pendingIntent = createPendingIntent(id);
-
-        // setExact for Alarms only
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-    }
-
-    /**
-     * Create Alert Callback.
-     * <p>
-     * Will not fire in doze mode.
-     * Will not be called before time.
-     * System will batch these together.
-     * May be delayed until system convenient
-     *
-     * @param c
-     */
-    public void createAlert(Calendar c, int id) {
-        PendingIntent pendingIntent = createPendingIntent(id);
-        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
-    }
-
-
-    /**
-     * cancel an alarm
-     *
-     * @param id unique (row) id of item.
-     */
-    public void cancelAlarm(int id) {
-        PendingIntent pendingIntent = findPendingIntent(id);
-        if (null != pendingIntent)
-        {
-            alarmManager.cancel(pendingIntent);
-            pendingIntent.cancel();
-        }
-    }
-
-
-    /**
-     * Turn on reboot notification if we have any alarms we want to
-     * persist across a reboot. (probably all of them.)
-     */
-    private void turnOnReBootReceiver() {
-        //        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
-        //        PackageManager pm = context.getPackageManager();
-        //
-        //        pm.setComponentEnabledSetting(receiver,
-        //                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-        //                PackageManager.DONT_KILL_APP);
-    }
-
-    /**
-     * Turn off reboot notifications if we have no active alarms.
-     */
-    private void turnOffReBootReceiver() {
-        //        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
-        //        PackageManager pm = context.getPackageManager();
-        //
-        //        pm.setComponentEnabledSetting(receiver,
-        //                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-        //                PackageManager.DONT_KILL_APP);
-    }
-
-}

@@ -9,7 +9,7 @@ import org.junit.runner.RunWith;
 
 import java.util.Calendar;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
 public class AlertReceiverTest {
@@ -17,21 +17,19 @@ public class AlertReceiverTest {
 
     @Test
     public void onReceive() throws InterruptedException {
+        Log.d(TAG, "createAlarm was triggered");
+        int id1 = 17;
         //        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         Context context = ApplicationProvider.getApplicationContext();
-        Log.d(TAG, "createAlarm was triggered");
-        AlertReceiver.ar_got = false;
-        int id1 = 1;
         Calendar c = Calendar.getInstance();
         AlarmMangerHelper alarmMangerHelper = new AlarmMangerHelper(context);
         alarmMangerHelper.createAlarm(c, id1);
         Thread.sleep(2000);
-        boolean r = AlertReceiver.ar_got;
-        System.out.println(r);
+
+        Log.d(TAG, "AlertReceiver id  " + AlertReceiver.id);
         /* NOTE:This assert will fail if run as junit
            has to be run on virtual device. */
-        assertTrue(r);
-        Log.d(TAG, "AlertReceiver.ar_got " + r);
+        assertEquals(id1, AlertReceiver.id);
     }
 
 

@@ -12,21 +12,19 @@ import android.widget.Toast;
  */
 public class AlertReceiver extends BroadcastReceiver {
     private static final String TAG = "AlertReceiver";
-    public static boolean ar_got = false;
+    public static int id = -1;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.d(TAG, "onReceive was triggered");
         Toast.makeText(context, "onReceive was triggered",
                 Toast.LENGTH_LONG).show();
-        ar_got = true;
 
-        long id = -1;
         Bundle extras = intent.getExtras();
         if (extras != null)
-            id = extras.getLong("rowId", -1);
+            id = extras.getInt("id", -1);
+            Log.d(TAG, "onReceive rowId " + id);
 
-        //        intent.getAction()
 
         // add function?
         // public Item ItemAdaptor.getItem(long id)

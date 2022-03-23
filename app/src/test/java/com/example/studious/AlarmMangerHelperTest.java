@@ -284,15 +284,11 @@ public class AlarmMangerHelperTest {
     public void alertReceiverOnReceive() throws InterruptedException {
         Log.d(TAG, "alertReceiverOnCreate was triggered");
         int id0 = 0;
-        Intent intent = new Intent(context, AlertReceiver.class);
-        assertNotNull(intent);
         Calendar c = Calendar.getInstance();
-        AlertReceiver.ar_got = false;
         alarmMangerHelper.createAlarm(c, id0);
         Thread.sleep(2000);
-        boolean r = AlertReceiver.ar_got;
-        Log.d(TAG, "AlertReceiver.ar_got " + r);
-        assertTrue(r);
+        Log.d(TAG, "AlertReceiver id " + AlertReceiver.id);
+        assertEquals(id0, AlertReceiver.id);
     }
 
 
