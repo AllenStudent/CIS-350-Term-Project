@@ -88,12 +88,37 @@ public class AlarmMangerHelperTest {
     }
 
     @Test
+    public void createPendingIntent(){
+        int id = 1;
+        PendingIntent pendingIntent = alarmMangerHelper.createPendingIntent(id);
+        assertNotNull(pendingIntent);
+
+        pendingIntent = alarmMangerHelper.createPendingIntent(-1);
+        assertNull(pendingIntent);
+    }
+
+    @Test
+    public void findPendingIntent(){
+        int id = 1;
+        PendingIntent pendingIntent = alarmMangerHelper.createPendingIntent(id);
+        assertNotNull(pendingIntent);
+
+        pendingIntent = alarmMangerHelper.findPendingIntent(id);
+        assertNotNull(pendingIntent);
+
+        pendingIntent = alarmMangerHelper.findPendingIntent(-1);
+        assertNull(pendingIntent);
+
+        pendingIntent = alarmMangerHelper.findPendingIntent(9);
+        assertNull(pendingIntent);
+    }
+
+    @Test
     public void createRepeating() {
         int id0 = 0;
         int id1 = 1;
         int id2 = 2;
         int id3 = 3;
-        PendingIntent pendingIntent;
 
         Intent intent = new Intent(context, AlertReceiver.class);
         assertNotNull(intent);
@@ -105,45 +130,18 @@ public class AlarmMangerHelperTest {
         alarmMangerHelper.createRepeating(c, id2);
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 2);
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id0,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id0));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id1));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id2));
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id3));
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id1,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id2,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id3,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
-
-        alarmMangerHelper.cancelAlarm(c, id2);
+        alarmMangerHelper.cancelAlarm(id2);
         assertEquals(1, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id2));
 
-        alarmMangerHelper.cancelAlarm(c, id1);
+        alarmMangerHelper.cancelAlarm(id1);
         assertEquals(0, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id1));
     }
 
     @Test
@@ -152,10 +150,6 @@ public class AlarmMangerHelperTest {
         int id1 = 1;
         int id2 = 2;
         int id3 = 3;
-        PendingIntent pendingIntent;
-
-        Intent intent = new Intent(context, AlertReceiver.class);
-        assertNotNull(intent);
 
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
 
@@ -164,45 +158,18 @@ public class AlarmMangerHelperTest {
         alarmMangerHelper.createInexactRepeating(c, id2);
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 2);
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id0,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id0));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id1));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id2));
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id3));
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id1,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id2,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id3,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
-
-        alarmMangerHelper.cancelAlarm(c, id2);
+        alarmMangerHelper.cancelAlarm(id2);
         assertEquals(1, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id2));
 
-        alarmMangerHelper.cancelAlarm(c, id1);
+        alarmMangerHelper.cancelAlarm(id1);
         assertEquals(0, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id1));
     }
 
     @Test
@@ -211,10 +178,6 @@ public class AlarmMangerHelperTest {
         int id1 = 1;
         int id2 = 2;
         int id3 = 3;
-        PendingIntent pendingIntent;
-
-        Intent intent = new Intent(context, AlertReceiver.class);
-        assertNotNull(intent);
 
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
 
@@ -223,45 +186,18 @@ public class AlarmMangerHelperTest {
         alarmMangerHelper.createAlarm(c, id2);
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 2);
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id0,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id0));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id1));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id2));
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id3));
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id1,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id2,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id3,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
-
-        alarmMangerHelper.cancelAlarm(c, id2);
+        alarmMangerHelper.cancelAlarm(id2);
         assertEquals(1, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id2));
 
-        alarmMangerHelper.cancelAlarm(c, id1);
+        alarmMangerHelper.cancelAlarm(id1);
         assertEquals(0, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id1));
     }
 
     @Test
@@ -270,10 +206,6 @@ public class AlarmMangerHelperTest {
         int id1 = 1;
         int id2 = 2;
         int id3 = 3;
-        PendingIntent pendingIntent;
-
-        Intent intent = new Intent(context, AlertReceiver.class);
-        assertNotNull(intent);
 
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
 
@@ -282,45 +214,18 @@ public class AlarmMangerHelperTest {
         alarmMangerHelper.createCalendarAlert(c, id2);
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 2);
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id0,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id0));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id1));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id2));
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id3));
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id1,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id2,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id3,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
-
-        alarmMangerHelper.cancelAlarm(c, id2);
+        alarmMangerHelper.cancelAlarm(id2);
         assertEquals(1, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id2));
 
-        alarmMangerHelper.cancelAlarm(c, id1);
+        alarmMangerHelper.cancelAlarm(id1);
         assertEquals(0, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id1));
     }
 
     @Test
@@ -329,10 +234,6 @@ public class AlarmMangerHelperTest {
         int id1 = 1;
         int id2 = 2;
         int id3 = 3;
-        PendingIntent pendingIntent;
-
-        Intent intent = new Intent(context, AlertReceiver.class);
-        assertNotNull(intent);
 
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
 
@@ -341,45 +242,18 @@ public class AlarmMangerHelperTest {
         alarmMangerHelper.createAlert(c, id2);
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 2);
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id0,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id0));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id1));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id2));
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id3));
 
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id1,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id2,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNotNull(pendingIntent);
-        pendingIntent.cancel();
-
-        pendingIntent = PendingIntent.getBroadcast(
-                context,
-                id3,
-                intent,
-                PendingIntent.FLAG_NO_CREATE
-        );
-        Assert.assertNull(pendingIntent);
-
-        alarmMangerHelper.cancelAlarm(c, id2);
+        alarmMangerHelper.cancelAlarm(id2);
         assertEquals(1, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id2));
 
-        alarmMangerHelper.cancelAlarm(c, id1);
+        alarmMangerHelper.cancelAlarm(id1);
         assertEquals(0, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id1));
     }
 
     @Test
@@ -387,23 +261,25 @@ public class AlarmMangerHelperTest {
         int id1 = 1;
         int id2 = 2;
 
-        Intent intent = new Intent(context, AlertReceiver.class);
-        assertNotNull(intent);
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
 
         Calendar c = Calendar.getInstance();
         alarmMangerHelper.createAlarm(c, id1);
         alarmMangerHelper.createAlarm(c, id2);
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 2);
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id1));
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id2));
 
-        alarmMangerHelper.cancelAlarm(c, id2);
+        alarmMangerHelper.cancelAlarm(id2);
         assertEquals(1, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id2));
 
-        alarmMangerHelper.cancelAlarm(c, id1);
+        alarmMangerHelper.cancelAlarm(id1);
         assertEquals(0, shadowAlarmManager.getScheduledAlarms().size());
+        Assert.assertNull(alarmMangerHelper.findPendingIntent(id1));
     }
 
-    @Ignore
+    @Ignore("test doesn't work. receiver is never called.")
     @Test
     public void alertReceiverOnReceive() throws InterruptedException {
         Log.d(TAG, "alertReceiverOnCreate was triggered");

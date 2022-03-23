@@ -25,6 +25,72 @@ public class AlarmMangerHelper {
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
+    public PendingIntent createPendingIntent(int id) {
+        if (id < 0)
+            return null;
+
+        Intent intent = new Intent(this.context, AlertReceiver.class);
+        intent.putExtra("id", id);
+
+        return PendingIntent.getBroadcast(
+                this.context,
+                id, // REQUEST_CODE,
+                intent,
+                0);
+    }
+
+    public PendingIntent findPendingIntent(int id) {
+        if (id < 0)
+            return null;
+        Intent intent = new Intent(this.context, AlertReceiver.class);
+        return PendingIntent.getBroadcast(
+                this.context,
+                id,
+                intent,
+                PendingIntent.FLAG_NO_CREATE
+        );
+    }
+
+
+    public boolean processItem(Items item) {
+        int id = item.getId();
+        int type = item.getType();
+
+        boolean alarmExist = (null == findPendingIntent(id));
+        boolean needsAlarm = false; // check if item should have active alarm
+
+
+        if (id < 0)
+            return false;
+
+        switch (type)
+        {
+            case MainActivity.TYPE_ALARM: // move teh Defs from MainActivity to Items??
+                break;
+            case MainActivity.TYPE_CALENDAR:
+                break;
+            case MainActivity.TYPE_TODO:
+                break;
+            case MainActivity.TYPE_REMINDER:
+                break;
+            default:
+                /* bad */
+                return false;
+        }
+
+        if (needsAlarm && !alarmExist)
+        {
+            // create alarm
+        }
+        else if (!needsAlarm && alarmExist)
+        {
+            cancelAlarm(id);
+        }
+
+
+        return true;
+    }
+
 
     //    Calendar c = Calendar.getInstance();
     //    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
@@ -100,19 +166,12 @@ public class AlarmMangerHelper {
 
     /**
      * Schedule a repeating alarm.
+     *
      * @param c
      * @param id
      */
-    public void createRepeating(Calendar c, long id) {
-        Intent intent = new Intent(context, AlertReceiver.class);
-        intent.putExtra("id", id);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                (int)id, // REQUEST_CODE,
-                intent,
-                0);
-
+    public void createRepeating(Calendar c, int id) {
+        PendingIntent pendingIntent = createPendingIntent(id);
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,  // wake up device
                 //                AlarmManager.RTC,  // don't wake up device
@@ -124,26 +183,19 @@ public class AlarmMangerHelper {
 
     /**
      * Schedule a repeating alarm that has inexact trigger time requirements
+     *
      * @param c
      * @param id
      */
-    public void createInexactRepeating(Calendar c, long id) {
-        Intent intent = new Intent(context, AlertReceiver.class);
-        intent.putExtra("id", id);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                (int)id, // REQUEST_CODE,
-                intent,
-                0);
-
+    public void createInexactRepeating(Calendar c, int id) {
+        PendingIntent pendingIntent = createPendingIntent(id);
         alarmManager.setInexactRepeating(
                 AlarmManager.RTC_WAKEUP,  // wake up device
-//                AlarmManager.RTC,  // don't wake up device
+                //                AlarmManager.RTC,  // don't wake up device
                 c.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY,
                 pendingIntent
-                );
+        );
     }
 
     /**
@@ -154,16 +206,9 @@ public class AlarmMangerHelper {
      *
      * @param c
      */
-    public void createAlarm(Calendar c, long id) {
+    public void createAlarm(Calendar c, int id) {
         Log.d(TAG, "createAlarm was triggered");
-        Intent intent = new Intent(context, AlertReceiver.class);
-        intent.putExtra("id", id);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                (int)id, // REQUEST_CODE,
-                intent,
-                0);
+        PendingIntent pendingIntent = createPendingIntent(id);
 
         /*
         This method is like setExact(int, long, android.app.PendingIntent),
@@ -185,16 +230,9 @@ public class AlarmMangerHelper {
      *
      * @param c
      */
-    public void createCalendarAlert(Calendar c, long id) {
+    public void createCalendarAlert(Calendar c, int id) {
         Log.d(TAG, "createCalendarAlert was triggered");
-        Intent intent = new Intent(context, AlertReceiver.class);
-        intent.putExtra("id", id);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                (int)id, //REQUEST_CODE,
-                intent,
-                0);
+        PendingIntent pendingIntent = createPendingIntent(id);
 
         // setExact for Alarms only
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
@@ -210,38 +248,25 @@ public class AlarmMangerHelper {
      *
      * @param c
      */
-    public void createAlert(Calendar c, long id) {
-        Intent intent = new Intent(context, AlertReceiver.class);
-        intent.putExtra("id", id);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                (int)id, //REQUEST_CODE,
-                intent,
-                0);
-
-        //
+    public void createAlert(Calendar c, int id) {
+        PendingIntent pendingIntent = createPendingIntent(id);
         alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
+
     /**
-     * cancel and alarm
+     * cancel an alarm
      *
-     * @param c
-     * @param id
+     * @param id unique (row) id of item.
      */
-    public void cancelAlarm(Calendar c, long id) {
-        Intent intent = new Intent(context, AlertReceiver.class);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                (int)id, //REQUEST_CODE,
-                intent,
-                0);
-
-        alarmManager.cancel(pendingIntent);
+    public void cancelAlarm(int id) {
+        PendingIntent pendingIntent = findPendingIntent(id);
+        if (null != pendingIntent)
+        {
+            alarmManager.cancel(pendingIntent);
+            pendingIntent.cancel();
+        }
     }
-
 
 
     /**
