@@ -73,6 +73,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /* create notifications channels for later user */
+        NotificationHelper notificationHelper = new NotificationHelper(this);
+        notificationHelper.createNotificationChannels();
+
         /* render to screen */
         // call first before findViewById or nothing to find
         setContentView(R.layout.activity_main);
@@ -244,6 +248,5 @@ public class MainActivity extends AppCompatActivity {
             dataBaseHelper.close();
         }
     }
-
 
 }
