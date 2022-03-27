@@ -2,10 +2,8 @@ package com.example.studious;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -97,13 +95,13 @@ public class AlarmMangerHelper {
 
         switch (type)
         {
-            case MainActivity.TYPE_ALARM: // move teh Defs from MainActivity to Items??
+            case Items.TYPE_ALARM: // move teh Defs from MainActivity to Items??
                 break;
-            case MainActivity.TYPE_CALENDAR:
+            case Items.TYPE_CALENDAR:
                 break;
-            case MainActivity.TYPE_TODO:
+            case Items.TYPE_TODO:
                 break;
-            case MainActivity.TYPE_REMINDER:
+            case Items.TYPE_REMINDER:
                 break;
             default:
                 /* bad */

@@ -25,14 +25,6 @@ import java.util.ArrayList;
  * @version Release 1
  */
 public class MainActivity extends AppCompatActivity {
-    /** Calendar Type **/
-    public static final int TYPE_CALENDAR = 0;
-    /** To Do Type **/
-    public static final int TYPE_TODO = 1;
-    /** Reminder Type **/
-    public static final int TYPE_REMINDER = 2;
-    /** Alarm Type **/
-    public static final int TYPE_ALARM = 3;
 
     /*
         Three moving parts here:
@@ -156,10 +148,10 @@ public class MainActivity extends AppCompatActivity {
 
         /* set the listeners for the FAB buttons.
          * When a button is clicked this callback is called. */
-        fab_calendar.setOnClickListener(view -> addTaskDialog(TYPE_CALENDAR, getString(R.string.typeCalendar)));
-        fab_reminder.setOnClickListener(view -> addTaskDialog(TYPE_REMINDER, getString(R.string.typeReminder)));
-        fab_alarm.setOnClickListener(view -> addTaskDialog(TYPE_ALARM, getString(R.string.typeAlarm)));
-        fab_todo.setOnClickListener(view -> addTaskDialog(TYPE_TODO, getString(R.string.typeTodo)));
+        fab_calendar.setOnClickListener(view -> addTaskDialog(Items.TYPE_CALENDAR, getString(R.string.typeCalendar)));
+        fab_reminder.setOnClickListener(view -> addTaskDialog(Items.TYPE_REMINDER, getString(R.string.typeReminder)));
+        fab_alarm.setOnClickListener(view -> addTaskDialog(Items.TYPE_ALARM, getString(R.string.typeAlarm)));
+        fab_todo.setOnClickListener(view -> addTaskDialog(Items.TYPE_TODO, getString(R.string.typeTodo)));
     }
 
 

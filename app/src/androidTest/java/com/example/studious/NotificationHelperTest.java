@@ -6,8 +6,6 @@ import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.example.studious.MainActivity.*;
-
 // these will crap out on junit tests. Has to be run on device.
 // not really tests. just to run code on virtual device.
 
@@ -19,7 +17,7 @@ public class NotificationHelperTest {
     public void sendCalendarNotification() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        Items item = new Items(17, "calendar title", TYPE_CALENDAR);
+        Items item = new Items(17, "calendar title", Items.TYPE_CALENDAR);
         notificationHelper.sendCalendarNotification(item);
     }
 
@@ -27,7 +25,7 @@ public class NotificationHelperTest {
     public void sendTodoNotification() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        Items item = new Items(18, "todo title", TYPE_TODO);
+        Items item = new Items(18, "todo title", Items.TYPE_TODO);
         notificationHelper.sendTodoNotification(item);
     }
 
@@ -35,7 +33,7 @@ public class NotificationHelperTest {
     public void sendReminderNotification() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        Items item = new Items(19, "reminder title", TYPE_REMINDER);
+        Items item = new Items(19, "reminder title", Items.TYPE_REMINDER);
         notificationHelper.sendReminderNotification(item);
     }
 
@@ -43,7 +41,7 @@ public class NotificationHelperTest {
     public void sendAlarmNotification() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        Items item = new Items(19, "alarm title", TYPE_ALARM);
+        Items item = new Items(19, "alarm title", Items.TYPE_ALARM);
         notificationHelper.sendAlarmNotification(item);
     }
 }

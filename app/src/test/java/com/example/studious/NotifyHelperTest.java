@@ -11,7 +11,6 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowNotificationManager;
 
-import static com.example.studious.MainActivity.*;
 import static org.junit.Assert.*;
 import static org.robolectric.Shadows.shadowOf;
 
@@ -51,7 +50,7 @@ public class NotifyHelperTest {
     @Test
     public void sendCalendarNotification() {
         int id = 17;
-        Items item = new Items(id, "calendar title", TYPE_CALENDAR);
+        Items item = new Items(id, "calendar title", Items.TYPE_CALENDAR);
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendCalendarNotification(item);
         assertEquals(1, shadowNotificationManager.size());
@@ -61,7 +60,7 @@ public class NotifyHelperTest {
     @Test
     public void sendTodoNotification() {
         int id = 18;
-        Items item = new Items(id, "todo title", TYPE_TODO);
+        Items item = new Items(id, "todo title", Items.TYPE_TODO);
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendTodoNotification(item);
         assertEquals(1, shadowNotificationManager.size());
@@ -71,7 +70,7 @@ public class NotifyHelperTest {
     @Test
     public void sendReminderNotification() {
         int id = 19;
-        Items item = new Items(id, "reminder title", TYPE_REMINDER);
+        Items item = new Items(id, "reminder title", Items.TYPE_REMINDER);
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendReminderNotification(item);
         assertEquals(1, shadowNotificationManager.size());
@@ -81,7 +80,7 @@ public class NotifyHelperTest {
     @Test
     public void sendAlarmNotification() {
         int id = 20;
-        Items item = new Items(id, "alarm title", TYPE_ALARM);
+        Items item = new Items(id, "alarm title", Items.TYPE_ALARM);
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendAlarmNotification(item);
         assertEquals(1, shadowNotificationManager.size());
@@ -91,7 +90,7 @@ public class NotifyHelperTest {
     @Test
     public void cancelNotification() {
         int id = 21;
-        Items item = new Items(id, "alarm title", TYPE_ALARM);
+        Items item = new Items(id, "alarm title", Items.TYPE_ALARM);
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendAlarmNotification(item);
         assertEquals(1, shadowNotificationManager.size());

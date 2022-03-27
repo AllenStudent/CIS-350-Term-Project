@@ -12,6 +12,16 @@ import androidx.annotation.Nullable;
  * @version Release 1
  */
 public class Items {
+    /** Calendar Type **/
+    public static final int TYPE_CALENDAR = 0;
+    /** To Do Type **/
+    public static final int TYPE_TODO = 1;
+    /** Reminder Type **/
+    public static final int TYPE_REMINDER = 2;
+    /** Alarm Type **/
+    public static final int TYPE_ALARM = 3;
+
+
     /** row id in the database **/
     private int id;
     /** title of item in database. */
