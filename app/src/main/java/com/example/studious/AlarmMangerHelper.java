@@ -2,8 +2,10 @@ package com.example.studious;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.util.Log;
 
 import java.util.Calendar;
@@ -32,7 +34,7 @@ public class AlarmMangerHelper {
 
     /**
      * Create a unique pending (system token) intent for this item.
-     *
+     * <p>
      * Since we're not using a filter, this is going to use our unique
      * row id for a unique request code. id is also stored in intent
      * data for retrieval from the broadcast receiver.
@@ -56,7 +58,7 @@ public class AlarmMangerHelper {
 
     /**
      * Find (an alarm) Pending intent for id.
-     *
+     * <p>
      * Not a check for an existing alarm but (it's close enough for
      * hand grenades) we are going to use it that way.
      *
@@ -77,7 +79,7 @@ public class AlarmMangerHelper {
 
 
     /**
-     *  Process and item to add, delete, or modify an alarm.
+     * Process and item to add, delete, or modify an alarm.
      *
      * @param item instance of Items class.
      * @return true if successful. false on error.
@@ -116,24 +118,24 @@ public class AlarmMangerHelper {
         {
             cancelAlarm(id);
         }
-        else if (needsAlarm && alarmExist){
+        else if (needsAlarm && alarmExist)
+        {
             // is same data
-                // do nothing
+            // do nothing
 
             // updated data
-                // update alarm
+            // update alarm
 
-                // or delete and recreate.
+            // or delete and recreate.
         }
         return true;
     }
 
 
-
     /**
      * Schedule a repeating alarm.
      *
-     * @param c Calendar item with date and time information.
+     * @param c  Calendar item with date and time information.
      * @param id database (unique) row id of item.
      */
     public void createRepeating(Calendar c, int id) {
@@ -150,7 +152,7 @@ public class AlarmMangerHelper {
     /**
      * Schedule a repeating alarm that has inexact trigger time requirements
      *
-     * @param c Calendar item with date and time information.
+     * @param c  Calendar item with date and time information.
      * @param id database (unique) row id of item.
      */
     public void createInexactRepeating(Calendar c, int id) {
@@ -235,35 +237,7 @@ public class AlarmMangerHelper {
             pendingIntent.cancel();
         }
     }
-
-
-    /**
-     * Turn on reboot notification if we have any alarms we want to
-     * persist across a reboot. (probably all of them.)
-     */
-    private void turnOnReBootReceiver() {
-        //        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
-        //        PackageManager pm = context.getPackageManager();
-        //
-        //        pm.setComponentEnabledSetting(receiver,
-        //                PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-        //                PackageManager.DONT_KILL_APP);
-    }
-
-    /**
-     * Turn off reboot notifications if we have no active alarms.
-     */
-    private void turnOffReBootReceiver() {
-        //        ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
-        //        PackageManager pm = context.getPackageManager();
-        //
-        //        pm.setComponentEnabledSetting(receiver,
-        //                PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
-        //                PackageManager.DONT_KILL_APP);
-    }
-
 }
-
 
 
 //    Calendar c = Calendar.getInstance();
