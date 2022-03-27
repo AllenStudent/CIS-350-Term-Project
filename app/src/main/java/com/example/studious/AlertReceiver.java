@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+
 /**
  * Receive broadcast for AlarmManager
  */
@@ -22,17 +23,16 @@ public class AlertReceiver extends BroadcastReceiver {
 
         Bundle extras = intent.getExtras();
         if (extras != null)
-            id = extras.getInt("id", -1);
+        {
+            id = extras.getInt(DataBaseHelper.COL_ID, -1);
             Log.d(TAG, "onReceive rowId " + id);
 
-
-        // add function?
-        // public Item ItemAdaptor.getItem(long id)
-        // or use?
-        // DatabaseHelper.getItem(id)
+            AlarmMangerHelper helper = new AlarmMangerHelper(context);
+            helper.handleCallback(id);
+        }
 
 
-        // do something
+
 
     }
 }

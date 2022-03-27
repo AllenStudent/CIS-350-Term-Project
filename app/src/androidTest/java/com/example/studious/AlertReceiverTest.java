@@ -8,6 +8,7 @@ import android.util.Log;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+import androidx.test.platform.app.InstrumentationRegistry;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,8 +26,8 @@ public class AlertReceiverTest {
     public void AlertReceiver() throws InterruptedException {
         Log.d(TAG, "createAlarm was triggered");
         int id1 = 17;
-        //        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        Context context = ApplicationProvider.getApplicationContext();
+        Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
+//        Context context = ApplicationProvider.getApplicationContext();
         Calendar c = Calendar.getInstance();
         AlarmMangerHelper alarmMangerHelper = new AlarmMangerHelper(context);
         alarmMangerHelper.createAlarm(c, id1);

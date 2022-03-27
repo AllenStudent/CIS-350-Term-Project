@@ -46,6 +46,7 @@ public class NotificationHelper {
 
     public Notification sendCalendarNotification(Items item) {
         // do something when notification is pressed.
+        // https://www.youtube.com/watch?v=CZ575BuLBo4&list=PLrnPJCHvNZuCN52QwGu7YTSLIMrjCF0gM&index=2
         // new intent - item display class?
         // add id to extra data in intent
         // new pending intent

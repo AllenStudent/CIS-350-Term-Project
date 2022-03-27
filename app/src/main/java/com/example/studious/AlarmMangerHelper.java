@@ -45,7 +45,7 @@ public class AlarmMangerHelper {
             return null;
 
         Intent intent = new Intent(this.context, AlertReceiver.class);
-        intent.putExtra("id", id);
+        intent.putExtra(DataBaseHelper.COL_ID, id);
 
         return PendingIntent.getBroadcast(
                 this.context,
@@ -75,6 +75,20 @@ public class AlarmMangerHelper {
         );
     }
 
+    public void handleCallback(int id)
+    {
+//        Items item;
+//        Items item = ItemAdaptor dbAdapter.getItemById(id);
+//        Items item = DataBaseHelper dataBaseHelper.getItem(id);
+
+        // decide on action
+        //      do nothing
+        //
+        //      send notification
+//        NotificationHelper helper = new NotificationHelper(context);
+//        helper.sendCalendarNotification(item);
+
+    }
 
     /**
      * Process and item to add, delete, or modify an alarm.
