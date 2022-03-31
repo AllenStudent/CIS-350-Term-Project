@@ -12,14 +12,18 @@ import androidx.annotation.Nullable;
  * @version Release 1
  */
 
-//NEEDS TO BE DONE: add in functionality for a parent calendar type item; find way to link the items.
+//TODO: Item Time/Date Variable; Link Todo/Alarm/Reminder Items To Calendar Parent Item
 public class Items {
     /** row id in the database **/
     private int id;
-    /** title of item in database. */
+    /** title of item in database. **/
     private String itemTitle;
     /** item type **/
     private int type;
+    /**item notes **/
+    private String itemNotes;
+    /** item duration, marked for potential rework **/
+    private String itemDur;
 
     /**
      * Constructor of the Items class.
@@ -30,10 +34,12 @@ public class Items {
      * @param type      Type of item to be added. See MainActivity for item
      *                  types.
      */
-    public Items(int id, String itemTitle, int type) {
+    public Items(int id, String itemTitle, int type, String itemNotes, String itemDur) {
         this.id = id;
         this.itemTitle = itemTitle;
         this.type = type;
+        this.itemNotes = itemNotes;
+        this.itemDur = itemDur;
     }
 
     /**
@@ -56,6 +62,7 @@ public class Items {
 
         Items o = (Items) obj;
 
+        /** Note: does not compare Notes and Duration, as they're irrelevent to showing it is the same exact item. **/
         return o.itemTitle.equals(this.itemTitle)
                 && o.type == this.type;
     }
@@ -97,6 +104,42 @@ public class Items {
     }
 
     /**
+     * Set the notes of item.
+     *
+     * @param itemNotes set notes to.
+     */
+    public void setItemNotes(String itemNotes) {
+        this.itemNotes = itemNotes;
+    }
+
+    /**
+     * Get the notes of item.
+     *
+     * @return itemNotes
+     */
+    public String getItemNotes () {
+        return itemNotes;
+    }
+
+    /**
+     * Set the notes of item.
+     *
+     * @param itemDur set notes to.
+     */
+    public void setItemDur(String itemDur) {
+        this.itemDur = itemDur;
+    }
+
+    /**
+     * Get the notes of item.
+     *
+     * @return itemDur
+     */
+    public String getItemDur () {
+        return itemDur;
+    }
+
+    /**
      * Get the type value of item.
      *
      * @return item type
@@ -126,6 +169,8 @@ public class Items {
                 "id=" + id +
                 ", itemTitle='" + itemTitle + '\'' +
                 ", type=" + type +
+                ", itemNotes='" + itemNotes + '\'' +
+                ", itemDur='" + itemDur + '\'' +
                 '}';
     }
 }

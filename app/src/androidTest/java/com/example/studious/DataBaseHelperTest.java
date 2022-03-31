@@ -127,7 +127,7 @@ public class DataBaseHelperTest {
     public void addItem() {
         String title = "debug alarm";
         int type = MainActivity.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type);
+        Items newItem = new Items(-1, title, type, itemNotes, itemDur);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
     }
@@ -138,7 +138,7 @@ public class DataBaseHelperTest {
         // add
         String title = "debug alarm";
         int type = MainActivity.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type);
+        Items newItem = new Items(-1, title, type, itemNotes, itemDur);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
         // get
@@ -165,7 +165,7 @@ public class DataBaseHelperTest {
         // add
         String title = "debug alarm";
         int type = MainActivity.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type);
+        Items newItem = new Items(-1, title, type, itemNotes, itemDur);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
 
@@ -178,7 +178,7 @@ public class DataBaseHelperTest {
     public void getItem() {
         String title = "debug cal";
         int type = MainActivity.TYPE_CALENDAR;
-        Items newItem = new Items(-1, title, type);
+        Items newItem = new Items(-1, title, type, itemNotes, itemDur);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
 

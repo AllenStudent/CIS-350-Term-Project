@@ -24,6 +24,8 @@ import java.util.ArrayList;
  * @author Bryan VanDyke
  * @version Release 1
  */
+
+//FAKETODO: Make Calendar a seperate item that is the parent for reminders/alarms/todos.
 public class MainActivity extends AppCompatActivity {
     /** Calendar Type **/
     public static final int TYPE_CALENDAR = 0;
@@ -195,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
 
         /* get edit text field id */
         final EditText titleField = subView.findViewById(R.id.et_title);
+        final EditText notesField = subView.findViewById(R.id.et_notes);
+        final EditText durationField = subView.findViewById(R.id.et_duration);
 
         /* use alert dialog */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -209,9 +213,11 @@ public class MainActivity extends AppCompatActivity {
                 (dialog, which) -> {
                     /* read entered input */
                     final String title = titleField.getText().toString().trim();
+                    final String notes = notesField.getText().toString().trim();
+                    final String duration = durationField.getText().toString().trim();
                     if (!TextUtils.isEmpty(title))
                     {
-                        Items newItem = new Items(-1, title, type);
+                        Items newItem = new Items(-1, title, type, notes, duration);
                         /* add to database */
                         dataBaseHelper.addItem(newItem);
                         /* update dataset in adapter */
