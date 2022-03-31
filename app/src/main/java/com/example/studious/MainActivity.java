@@ -13,7 +13,9 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
@@ -35,6 +37,11 @@ public class MainActivity extends AppCompatActivity {
     public static final int TYPE_REMINDER = 2;
     /** Alarm Type **/
     public static final int TYPE_ALARM = 3;
+
+    DatePicker picker;
+    Button btnGet;
+    TextView tvw;
+
 
     /*
         Three moving parts here:
@@ -92,6 +99,19 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab_reminder = findViewById(R.id.efab_reminder);
         FloatingActionButton fab_alarm = findViewById(R.id.efab_alarm);
         FloatingActionButton fab_todo = findViewById(R.id.efab_todo);
+
+        tvw=(TextView)findViewById(R.id.textView1);
+        picker=(DatePicker)findViewById(R.id.datePicker1);
+        btnGet=(Button)findViewById(R.id.button1);
+        btnGet.setOnClickListener(new View.OnClickListener() {
+
+                                      @Override
+                                      public void onClick(View v) {
+                                          tvw.setText("Selected Date: " + picker.getDayOfMonth() + "/" + (picker.getMonth() + 1) + "/" + picker.getYear());
+                                      }
+                                  });
+
+
 
         /* RecyclerView needs a layout manager. */
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
