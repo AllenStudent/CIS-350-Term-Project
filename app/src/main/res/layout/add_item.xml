@@ -8,6 +8,32 @@
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/et_notes"
+            android:hint="@string/NotesHint"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="84dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
+            android:inputType="text" android:minHeight="48dp"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:id="@+id/et_duration"
+            android:hint="@string/DurationHint"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="164dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
+            android:inputType="text" android:minHeight="48dp"/>
+    <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:ems="10"
             android:id="@+id/et_title"
@@ -17,5 +43,5 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp"/>
+            android:layout_marginEnd="8dp" android:minHeight="48dp"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

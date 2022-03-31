@@ -7,4 +7,6 @@
     <string name="ButtonAdd">Add</string>
     <string name="ButtonCancel">Cancel</string>
     <string name="TitleHint">Add Title</string>
+    <string name="NotesHint">Add Notes</string>
+    <string name="DurationHint">Add Duration</string>
 </resources>
