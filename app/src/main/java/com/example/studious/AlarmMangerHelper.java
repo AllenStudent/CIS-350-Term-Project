@@ -13,6 +13,7 @@ import java.util.Calendar;
  */
 public class AlarmMangerHelper {
     private static final String TAG = "AlarmMangerHelper";
+    public static int utid = -1; // for unit tests
 
     /** Manager of system alarms. **/
     private final AlarmManager alarmManager;
@@ -26,7 +27,7 @@ public class AlarmMangerHelper {
      * @param context Application Context
      */
     public AlarmMangerHelper(Context context) {
-        this.context = context;
+        this.context = context.getApplicationContext();
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
     }
 
@@ -74,75 +75,6 @@ public class AlarmMangerHelper {
                 PendingIntent.FLAG_NO_CREATE // return null in intent doesn't exist
         );
     }
-
-    public void handleCallback(int id)
-    {
-//        Items item;
-//        Items item = ItemAdaptor dbAdapter.getItemById(id);
-//        Items item = DataBaseHelper dataBaseHelper.getItem(id);
-
-        // decide on action
-        //      do nothing
-        //
-        //      send notification
-//        NotificationHelper helper = new NotificationHelper(context);
-//        helper.sendCalendarNotification(item);
-
-    }
-
-    /**
-     * Process and item to add, delete, or modify an alarm.
-     *
-     * @param item instance of Items class.
-     * @return true if successful. false on error.
-     */
-    public boolean processItem(Items item) {
-        int id = item.getId();
-        int type = item.getType();
-
-        if (id < 0)
-            return false;
-
-        boolean alarmExist = (null == findPendingIntent(id));
-        //  process item attributes to see if it needs an alarm
-        boolean needsAlarm = false; // check if item should have active alarm
-
-        switch (type)
-        {
-            case Items.TYPE_ALARM: // move teh Defs from MainActivity to Items??
-                break;
-            case Items.TYPE_CALENDAR:
-                break;
-            case Items.TYPE_TODO:
-                break;
-            case Items.TYPE_REMINDER:
-                break;
-            default:
-                /* bad */
-                return false;
-        }
-
-        if (needsAlarm && !alarmExist)
-        {
-            // create alarm
-        }
-        else if (!needsAlarm && alarmExist)
-        {
-            cancelAlarm(id);
-        }
-        else if (needsAlarm && alarmExist)
-        {
-            // is same data
-            // do nothing
-
-            // updated data
-            // update alarm
-
-            // or delete and recreate.
-        }
-        return true;
-    }
-
 
     /**
      * Schedule a repeating alarm.
@@ -233,7 +165,6 @@ public class AlarmMangerHelper {
         alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 
-
     /**
      * cancel an alarm
      *
@@ -248,6 +179,110 @@ public class AlarmMangerHelper {
             /* suspenders */
             pendingIntent.cancel();
         }
+    }
+
+    /**
+     * Process and item to add, delete, or modify an alarm.
+     *
+     * @param item instance of Items class.
+     * @return true if successful. false on error.
+     */
+    public boolean processItem(Items item) {
+        int id = item.getId();
+        int type = item.getType();
+
+        if (id < 0)
+            return false;
+
+        boolean alarmExist = (null == findPendingIntent(id));
+        //  process item attributes to see if it needs an alarm
+        boolean needsAlarm = false; // check if item should have active alarm
+
+        switch (type)
+        {
+            case Items.TYPE_ALARM:
+                break;
+            case Items.TYPE_CALENDAR:
+                break;
+            case Items.TYPE_TODO:
+                break;
+            case Items.TYPE_REMINDER:
+                break;
+            default:
+                /* bad */
+                return false;
+        }
+
+        if (needsAlarm && !alarmExist)
+        {
+            // create alarm
+        }
+        else if (!needsAlarm && alarmExist)
+        {
+            cancelAlarm(id);
+        }
+        else if (needsAlarm && alarmExist)
+        {
+            // is same data
+            // do nothing
+
+            // updated data
+            // update alarm
+
+            // or delete and recreate.
+        }
+        return true;
+    }
+
+    /**
+     * Properly handle a triggered alarm.
+     *
+     * @param id row id of item to handle.
+     */
+    public void handleCallback(int id) {
+        Log.d(TAG, "handleCallback id " + id);
+        AlarmMangerHelper.utid = id; // for unit test
+
+        // not sure but this might be dangerous having 2 helper
+        DataBaseHelper dataBaseHelper = new DataBaseHelper(this.context);
+
+        Items item = dataBaseHelper.getItem(id);
+        if (null == item)
+            return;
+
+        NotificationHelper notificationHelper = new NotificationHelper(this.context);
+
+        switch (item.getType())
+        {
+            case Items.TYPE_ALARM:
+                notificationHelper.sendAlarmNotification(item);
+                break;
+
+            case Items.TYPE_CALENDAR:
+                notificationHelper.sendCalendarNotification(item);
+                break;
+
+            case Items.TYPE_REMINDER:
+                notificationHelper.sendReminderNotification(item);
+                break;
+
+            case Items.TYPE_TODO:
+                notificationHelper.sendTodoNotification(item);
+                break;
+        }
+    }
+
+    /**
+     * Recreate all alarms. Called on system reboot.
+     */
+    public void recreateAllAlarms() {
+        Log.d(TAG, "recreateAllAlarms");
+
+        // TODO: don't forget unit tests
+
+        // pull and filter all items from database
+        //      for each
+        //          processItem(Items item)
     }
 }
 

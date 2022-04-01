@@ -9,6 +9,8 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class NotificationHelper {
+    private static final String TAG = "NotificationHelper";
+
     public static final String CHANNEL_CAL = "calender notification";
     public static final String CHANNEL_TODO = "todo notification";
     public static final String CHANNEL_REMINDER = "reminder notification";
@@ -19,9 +21,9 @@ public class NotificationHelper {
     private final Context context;
 
     public NotificationHelper(Context context) {
-        this.context = context;
-        manager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        managerCompat = NotificationManagerCompat.from(context);
+        this.context = context.getApplicationContext();
+        manager = (NotificationManager) this.context.getSystemService(Context.NOTIFICATION_SERVICE);
+        managerCompat = NotificationManagerCompat.from(this.context);
     }
 
     public void createNotificationChannels() {
@@ -59,6 +61,8 @@ public class NotificationHelper {
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setCategory(NotificationCompat.CATEGORY_EVENT)
                 //.setContentIntent(pendingIntent)
+                //.setOnlyAlertOnce(true)
+                //.setColor()
                 .build();
 
         managerCompat.notify(item.getId(), notification);

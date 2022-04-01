@@ -15,8 +15,8 @@ import org.junit.runner.RunWith;
 
 import java.util.Calendar;
 
-
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 @RunWith(AndroidJUnit4.class)
 public class AlertReceiverTest {
@@ -24,20 +24,23 @@ public class AlertReceiverTest {
 
     @Test
     public void AlertReceiver() throws InterruptedException {
-        Log.d(TAG, "createAlarm was triggered");
+        Log.d(TAG, "AlertReceiver");
+
+        AlertReceiver.utid = -1;
         int id1 = 17;
+
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
-//        Context context = ApplicationProvider.getApplicationContext();
+        //        Context context = ApplicationProvider.getApplicationContext();
         Calendar c = Calendar.getInstance();
         AlarmMangerHelper alarmMangerHelper = new AlarmMangerHelper(context);
         alarmMangerHelper.createAlarm(c, id1);
         Thread.sleep(2000);
 
-        Log.d(TAG, "AlertReceiver id  " + AlertReceiver.id);
-        /* NOTE:This assert will fail if run as junit
-           has to be run on virtual device. */
-        assertEquals(id1, AlertReceiver.id);
+        Log.d(TAG, "AlertReceiver id  " + AlertReceiver.utid);
+        /* NOTE: Will fail if run as junit has to be run on virtual device. */
+        assertEquals(id1, AlertReceiver.utid);
     }
+
 
     @Ignore("No worky yet")
     @Test
@@ -48,8 +51,6 @@ public class AlertReceiverTest {
         Intent intent = new Intent(context, ReBootReceiver.class);
 
 
-
-
         // backup/get current state of receiver>
         ComponentName receiver = new ComponentName(context, ReBootReceiver.class);
         PackageManager pm = context.getPackageManager();
@@ -58,20 +59,18 @@ public class AlertReceiverTest {
         // on error or else this need to et restordd
 
 
-
         ReBootReceiver.called = false;
         LocalBroadcastManager
                 .getInstance(context)
-                .sendBroadcast(new Intent( Intent.ACTION_BOOT_COMPLETED));
-//                .sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));
-//        context.sendOrderedBroadcast ( intent,"android.intent.action.BOOT_COMPLETED");
+                .sendBroadcast(new Intent(Intent.ACTION_BOOT_COMPLETED));
+        //                .sendBroadcast(new Intent("android.intent.action.BOOT_COMPLETED"));
+        //        context.sendOrderedBroadcast ( intent,"android.intent.action.BOOT_COMPLETED");
         Thread.sleep(2000);
         Log.d(TAG, "ReBootReceiver.called " + ReBootReceiver.called);
         assertFalse("ReBootReceiver.called", ReBootReceiver.called);
 
 
     }
-
 
 
 }

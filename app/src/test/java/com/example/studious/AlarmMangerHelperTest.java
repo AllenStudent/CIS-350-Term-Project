@@ -287,8 +287,8 @@ public class AlarmMangerHelperTest {
         Calendar c = Calendar.getInstance();
         alarmMangerHelper.createAlarm(c, id0);
         Thread.sleep(2000);
-        Log.d(TAG, "AlertReceiver id " + AlertReceiver.id);
-        assertEquals(id0, AlertReceiver.id);
+        Log.d(TAG, "AlertReceiver id " + AlertReceiver.utid);
+        assertEquals(id0, AlertReceiver.utid);
     }
 
 

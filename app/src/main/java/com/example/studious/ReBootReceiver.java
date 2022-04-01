@@ -1,9 +1,9 @@
 package com.example.studious;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Receive notification from system that a reboot has happened.
@@ -25,21 +25,16 @@ public class ReBootReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        /* system reboot. recreate alarms. */
-
-
-
-        Toast.makeText(context, "onReceive",
-                Toast.LENGTH_LONG).show();
-
         Log.d(TAG, "onReceive was triggered");
-        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
-            // Set the alarm here.
-            Log.d(TAG, "android.intent.action.BOOT_COMPLETED");
-            called = true;
 
-            Toast.makeText(context, "android.intent.action.BOOT_COMPLETED",
-                    Toast.LENGTH_LONG).show();
+        /* system reboot. recreate alarms. */
+        if (intent.getAction().equals("android.intent.action.BOOT_COMPLETED")) {
+            Log.d(TAG, "android.intent.action.BOOT_COMPLETED");
+            ReBootReceiver.called = true; // for unit tests
+
+            // reset alarms
+            AlarmMangerHelper helper = new AlarmMangerHelper(context);
+            helper.recreateAllAlarms();
 
         }
     }
