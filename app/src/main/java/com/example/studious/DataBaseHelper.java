@@ -36,8 +36,10 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public static final String COL_ITEMTYPE = "ITEMTYPE";
     /** Notes of item **/
     public static final String COL_ITEMNOTES = "ITEMNOTES";
-    /** Duration of item **/
-    public static final String COL_ITEMDUR = "ITEMDUR";
+    /** Start of item **/
+    public static final String COL_START = "ITEMSTART";
+    /** End of item **/
+    public static final String COL_END = "ITEMEND";
     /** current database version. **/
     public static final int version = 1;
 
@@ -130,7 +132,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         String createTableStatement = "CREATE TABLE " + TABLE_ITEMS + " ("
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_TITLE + " TEXT, " + COL_ITEMTYPE + " INT,"
-                + COL_ITEMNOTES + " TEXT, " + COL_ITEMDUR + " TEXT)";
+                + COL_ITEMNOTES + " TEXT, " + COL_START + " TEXT,"
+                + COL_ITEMNOTES + " TEXT, " + COL_END + " TEXT)";
 
         db.execSQL(createTableStatement);
     }
@@ -169,7 +172,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COL_TITLE, items.getItemTitle());
         cv.put(COL_ITEMTYPE, items.getType());
         cv.put(COL_ITEMNOTES, items.getItemNotes());
-        cv.put(COL_ITEMDUR, items.getItemDur());
+        cv.put(COL_START, items.getItemStart());
+        cv.put(COL_END, items.getItemEnd());
 
         /* open database. locks database? */
         SQLiteDatabase db = this.getWritableDatabase();
@@ -190,7 +194,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         cv.put(COL_TITLE, item.getItemTitle());
         cv.put(COL_ITEMTYPE, item.getType());
         cv.put(COL_ITEMNOTES, item.getItemNotes());
-        cv.put(COL_ITEMDUR, item.getItemDur());
+        cv.put(COL_START, item.getItemStart());
+        cv.put(COL_END, item.getItemEnd());
 
         /* open database. locks database? */
         SQLiteDatabase db = this.getWritableDatabase();
@@ -232,10 +237,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
             String titleText = cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE));
             int itemType = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ITEMTYPE));
             String itemNotes = cursor.getString(cursor.getColumnIndexOrThrow(COL_ITEMNOTES));
-            String itemDur = cursor.getString(cursor.getColumnIndexOrThrow(COL_ITEMDUR));
+            String itemStart = cursor.getString(cursor.getColumnIndexOrThrow(COL_START));
+            String itemEnd = cursor.getString(cursor.getColumnIndexOrThrow(COL_END));
 
             /* copy data into our item class. */
-            item = new Items(itemId, titleText, itemType, itemNotes, itemDur);
+            item = new Items(itemId, titleText, itemType, itemNotes, itemStart, itemEnd);
 
 
         }
@@ -318,10 +324,11 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 String titleText = cursor.getString(cursor.getColumnIndexOrThrow(COL_TITLE));
                 int itemType = cursor.getInt(cursor.getColumnIndexOrThrow(COL_ITEMTYPE));
                 String itemNotes = cursor.getString(cursor.getColumnIndexOrThrow(COL_ITEMNOTES));
-                String itemDur = cursor.getString(cursor.getColumnIndexOrThrow(COL_ITEMDUR));
+                String itemStart = cursor.getString(cursor.getColumnIndexOrThrow(COL_START));
+                String itemEnd = cursor.getString(cursor.getColumnIndexOrThrow(COL_END));
 
                 /* copy data into our item class. */
-                Items items = new Items(itemId, titleText, itemType, itemNotes, itemDur);
+                Items items = new Items(itemId, titleText, itemType, itemNotes, itemStart, itemEnd);
 
                 /* add to List. */
                 returnList.add(items);

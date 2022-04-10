@@ -19,18 +19,31 @@
             android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
             android:inputType="text" android:minHeight="48dp"/>
     <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="182dp"
+            android:layout_height="59dp"
             android:ems="10"
-            android:id="@+id/et_duration"
-            android:hint="@string/DurationHint"
+            android:id="@+id/et_startdate"
+            android:hint="@string/StartHint"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="164dp"
+            android:layout_marginTop="160dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
-            android:inputType="text" android:minHeight="48dp"/>
+            android:inputType="datetime|text" android:minHeight="48dp"/>
+    <EditText
+            android:layout_width="178dp"
+            android:layout_height="58dp"
+            android:ems="10"
+            android:id="@+id/et_enddate"
+            android:hint="@string/EndHint"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="160dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.964"
+            android:inputType="datetime|text" android:minHeight="48dp"/>
     <EditText
             android:layout_width="0dp"
             android:layout_height="wrap_content"

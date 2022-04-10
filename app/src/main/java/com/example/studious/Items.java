@@ -22,8 +22,10 @@ public class Items {
     private int type;
     /**item notes **/
     private String itemNotes;
-    /** item duration, marked for potential rework **/
-    private String itemDur;
+    /** Item start datetime. **/
+    private String itemStart;
+    /** Item end datetime. **/
+    private String itemEnd;
 
     /**
      * Constructor of the Items class.
@@ -34,12 +36,14 @@ public class Items {
      * @param type      Type of item to be added. See MainActivity for item
      *                  types.
      */
-    public Items(int id, String itemTitle, int type, String itemNotes, String itemDur) {
+    public Items(int id, String itemTitle, int type, String itemNotes, String itemStart, String itemEnd) {
         this.id = id;
         this.itemTitle = itemTitle;
         this.type = type;
         this.itemNotes = itemNotes;
-        this.itemDur = itemDur;
+        this.itemStart = itemStart;
+        this.itemEnd = itemEnd;
+
     }
 
     /**
@@ -122,21 +126,39 @@ public class Items {
     }
 
     /**
-     * Set the notes of item.
+     * Set the start date of item.
      *
-     * @param itemDur set notes to.
+     * @param itemStart set start date to.
      */
-    public void setItemDur(String itemDur) {
-        this.itemDur = itemDur;
+    public void setItemStart(String itemStart) {
+        this.itemStart = itemStart;
     }
 
     /**
-     * Get the notes of item.
+     * Get the start date of item.
      *
-     * @return itemDur
+     * @return itemStart
      */
-    public String getItemDur () {
-        return itemDur;
+    public String getItemStart () {
+        return itemStart;
+    }
+
+    /**
+     * Set the end date of item.
+     *
+     * @param itemEnd set end date to.
+     */
+    public void setItemEnd(String itemEnd) {
+        this.itemEnd = itemEnd;
+    }
+
+    /**
+     * Get the end date of item.
+     *
+     * @return itemEnd
+     */
+    public String getItemEnd () {
+        return itemEnd;
     }
 
     /**
@@ -170,7 +192,8 @@ public class Items {
                 ", itemTitle='" + itemTitle + '\'' +
                 ", type=" + type +
                 ", itemNotes='" + itemNotes + '\'' +
-                ", itemDur='" + itemDur + '\'' +
+                ", itemStart='" + itemStart + '\'' +
+                ", itemEnd='" + itemEnd + '\'' +
                 '}';
     }
 }

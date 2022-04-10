@@ -127,9 +127,10 @@ public class DataBaseHelperTest {
     public void addItem() {
         String title = "debug alarm";
         String notes = "Test notes";
-        String duration = "Test duration";
+        String start = "Test start";
+        String end = "Test end";
         int type = MainActivity.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, notes, duration);
+        Items newItem = new Items(-1, title, type, notes, start, end);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
     }
@@ -140,9 +141,10 @@ public class DataBaseHelperTest {
         // add
         String title = "debug alarm";
         String notes = "Test notes";
-        String duration = "Test duration";
+        String start = "Test start";
+        String end = "Test end";
         int type = MainActivity.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, notes, duration);
+        Items newItem = new Items(-1, title, type, notes, start, end);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
         // get
@@ -169,9 +171,10 @@ public class DataBaseHelperTest {
         // add
         String title = "debug alarm";
         String notes = "Test notes";
-        String duration = "Test duration";
+        String start = "Test start";
+        String end = "Test end";
         int type = MainActivity.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, notes, duration);
+        Items newItem = new Items(-1, title, type, notes, start, end);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
 
@@ -184,9 +187,10 @@ public class DataBaseHelperTest {
     public void getItem() {
         String title = "debug cal";
         String notes = "Test notes";
-        String duration = "Test duration";
+        String start = "Test start";
+        String end = "Test end";
         int type = MainActivity.TYPE_CALENDAR;
-        Items newItem = new Items(-1, title, type, notes, duration);
+        Items newItem = new Items(-1, title, type, notes, start, end);
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
 

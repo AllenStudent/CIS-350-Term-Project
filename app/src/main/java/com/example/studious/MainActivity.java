@@ -218,7 +218,8 @@ public class MainActivity extends AppCompatActivity {
         /* get edit text field id */
         final EditText titleField = subView.findViewById(R.id.et_title);
         final EditText notesField = subView.findViewById(R.id.et_notes);
-        final EditText durationField = subView.findViewById(R.id.et_duration);
+        final EditText startDateField = subView.findViewById(R.id.et_startdate);
+        final EditText endDateField = subView.findViewById(R.id.et_enddate);
 
         /* use alert dialog */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -234,10 +235,11 @@ public class MainActivity extends AppCompatActivity {
                     /* read entered input */
                     final String title = titleField.getText().toString().trim();
                     final String notes = notesField.getText().toString().trim();
-                    final String duration = durationField.getText().toString().trim();
+                    final String start = startDateField.getText().toString().trim();
+                    final String end = endDateField.getText().toString().trim();
                     if (!TextUtils.isEmpty(title))
                     {
-                        Items newItem = new Items(-1, title, type, notes, duration);
+                        Items newItem = new Items(-1, title, type, notes, start, end);
                         /* add to database */
                         dataBaseHelper.addItem(newItem);
                         /* update dataset in adapter */
