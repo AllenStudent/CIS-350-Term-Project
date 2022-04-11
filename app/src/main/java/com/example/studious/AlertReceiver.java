@@ -4,26 +4,33 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
+
 
 /**
  * Receive broadcast for AlarmManager
  */
 public class AlertReceiver extends BroadcastReceiver {
+    private static final String TAG = "AlertReceiver";
+    public static int utid = -1; // for unit tests
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        long id = -1;
+        Log.d(TAG, "onReceive was triggered");
+
         Bundle extras = intent.getExtras();
         if (extras != null)
-            id = extras.getLong("rowId", -1);
+        {
+            int id = extras.getInt(DataBaseHelper.COL_ID, -1);
+            AlertReceiver.utid = id; // for unit tests
+            Log.d(TAG, "onReceive rowId " + id);
 
-        // add function?
-        // public Item ItemAdaptor.getItem(long id)
-        // or use?
-        // DatabaseHelper.getItem(id)
+            AlarmMangerHelper helper = new AlarmMangerHelper(context);
+            helper.handleCallback(id);
+        }
 
 
-        // do something
 
     }
 }

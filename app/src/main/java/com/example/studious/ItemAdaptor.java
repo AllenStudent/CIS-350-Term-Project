@@ -82,25 +82,25 @@ public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
         Drawable myDrawable;
         switch (item.getType())
         {
-            case MainActivity.TYPE_ALARM:
+            case Items.TYPE_ALARM:
                 myDrawable = this.context.getResources().getDrawable(
                         R.drawable.ic_outline_access_alarm_24,
                         this.context.getTheme()
                 );
                 break;
-            case MainActivity.TYPE_CALENDAR:
+            case Items.TYPE_CALENDAR:
                 myDrawable = this.context.getResources().getDrawable(
                         R.drawable.ic_outline_calendar_month_24,
                         this.context.getTheme()
                 );
                 break;
-            case MainActivity.TYPE_REMINDER:
+            case Items.TYPE_REMINDER:
                 myDrawable = this.context.getResources().getDrawable(
                         R.drawable.ic_outline_circle_notifications_24,
                         this.context.getTheme()
                 );
                 break;
-            case MainActivity.TYPE_TODO:
+            case Items.TYPE_TODO:
                 myDrawable = this.context.getResources().getDrawable(
                         R.drawable.ic_outline_check_circle_24,
                         this.context.getTheme()
