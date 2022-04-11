@@ -101,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
                                       @Override
                                       public void onClick(View v) {
-                                          tvw.setText("Selected Date: " + picker.getDayOfMonth() + "/" + (picker.getMonth() + 1) + "/" + picker.getYear());
+                                          tvw.setText("Selected Date: " + (picker.getMonth() + 1) + "/" + picker.getDayOfMonth() + "/" + picker.getYear());
                                       }
                                   });
 
