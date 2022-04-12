@@ -32,10 +32,10 @@ import java.util.Calendar;
 //FAKETODO: Make Calendar a seperate item that is the parent for reminders/alarms/todos.
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    DatePicker picker;
+    private TextView pickStartDate;
+    /*DatePicker picker;
     Button btnGet;
-    TextView tvw;
-
+    TextView tvw;*/
 
     /*
         Three moving parts here:
@@ -110,7 +110,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                                   });*/
 
 
-        /*private void showDatePickerDialog(){
+       /* private void showDatePickerDialog(){
             DatePickerDialog datePickerDialog  = new DatePickerDialog(
                     this,
                     this,
@@ -281,9 +281,19 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
     }
 
+    private void showDatePickerDialog(){
+        DatePickerDialog datePickerDialog  = new DatePickerDialog(
+                this,
+                this,
+                Calendar.getInstance().get(Calendar.YEAR),
+                Calendar.getInstance().get(Calendar.MONTH),
+                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+        );
+        datePickerDialog.show();
+    }
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         String date = month + "/" + dayOfMonth + "/" + year;
-        startDate.setText(date);
+        pickStartDate.setText(date);
     }
 }
