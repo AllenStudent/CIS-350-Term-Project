@@ -76,6 +76,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        /*findViewById(R.id.pickStartDate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });*/
         /* create notifications channels for later user */
         NotificationHelper notificationHelper = new NotificationHelper(this);
         notificationHelper.createNotificationChannels();
@@ -222,7 +228,12 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         LayoutInflater inflater = LayoutInflater.from(this);
         /* use add_item dialog */
         View subView = inflater.inflate(R.layout.add_item, null);
-
+        findViewById(R.id.pickStartDate).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                showDatePickerDialog();
+            }
+        });
         /* get edit text field id */
         final EditText titleField = subView.findViewById(R.id.et_title);
         final EditText notesField = subView.findViewById(R.id.et_notes);
