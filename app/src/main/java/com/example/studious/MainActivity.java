@@ -1,5 +1,6 @@
 package com.example.studious;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Main code for the application.
@@ -28,7 +30,7 @@ import java.util.ArrayList;
  */
 
 //FAKETODO: Make Calendar a seperate item that is the parent for reminders/alarms/todos.
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
     DatePicker picker;
     Button btnGet;
@@ -96,7 +98,7 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab_alarm = findViewById(R.id.efab_alarm);
         FloatingActionButton fab_todo = findViewById(R.id.efab_todo);
 
-        tvw=(TextView)findViewById(R.id.textView1);
+        /*tvw=(TextView)findViewById(R.id.textView1);
         picker=(DatePicker)findViewById(R.id.datePicker1);
         btnGet=(Button)findViewById(R.id.button1);
         btnGet.setOnClickListener(new View.OnClickListener() {
@@ -105,9 +107,19 @@ public class MainActivity extends AppCompatActivity {
                                       public void onClick(View v) {
                                           tvw.setText("Selected Date: " + (picker.getMonth() + 1) + "/" + picker.getDayOfMonth() + "/" + picker.getYear());
                                       }
-                                  });
+                                  });*/
 
 
+        /*private void showDatePickerDialog(){
+            DatePickerDialog datePickerDialog  = new DatePickerDialog(
+                    this,
+                    this,
+                    Calendar.getInstance().get(Calendar.YEAR),
+                    Calendar.getInstance().get(Calendar.MONTH),
+                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+            );
+            datePickerDialog.show();
+        }*/
 
         /* RecyclerView needs a layout manager. */
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
@@ -214,9 +226,9 @@ public class MainActivity extends AppCompatActivity {
         /* get edit text field id */
         final EditText titleField = subView.findViewById(R.id.et_title);
         final EditText notesField = subView.findViewById(R.id.et_notes);
-        final EditText startDateField = subView.findViewById(R.id.et_startdate);
-        final EditText endDateField = subView.findViewById(R.id.et_enddate);
-
+        final TextView startDateField = subView.findViewById(R.id.et_startdate);
+        final TextView endDateField = subView.findViewById(R.id.et_enddate);
+        /*final Button PickStartDate = subView.findViewById(R.id.PickStartDate);*/
         /* use alert dialog */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         /* set title */
@@ -269,4 +281,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+        String date = month + "/" + dayOfMonth + "/" + year;
+        startDate.setText(date);
+    }
 }
