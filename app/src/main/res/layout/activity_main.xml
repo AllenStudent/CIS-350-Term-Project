@@ -73,7 +73,16 @@
                 app:label_textColor="#FFFFFF"
         />
 
-
+        <!--<Button android:id="@+id/testButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Test"
+/>-->
+        <!--/>
+        <TextView android:id="@+id/testField"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+/>-->
     </com.nambimobile.widgets.efab.ExpandableFabLayout>
 
 
@@ -102,7 +111,7 @@
                 android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:textSize="18dp"/>
-    </RelativeLayout>
--->
+    </RelativeLayout>-->
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

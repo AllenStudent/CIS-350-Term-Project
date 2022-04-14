@@ -32,7 +32,7 @@ import java.util.Calendar;
 //FAKETODO: Make Calendar a seperate item that is the parent for reminders/alarms/todos.
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
-    private TextView pickStartDate;
+
     /*DatePicker picker;
     Button btnGet;
     TextView tvw;*/
@@ -75,13 +75,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        findViewById(R.id.expandable_fab).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
-        });
-
         /* create notifications channels for later user */
         NotificationHelper notificationHelper = new NotificationHelper(this);
         notificationHelper.createNotificationChannels();
@@ -114,18 +107,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                                           tvw.setText("Selected Date: " + (picker.getMonth() + 1) + "/" + picker.getDayOfMonth() + "/" + picker.getYear());
                                       }
                                   });*/
-
-
-       /* private void showDatePickerDialog(){
-            DatePickerDialog datePickerDialog  = new DatePickerDialog(
-                    this,
-                    this,
-                    Calendar.getInstance().get(Calendar.YEAR),
-                    Calendar.getInstance().get(Calendar.MONTH),
-                    Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-            );
-            datePickerDialog.show();
-        }*/
 
         /* RecyclerView needs a layout manager. */
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
@@ -173,7 +154,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                             delete_item(id);
                         }
                     }).attachToRecyclerView(recyclerView);
-
         }
         else
         {
@@ -225,16 +205,38 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
      * @param type_name title or description of item.
      */
     private void addTaskDialog(final int type, final String type_name) {
+
         LayoutInflater inflater = LayoutInflater.from(this);
         /* use add_item dialog */
         View subView = inflater.inflate(R.layout.add_item, null);
-
         /* get edit text field id */
         final EditText titleField = subView.findViewById(R.id.et_title);
         final EditText notesField = subView.findViewById(R.id.et_notes);
-        final TextView startDateField = subView.findViewById(R.id.et_startdate);
+        /*final TextView startDateField = subView.findViewById(R.id.et_startdate);*/
         final TextView endDateField = subView.findViewById(R.id.et_enddate);
-        /*final Button PickStartDate = subView.findViewById(R.id.PickStartDate);*/
+        final TextView pickStartDateText = subView.findViewById(R.id.et_startdate);
+        /*final Button pickStartDateButton = subView.findViewById(R.id.pickStartDate);*/
+
+        final TextView tvw = subView.findViewById(R.id.textView1);
+        /*final DatePicker picker = subView.findViewById(R.id.datePicker1);*/
+        /*final Button btnGet = subView.findViewById(R.id.button1);*/
+        final Button btnSet = subView.findViewById(R.id.pickStartDate);
+
+        btnSet.setOnClickListener(new View.OnClickListener() {
+
+
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+                /*tvw.setText("Selected Date: " + (picker.getMonth() + 1) + "/" + picker.getDayOfMonth() + "/" + picker.getYear());*/
+            }
+        });
+        /*findViewById(R.id.datePicker1).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePickerDialog();
+            }
+        });*/
         /* use alert dialog */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         /* set title */
@@ -243,21 +245,27 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         builder.setView(subView);
 
         builder.create();
+
         /* set buttons and names */
         builder.setPositiveButton(getString(R.string.ButtonAdd) + " " + type_name,
+
                 (dialog, which) -> {
                     /* read entered input */
                     final String title = titleField.getText().toString().trim();
                     final String notes = notesField.getText().toString().trim();
-                    final String start = startDateField.getText().toString().trim();
+                    final String start = pickStartDateText.getText().toString().trim();
                     final String end = endDateField.getText().toString().trim();
+
+
                     if (!TextUtils.isEmpty(title))
                     {
                         Items newItem = new Items(-1, title, type, notes, start, end);
                         /* add to database */
+
                         dataBaseHelper.addItem(newItem);
                         /* update dataset in adapter */
                         dbAdapter.updateDataset(dataBaseHelper.listItems());
+
                     }
                     else
                     {
@@ -287,19 +295,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
     }
 
-    private void showDatePickerDialog(){
+   public void showDatePickerDialog(){
         DatePickerDialog datePickerDialog  = new DatePickerDialog(
                 this,
                 this,
                 Calendar.getInstance().get(Calendar.YEAR),
                 Calendar.getInstance().get(Calendar.MONTH),
                 Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+
         );
         datePickerDialog.show();
     }
+
     @Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         String date = month + "/" + dayOfMonth + "/" + year;
-        pickStartDate.setText(date);
     }
+
 }
