@@ -199,11 +199,11 @@ public class Items {
     public String toString() {
         return "Items{" +
                 "id=" + id +
-                ", itemTitle='" + itemTitle + '\'' +
+                ", itemTitle=" + itemTitle + '\'' +
                 ", type=" + type +
-                ", itemNotes='" + itemNotes + '\'' +
-                ", itemStart='" + itemStart + '\'' +
-                ", itemEnd='" + itemEnd + '\'' +
+                ", itemNotes=" + itemNotes + '\'' +
+                ", itemStart=" + itemStart + '\'' +
+                ", itemEnd=" + itemEnd + '\'' +
                 '}';
     }
 }

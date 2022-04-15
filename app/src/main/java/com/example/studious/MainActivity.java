@@ -29,7 +29,6 @@ import java.util.Calendar;
  * @version Release 1
  */
 
-//FAKETODO: Make Calendar a seperate item that is the parent for reminders/alarms/todos.
 public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
 
 

@@ -19,7 +19,7 @@ public class NotificationHelperTest {
     public void sendCalendarNotification() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        Items item = new Items(17, "calendar title", Items.TYPE_CALENDAR);
+        Items item = new Items(17, "calendar title", Items.TYPE_CALENDAR, "here","04/15/2022","04/16/2022");
         notificationHelper.sendCalendarNotification(item);
     }
 
@@ -27,7 +27,7 @@ public class NotificationHelperTest {
     public void sendTodoNotification() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        Items item = new Items(18, "todo title", Items.TYPE_TODO);
+        Items item = new Items(18, "todo title", Items.TYPE_TODO, "here","04/15/2022","04/16/2022");
         notificationHelper.sendTodoNotification(item);
     }
 
@@ -35,7 +35,7 @@ public class NotificationHelperTest {
     public void sendReminderNotification() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        Items item = new Items(19, "reminder title", Items.TYPE_REMINDER);
+        Items item = new Items(19, "reminder title", Items.TYPE_REMINDER, "here","04/15/2022","04/16/2022");
         notificationHelper.sendReminderNotification(item);
     }
 
@@ -43,7 +43,7 @@ public class NotificationHelperTest {
     public void sendAlarmNotification() {
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         NotificationHelper notificationHelper = new NotificationHelper(context);
-        Items item = new Items(19, "alarm title", Items.TYPE_ALARM);
+        Items item = new Items(19, "alarm title", Items.TYPE_ALARM, "here","04/15/2022","04/16/2022");
         notificationHelper.sendAlarmNotification(item);
     }
 
@@ -56,7 +56,7 @@ public class NotificationHelperTest {
 
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         DataBaseHelper databaseHelper = new DataBaseHelper(context);
-        Items newItem = new Items(-1, "fullStackCalendar", Items.TYPE_CALENDAR);
+        Items newItem = new Items(-1, "fullStackCalendar", Items.TYPE_CALENDAR, "here","04/15/2022","04/16/2022");
         int row_id = (int)databaseHelper.addItem(newItem);
 
         Calendar c = Calendar.getInstance();
@@ -81,7 +81,7 @@ public class NotificationHelperTest {
 
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         DataBaseHelper databaseHelper = new DataBaseHelper(context);
-        Items newItem = new Items(-1, "fullStackReminder", Items.TYPE_REMINDER);
+        Items newItem = new Items(-1, "fullStackReminder", Items.TYPE_REMINDER, "here","04/15/2022","04/16/2022");
         int row_id = (int)databaseHelper.addItem(newItem);
 
         Calendar c = Calendar.getInstance();
@@ -106,7 +106,7 @@ public class NotificationHelperTest {
 
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         DataBaseHelper databaseHelper = new DataBaseHelper(context);
-        Items newItem = new Items(-1, "fullStackAlarm", Items.TYPE_ALARM);
+        Items newItem = new Items(-1, "fullStackAlarm", Items.TYPE_ALARM, "here","04/15/2022","04/16/2022");
         int row_id = (int)databaseHelper.addItem(newItem);
 
         Calendar c = Calendar.getInstance();
@@ -131,7 +131,7 @@ public class NotificationHelperTest {
 
         Context context = InstrumentationRegistry.getInstrumentation().getTargetContext();
         DataBaseHelper databaseHelper = new DataBaseHelper(context);
-        Items newItem = new Items(-1, "fullStackTodo", Items.TYPE_TODO);
+        Items newItem = new Items(-1, "fullStackTodo", Items.TYPE_TODO, "here","04/15/2022","04/16/2022");
         int row_id = (int)databaseHelper.addItem(newItem);
 
         Calendar c = Calendar.getInstance();

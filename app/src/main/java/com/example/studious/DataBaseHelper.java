@@ -133,7 +133,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + COL_TITLE + " TEXT, " + COL_ITEMTYPE + " INT,"
                 + COL_ITEMNOTES + " TEXT, " + COL_START + " TEXT,"
-                + COL_ITEMNOTES + " TEXT, " + COL_END + " TEXT)";
+                + COL_END + " TEXT)";
 
         db.execSQL(createTableStatement);
     }
