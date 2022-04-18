@@ -50,7 +50,7 @@ public class NotifyHelperTest {
     @Test
     public void sendCalendarNotification() {
         int id = 17;
-        Items item = new Items(id, "calendar title", Items.TYPE_CALENDAR, "notes", "04/15/2022", "04/16/2022");
+        Items item = new Items(id, "calendar title", Items.TYPE_CALENDAR, "notes", "12:30", "13:00", "04/15/2022", "04/16/2022");
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendCalendarNotification(item);
         assertEquals(1, shadowNotificationManager.size());
@@ -60,7 +60,7 @@ public class NotifyHelperTest {
     @Test
     public void sendTodoNotification() {
         int id = 18;
-        Items item = new Items(id, "todo title", Items.TYPE_TODO, "notes", "04/15/2022", "04/16/2022");
+        Items item = new Items(id, "todo title", Items.TYPE_TODO, "notes", "12:30", "13:00", "04/15/2022", "04/16/2022");
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendTodoNotification(item);
         assertEquals(1, shadowNotificationManager.size());
@@ -70,7 +70,7 @@ public class NotifyHelperTest {
     @Test
     public void sendReminderNotification() {
         int id = 19;
-        Items item = new Items(id, "reminder title", Items.TYPE_REMINDER, "notes", "04/15/2022", "04/16/2022");
+        Items item = new Items(id, "reminder title", Items.TYPE_REMINDER, "notes", "12:30", "13:00", "04/15/2022", "04/16/2022");
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendReminderNotification(item);
         assertEquals(1, shadowNotificationManager.size());
@@ -80,7 +80,7 @@ public class NotifyHelperTest {
     @Test
     public void sendAlarmNotification() {
         int id = 20;
-        Items item = new Items(id, "alarm title", Items.TYPE_ALARM, "notes", "04/15/2022", "04/16/2022");
+        Items item = new Items(id, "alarm title", Items.TYPE_ALARM, "notes", "12:30", "13:00", "04/15/2022", "04/16/2022");
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendAlarmNotification(item);
         assertEquals(1, shadowNotificationManager.size());
@@ -90,7 +90,7 @@ public class NotifyHelperTest {
     @Test
     public void cancelNotification() {
         int id = 21;
-        Items item = new Items(id, "alarm title", Items.TYPE_ALARM, "notes", "04/15/2022", "04/16/2022");
+        Items item = new Items(id, "alarm title", Items.TYPE_ALARM, "notes", "12:30", "13:00", "04/15/2022", "04/16/2022");
         assertEquals(0, shadowNotificationManager.size());
         Notification notification = notificationHelper.sendAlarmNotification(item);
         assertEquals(1, shadowNotificationManager.size());

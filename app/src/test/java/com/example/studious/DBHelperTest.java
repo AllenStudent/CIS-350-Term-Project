@@ -91,7 +91,7 @@ public class DBHelperTest {
     public void addItem() {
         String title = "debug alarm";
         int type = Items.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, "here","04/15/2022","04/16/2022");
+        Items newItem = new Items(-1, title, type, "here","12:30","13:00","04/17/2022","04/17/2022");
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
     }
@@ -102,7 +102,7 @@ public class DBHelperTest {
         // add
         String title = "debug alarm";
         int type = Items.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, "here","04/15/2022","04/16/2022");
+        Items newItem = new Items(-1, title, type, "here","12:30","13:00","04/17/2022","04/17/2022");
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
         // get
@@ -129,7 +129,7 @@ public class DBHelperTest {
         // add
         String title = "debug alarm";
         int type = Items.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, "notes", "04/15/2022", "04/16/2022");
+        Items newItem = new Items(-1, title, type, "here","12:30","13:00","04/17/2022","04/17/2022");
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
 
@@ -142,7 +142,7 @@ public class DBHelperTest {
     public void getItem() {
         String title = "debug cal";
         int type = Items.TYPE_CALENDAR;
-        Items newItem = new Items(-1, title, type, "notes", "04/15/2022", "04/16/2022");
+        Items newItem = new Items(-1, title, type, "here","12:30","13:00","04/17/2022","04/17/2022");
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
 

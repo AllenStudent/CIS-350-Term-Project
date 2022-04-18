@@ -5,79 +5,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:id="@+id/et_notes"
-            android:hint="@string/NotesHint"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="84dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
-            android:inputType="text" android:minHeight="48dp"/>
-    <TextView
-            android:layout_width="182dp"
-            android:layout_height="59dp"
-            android:ems="10"
-            android:id="@+id/et_startdate"
-            android:hint="@string/StartHint"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="160dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.0"
-            android:inputType="datetime|text"
-            android:minHeight="48dp"/>
-    <TextView
-            android:layout_width="178dp"
-            android:layout_height="58dp"
-            android:ems="10"
-            android:id="@+id/et_enddate"
-            android:hint="@string/EndHint"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="160dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" app:layout_constraintHorizontal_bias="0.964"
-            android:inputType="datetime|text"
-            android:minHeight="48dp"/>
-    <EditText
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:inputType="textPersonName"
-            android:ems="10"
-            android:id="@+id/et_title"
-            android:hint="@string/TitleHint"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginEnd="8dp" android:minHeight="48dp"/>
 
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pick End Date"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="224dp" app:layout_constraintHorizontal_bias="0.89"
-            android:id="@+id/pickEndDate"
-    />
-    <Button android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Pick Start Date"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="224dp" app:layout_constraintHorizontal_bias="0.065"
-            android:id="@+id/pickStartDate"
-            />
     <!--<DatePicker
             android:id="@+id/datePicker1"
             android:layout_width="wrap_content"
@@ -87,31 +15,98 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="88dp" app:layout_constraintHorizontal_bias="0.524"/>-->
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                    android:layout_width="match_parent" android:layout_height="match_parent">
-        <!--<DatePicker
-                android:id="@+id/datePicker1"
-                android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" android:id="@+id/relativeLayout"
+            app:layout_constraintTop_toTopOf="parent" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="1.0">
+        <EditText
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"/>-->
-        <!--<Button
-                android:id="@+id/button1"
-                android:layout_width="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/et_title"
+                android:hint="@string/TitleHint"
+                android:minHeight="48dp"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="100dp"
+                app:layout_constraintStart_toStartOf="parent" app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        <EditText
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/et_enddate"
-                android:layout_marginLeft="100dp"
-                android:text="Get Date"
-                tools:ignore="NotSibling"/>-->
-        <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
+                android:ems="10"
+                android:id="@+id/et_notes"
+                android:hint="@string/NotesHint"
+                android:inputType="text" android:minHeight="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="5dp" android:layout_marginEnd="5dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/et_title"
+                app:layout_constraintHorizontal_bias="0.5"/>
+        <Button android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:textSize="18dp"/>
-    </RelativeLayout>
+                android:text="Pick Start Date"
+                android:id="@+id/pickStartDate"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/et_notes" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="25dp"
+                app:layout_constraintEnd_toStartOf="@+id/pickEndDate" android:layout_marginEnd="25dp"/>
+        <Button android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Pick End Date"
+                android:id="@+id/pickEndDate"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/et_notes"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintEnd_toEndOf="parent" android:layout_marginStart="25dp"
+                app:layout_constraintStart_toEndOf="@+id/pickStartDate"/>
+        <EditText
+                android:layout_width="175dp"
+                android:layout_height="58dp"
+                android:ems="10"
+                android:id="@+id/et_endDate"
+                android:minHeight="48dp"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/pickEndDate" android:inputType="text"
+                android:text="End Date Here"/>
+        <EditText
+                android:layout_width="175dp"
+                android:layout_height="59dp"
+                android:ems="10"
+                android:id="@+id/et_startDate"
+                android:minHeight="48dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/pickStartDate" app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="25dp"
+                android:inputType="text" android:text="Start Date Here"/>
+        <EditText
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/et_endTime"
+                android:hint="@string/EndHint"
+                android:minHeight="48dp"
+                android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/et_endDate"
+                android:layout_marginEnd="25dp"
+                app:layout_constraintEnd_toEndOf="parent"/>
+        <EditText
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:ems="10"
+                android:id="@+id/et_startTime"
+                android:hint="@string/StartHint"
+                android:minHeight="48dp"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="25dp" android:layout_marginTop="15dp"
+                app:layout_constraintTop_toBottomOf="@+id/et_startDate"
+        />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

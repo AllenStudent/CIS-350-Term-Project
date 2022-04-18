@@ -9,6 +9,7 @@
     <string name="TitleHint">Add Title</string>
     <string name="NotesHint">Add Notes</string>
     <string name="DurationHint">Add Duration</string>
-    <string name="StartHint">Add Start Date/Time</string>
-    <string name="EndHint">Add End Date/Time</string>
+    <string name="StartHint">Start (HH:MM)</string>
+    <string name="EndHint">End (HH:MM)</string>
+    <string name="DateHint">Use the Button!</string>
 </resources>

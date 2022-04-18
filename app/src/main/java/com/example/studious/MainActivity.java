@@ -29,12 +29,8 @@ import java.util.Calendar;
  * @version Release 1
  */
 
-public class MainActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener {
+public class MainActivity extends AppCompatActivity {
 
-
-    /*DatePicker picker;
-    Button btnGet;
-    TextView tvw;*/
 
     /*
         Three moving parts here:
@@ -211,25 +207,62 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         /* get edit text field id */
         final EditText titleField = subView.findViewById(R.id.et_title);
         final EditText notesField = subView.findViewById(R.id.et_notes);
-        /*final TextView startDateField = subView.findViewById(R.id.et_startdate);*/
-        final TextView endDateField = subView.findViewById(R.id.et_enddate);
-        final TextView pickStartDateText = subView.findViewById(R.id.et_startdate);
-        /*final Button pickStartDateButton = subView.findViewById(R.id.pickStartDate);*/
-
-        final TextView tvw = subView.findViewById(R.id.textView1);
+        final EditText startTimeField = subView.findViewById(R.id.et_startTime);
+        final EditText endTimeField = subView.findViewById(R.id.et_endTime);
+        final Button pickStartDateButton = subView.findViewById(R.id.pickStartDate);
+        final Button pickEndDateButton = subView.findViewById(R.id.pickEndDate);
+        final EditText endDateField = subView.findViewById(R.id.et_endDate);
+        final EditText startDateField = subView.findViewById(R.id.et_startDate);
+        /*final TextView tvw = subView.findViewById(R.id.textView1);*/
         /*final DatePicker picker = subView.findViewById(R.id.datePicker1);*/
         /*final Button btnGet = subView.findViewById(R.id.button1);*/
-        final Button btnSet = subView.findViewById(R.id.pickStartDate);
+        /*final Button btnSet = subView.findViewById(R.id.pickStartDate);*/
 
-        btnSet.setOnClickListener(new View.OnClickListener() {
-
+        pickStartDateButton.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                showDatePickerDialog();
-                /*tvw.setText("Selected Date: " + (picker.getMonth() + 1) + "/" + picker.getDayOfMonth() + "/" + picker.getYear());*/
+                DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        startDateField.setText(date);
+                    }
+                };
+
+                DatePickerDialog datePickerDialog  = new DatePickerDialog(
+                        v.getContext(),
+                        listener,
+                        Calendar.getInstance().get(Calendar.YEAR),
+                        Calendar.getInstance().get(Calendar.MONTH),
+                        Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+                );
+                datePickerDialog.show();
             }
         });
+        pickEndDateButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
+                        String date = month + "/" + dayOfMonth + "/" + year;
+                        endDateField.setText(date);
+                    }
+                };
+
+                DatePickerDialog datePickerDialog  = new DatePickerDialog(
+                        v.getContext(),
+                        listener,
+                        Calendar.getInstance().get(Calendar.YEAR),
+                        Calendar.getInstance().get(Calendar.MONTH),
+                        Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
+                );
+                datePickerDialog.show();
+            }
+        });
+
         /*findViewById(R.id.datePicker1).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -252,13 +285,15 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
                     /* read entered input */
                     final String title = titleField.getText().toString().trim();
                     final String notes = notesField.getText().toString().trim();
-                    final String start = pickStartDateText.getText().toString().trim();
-                    final String end = endDateField.getText().toString().trim();
+                    final String startT = startTimeField.getText().toString().trim();
+                    final String endT = endTimeField.getText().toString().trim();
+                    final String startD = startDateField.getText().toString().trim();
+                    final String endD = endDateField.getText().toString().trim();
 
 
                     if (!TextUtils.isEmpty(title))
                     {
-                        Items newItem = new Items(-1, title, type, notes, start, end);
+                        Items newItem = new Items(-1, title, type, notes, startT, endT, startD, endD);
                         /* add to database */
 
                         dataBaseHelper.addItem(newItem);
@@ -294,21 +329,9 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         }
     }
 
-   public void showDatePickerDialog(){
-        DatePickerDialog datePickerDialog  = new DatePickerDialog(
-                this,
-                this,
-                Calendar.getInstance().get(Calendar.YEAR),
-                Calendar.getInstance().get(Calendar.MONTH),
-                Calendar.getInstance().get(Calendar.DAY_OF_MONTH)
-
-        );
-        datePickerDialog.show();
-    }
-
-    @Override
+    /*@Override
     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
         String date = month + "/" + dayOfMonth + "/" + year;
-    }
+    }*/
 
 }
