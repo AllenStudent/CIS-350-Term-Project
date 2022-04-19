@@ -6,7 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Class to help with setting system Alarms through AlarmManager
@@ -187,50 +190,93 @@ public class AlarmMangerHelper {
      * @param item instance of Items class.
      * @return true if successful. false on error.
      */
-    public boolean processItem(Items item) {
+    public boolean processItem(Items item)  {
+        Log.d(TAG, "processItem " + item);
+
         int id = item.getId();
         int type = item.getType();
+
+        Log.d(TAG, "id " + id);
+        Log.d(TAG, "type " + type);
 
         if (id < 0)
             return false;
 
-        boolean alarmExist = (null == findPendingIntent(id));
+        boolean alarmExist = !(null == findPendingIntent(id));
+//        Log.d(TAG, "alarmExist " + alarmExist);
         //  process item attributes to see if it needs an alarm
         boolean needsAlarm = false; // check if item should have active alarm
+
+        if (alarmExist)
+        {
+            Log.d(TAG, "alarmExist cancel");
+            cancelAlarm(id);
+        }
+
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm");
+        Date date;
+        try
+        {
+            date = formatter.parse(item.getItemStartDate() + " " + item.getItemStartTime());
+//            System.out.println(date);
+            c.setTime(date);
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+//        System.out.println(c.get(Calendar.YEAR));
+//        System.out.println(c.get(Calendar.MONTH)+1); // month is zero based
+//        System.out.println(c.get(Calendar.DAY_OF_MONTH));
+//        System.out.println(c.get(Calendar.HOUR_OF_DAY));
+//        System.out.println(c.get(Calendar.HOUR));
+//        System.out.println(c.get(Calendar.MINUTE));
+
+
+
 
         switch (type)
         {
             case Items.TYPE_ALARM:
+                Log.d(TAG, "create alarm ");
+                createAlarm(c, id);
                 break;
             case Items.TYPE_CALENDAR:
+                Log.d(TAG, "create calendar alert " );
+                createCalendarAlert(c, id);
                 break;
             case Items.TYPE_TODO:
+                Log.d(TAG, "create todo alert ");
+                createAlert(c, id);
                 break;
             case Items.TYPE_REMINDER:
+                Log.d(TAG, "create remeinder ");
+                createAlert(c, id);
                 break;
             default:
                 /* bad */
                 return false;
         }
 
-        if (needsAlarm && !alarmExist)
-        {
-            // create alarm
-        }
-        else if (!needsAlarm && alarmExist)
-        {
-            cancelAlarm(id);
-        }
-        else if (needsAlarm && alarmExist)
-        {
-            // is same data
-            // do nothing
-
-            // updated data
-            // update alarm
-
-            // or delete and recreate.
-        }
+//        if (needsAlarm && !alarmExist)
+//        {
+//            // create alarm
+//        }
+//        else if (!needsAlarm && alarmExist)
+//        {
+//            cancelAlarm(id);
+//        }
+//        else if (needsAlarm && alarmExist)
+//        {
+//            // is same data
+//            // do nothing
+//
+//            // updated data
+//            // update alarm
+//
+//            // or delete and recreate.
+//        }
         return true;
     }
 
