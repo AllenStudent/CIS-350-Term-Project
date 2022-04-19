@@ -45,55 +45,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     /** End of item **/
     public static final String COL_ENDDATE = "ITEMENDDATE";
     /** current database version. **/
-    public static final int version = 1;
-
-    /*
-            Tutorials
-
-            Playlist of youtube videos
-            The 3 part tutorial had a good combination of the different parts.
-            https://www.youtube.com/playlist?list=PLw2_IqRi5KfkAU-X06L7Vsh3g-_ga5R_5
-
-            some Sqlite stuff
-            https://www.tutorialspoint.com/android/android_sqlite_database.htm
-            https://developer.android.com/reference/android/database/sqlite/SQLiteCursor
-            https://aboutreact.com/see-saved-data-of-the-sqlite-database-in-device/
-            https://www.sqlitetutorial.net/sqlite-date/
-            https://www.sqlite.org/datatype3.html#datetime
-            https://stackoverflow.com/questions/8291673/how-to-add-new-column-to-android-sqlite-database
-            https://developer.android.com/reference/android/database/sqlite/SQLiteDatabase#public-methods_1
-            https://findnerd.com/list/view/How-to-remove-item-from-RecyclerView-DataBase-Sqlite-helper-classRecyclerView/12515/
-            https://www.tabnine.com/code/java/methods/android.database.sqlite.SQLiteOpenHelper/getReadableDatabase
-            https://stackoverflow.com/questions/26711050/what-is-the-difference-between-query-and-rawquery-in-sqlite-and-which-one-is/26711112
-
-
-            recyclerview
-            https://developer.android.com/guide/topics/ui/layout/recyclerview
-            https://github.com/android/views-widgets-samples/tree/main/RecyclerView/
-            https://stackoverflow.com/questions/40584424/simple-android-recyclerview-example
-            https://github.com/codepath/android_guides/wiki/Using-the-RecyclerView
-            https://www.stacktips.com/tutorials/android/android-recyclerview-example
-            https://developer.android.com/jetpack/androidx/releases/recyclerview
-            https://developer.android.com/reference/androidx/recyclerview/widget/RecyclerView.Adapter
-            https://stackoverflow.com/questions/42176807/how-do-i-load-a-sqlite-database-into-recyclerview
-            https://github.com/android/views-widgets-samples
-
-
-
-            On my to get to list:
-
-                TimePickerDialog
-                https://www.youtube.com/watch?v=QMwaNN_aM3U
-
-                DatePicket
-                https://developer.android.com/reference/android/widget/DatePicker
-
-                CalendarVeiw - Not sure if is userfull
-                https://www.youtube.com/watch?v=hHjFIG0TtA0&list=PL7kJVa0DqITk1Kgz1E-nbyySgSVxMwRbm&index=3&t=10s
-
-                Tutorial series on Notifications
-                https://www.youtube.com/playlist?list=PLrnPJCHvNZuCN52QwGu7YTSLIMrjCF0gM
-     */
+    public static final int version = 2;
 
     /**
      * Constructor a new database helper.
@@ -133,13 +85,18 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         onCreateCalled = true;
 
-        String createTableStatement = "CREATE TABLE " + TABLE_ITEMS + " ("
+        String createTableStatement = "CREATE TABLE " + TABLE_ITEMS
+                + " ("
                 + COL_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
-                + COL_TITLE + " TEXT, " + COL_ITEMTYPE + " INT,"
-                + COL_ITEMNOTES + " TEXT, " + COL_STARTTIME + " TEXT,"
-                + COL_ENDTIME + " TEXT," + COL_STARTDATE + " TEXT,"
-                + COL_ENDDATE + " TEXT)";
-
+                + COL_TITLE + " TEXT, "
+                + COL_ITEMTYPE + " INT, "
+                + COL_ITEMNOTES + " TEXT, "
+                + COL_STARTTIME + " TEXT, "
+                + COL_ENDTIME + " TEXT, "
+                + COL_STARTDATE + " TEXT, "
+                + COL_ENDDATE + " TEXT"
+                + ")";
+        System.out.println(createTableStatement);
         db.execSQL(createTableStatement);
     }
 
@@ -155,9 +112,8 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVersion, int newVersion) {
         onUpgradeCalled = true;
-
-        /* code goes here */
-        //ALTER TABLE
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TABLE_ITEMS);
+        onCreate(sqLiteDatabase);
     }
 
 
