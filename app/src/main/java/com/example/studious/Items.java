@@ -50,7 +50,11 @@ public class Items {
      * @param type      Type of item to be added. See MainActivity for item
      *                  types.
      */
-    public Items(int id, String itemTitle, int type, String itemNotes, String itemStartTime, String itemEndTime, String itemStartDate, String itemEndDate) {
+    public Items(int id, String itemTitle, int type, String itemNotes,
+                 String itemStartTime,
+                 String itemEndTime,
+                 String itemStartDate,
+                 String itemEndDate) {
         this.id = id;
         this.itemTitle = itemTitle;
         this.type = type;
@@ -82,7 +86,7 @@ public class Items {
 
         Items o = (Items) obj;
 
-        /** Note: does not compare Notes and Duration, as they're irrelevent to showing it is the same exact item. **/
+        /** Note: does not compare Notes and Duration, as they're irrelevant to showing it is the same exact item. **/
         return o.itemTitle.equals(this.itemTitle)
                 && o.type == this.type;
     }
@@ -239,13 +243,13 @@ public class Items {
     public String toString() {
         return "Items{" +
                 "id=" + id +
-                ", itemTitle=" + itemTitle + '\'' +
+                ", itemTitle='" + itemTitle + '\'' +
                 ", type=" + type +
-                ", itemNotes=" + itemNotes + '\'' +
-                ", itemStartTime=" + itemStartTime + '\'' +
-                ", itemEndTime=" + itemEndTime + '\'' +
-                ", itemStartDate=" + itemStartDate + '\'' +
-                ", itemEndDate=" + itemEndDate + '\'' +
+                ", itemNotes='" + itemNotes + '\'' +
+                ", itemStartTime='" + itemStartTime + '\'' +
+                ", itemEndTime='" + itemEndTime + '\'' +
+                ", itemStartDate='" + itemStartDate + '\'' +
+                ", itemEndDate='" + itemEndDate + '\'' +
                 '}';
     }
 }
