@@ -263,12 +263,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        /*findViewById(R.id.datePicker1).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showDatePickerDialog();
-            }
-        });*/
         /* use alert dialog */
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         /* set title */
@@ -328,10 +322,4 @@ public class MainActivity extends AppCompatActivity {
             dataBaseHelper.close();
         }
     }
-
-    /*@Override
-    public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-        String date = month + "/" + dayOfMonth + "/" + year;
-    }*/
-
 }
