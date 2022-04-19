@@ -17,6 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -61,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
     /** current data adapter for recyclerView */
     private ItemAdaptor dbAdapter;
 
+    /*** help set alerts */
+    private AlarmMangerHelper alarmMangerHelper;
+
 
     /**
      * Initialize main activity.
@@ -73,6 +77,11 @@ public class MainActivity extends AppCompatActivity {
         /* create notifications channels for later user */
         NotificationHelper notificationHelper = new NotificationHelper(this);
         notificationHelper.createNotificationChannels();
+
+        /* initialize alarm manger helper */
+        alarmMangerHelper = new AlarmMangerHelper(this);
+
+
 
         /* render to screen */
         // call first before findViewById or nothing to find
@@ -225,12 +234,12 @@ public class MainActivity extends AppCompatActivity {
                 DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        String date = month + "/" + dayOfMonth + "/" + year;
+                        String date = (month + 1) + "/" + dayOfMonth + "/" + year;
                         startDateField.setText(date);
                     }
                 };
 
-                DatePickerDialog datePickerDialog  = new DatePickerDialog(
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
                         v.getContext(),
                         listener,
                         Calendar.getInstance().get(Calendar.YEAR),
@@ -247,12 +256,12 @@ public class MainActivity extends AppCompatActivity {
                 DatePickerDialog.OnDateSetListener listener = new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int dayOfMonth) {
-                        String date = month + "/" + dayOfMonth + "/" + year;
+                        String date = (month + 1) + "/" + dayOfMonth + "/" + year;
                         endDateField.setText(date);
                     }
                 };
 
-                DatePickerDialog datePickerDialog  = new DatePickerDialog(
+                DatePickerDialog datePickerDialog = new DatePickerDialog(
                         v.getContext(),
                         listener,
                         Calendar.getInstance().get(Calendar.YEAR),
@@ -288,12 +297,16 @@ public class MainActivity extends AppCompatActivity {
                     if (!TextUtils.isEmpty(title))
                     {
                         Items newItem = new Items(-1, title, type, notes, startT, endT, startD, endD);
-                        /* add to database */
 
-                        dataBaseHelper.addItem(newItem);
+                        /* add to database */
+                        int id = (int)dataBaseHelper.addItem(newItem);
+
                         /* update dataset in adapter */
                         dbAdapter.updateDataset(dataBaseHelper.listItems());
 
+                        /* add an alert */
+                        newItem.setId(id);
+                        alarmMangerHelper.processItem(newItem);
                     }
                     else
                     {
