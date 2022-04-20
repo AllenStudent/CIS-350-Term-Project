@@ -1,7 +1,10 @@
 package com.example.studious;
 
 import org.junit.Ignore;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import static org.junit.Assert.fail;
 
@@ -37,4 +40,19 @@ public class ItemAdaptorTest {
     public void updateDataset() {
         fail("Implement me!!!!");
     }
+
+
+   /* @Test
+    public void testOnCreateViewHolder() {
+
+    }
+
+    @Test
+    public void testOnBindViewHolder() {
+    }
+
+    @Test
+    public void testUpdateDataset() {
+    }*/
 }
+

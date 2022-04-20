@@ -1,15 +1,19 @@
 package com.example.studious;
 
 import android.database.sqlite.SQLiteDatabase;
+import android.view.View;
+import androidx.annotation.ContentView;
+import androidx.test.core.app.ActivityScenario;
+import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Ignore;
-import org.junit.Test;
+import androidx.test.filters.LargeTest;
+import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
+import org.junit.*;
 import org.junit.runner.RunWith;
 
 import static androidx.test.core.app.ApplicationProvider.getApplicationContext;
 import static org.junit.Assert.*;
+
 
 /*
     coverage: all test have to pass first
@@ -187,10 +191,63 @@ public class DataBaseHelperTest {
         assertEquals(row_id, I.getId());
     }
 
-    /** test of listItems. */
+   /* *//** test of listItems. *//*
     @Ignore("gradle coverage won't work on failure.")
     @Test
     public void listItems() {
         fail("Implement me!!!!");
+    }*/
+
+
+  /*  @LargeTest
+    public class testOnUpgrade {
+        @Rule
+        public ActivityScenarioRule<MainActivity> activityRule =
+                new ActivityScenarioRule<>(MainActivity.class);
+
+        @Test
+        public void onUpgradeTest(){
+            SQLiteDatabase database = databaseHelper.getReadableDatabase();
+            assertNotNull(database);
+            assertTrue(database.isOpen());
+            assertFalse(database.isReadOnly());
+            assertFalse(databaseHelper.onUpgradeCalled);
+            database.close();
     }
+        }
+
+
+
+    @RunWith(AndroidJUnit4.class)
+    @LargeTest
+    public class testAddItem {
+
+    }
+
+    @RunWith(AndroidJUnit4.class)
+    @LargeTest
+    public class testUpdateItem {
+
+    }
+
+    @RunWith(AndroidJUnit4.class)
+    @LargeTest
+    public class testGetItem {
+
+    }
+
+    @RunWith(AndroidJUnit4.class)
+    @LargeTest
+    public class testDeleteItem {
+
+    }
+
+    @RunWith(AndroidJUnit4.class)
+    @LargeTest
+    public class testListItems {
+
+    }*/
+
+
+
 }

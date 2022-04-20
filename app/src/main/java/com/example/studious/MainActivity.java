@@ -73,17 +73,6 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton fab_alarm = findViewById(R.id.efab_alarm);
         FloatingActionButton fab_todo = findViewById(R.id.efab_todo);
 
-        /*tvw=(TextView)findViewById(R.id.textView1);
-        picker=(DatePicker)findViewById(R.id.datePicker1);
-        btnGet=(Button)findViewById(R.id.button1);
-        btnGet.setOnClickListener(new View.OnClickListener() {
-
-                                      @Override
-                                      public void onClick(View v) {
-                                          tvw.setText("Selected Date: " + (picker.getMonth() + 1) + "/" + picker.getDayOfMonth() + "/" + picker.getYear());
-                                      }
-                                  });*/
-
         /* RecyclerView needs a layout manager. */
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -194,10 +183,6 @@ public class MainActivity extends AppCompatActivity {
         final Button pickEndDateButton = subView.findViewById(R.id.pickEndDate);
         final EditText endDateField = subView.findViewById(R.id.et_endDate);
         final EditText startDateField = subView.findViewById(R.id.et_startDate);
-        /*final TextView tvw = subView.findViewById(R.id.textView1);*/
-        /*final DatePicker picker = subView.findViewById(R.id.datePicker1);*/
-        /*final Button btnGet = subView.findViewById(R.id.button1);*/
-        /*final Button btnSet = subView.findViewById(R.id.pickStartDate);*/
 
         pickStartDateButton.setOnClickListener(new View.OnClickListener() {
 
