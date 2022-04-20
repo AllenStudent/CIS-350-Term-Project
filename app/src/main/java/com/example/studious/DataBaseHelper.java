@@ -58,25 +58,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     /**
-     * Constructor a new database helper.
-     *
-     * @param context Interface to global information about an
-     *                application environment. Used to get paths to db.
-     * @param name    Database name to open or create. null for in memory db.
-     * @param factory used for creating cursor objects. null for default.
-     * @param version Database version. If the db is older onUpgrade is
-     *                called.
-     */
-    public DataBaseHelper(
-            @Nullable Context context,
-            @Nullable String name,
-            @Nullable SQLiteDatabase.CursorFactory factory,
-            int version) {
-        super(context, name, factory, version);
-    }
-
-
-    /**
      * database doesn't exist. create.
      *
      * @param db SQLiteDatabase. the db.
@@ -139,7 +120,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         /* open database. locks database? */
         SQLiteDatabase db = this.getWritableDatabase();
-        return (int)db.insert(TABLE_ITEMS, null, cv);
+        return (int) db.insert(TABLE_ITEMS, null, cv);
     }
 
     /**
