@@ -3,11 +3,12 @@ package com.example.studious;
 import android.database.sqlite.SQLiteDatabase;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.RuntimeEnvironment;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
@@ -77,12 +78,13 @@ public class DBHelperTest {
     /** Test helper upgrades older databases. */
     @Test
     public void onUpgrade() {
+        databaseHelper.onUpgradeCalled = false;
         SQLiteDatabase database = databaseHelper.getReadableDatabase();
         assertNotNull(database);
         assertTrue(database.isOpen());
         assertFalse(database.isReadOnly());
-        assertFalse(databaseHelper.onUpgradeCalled);
-        // TODO - add test when upgrade is implemented
+        databaseHelper.onUpgrade(database, 0, DataBaseHelper.version);
+        assertTrue(databaseHelper.onUpgradeCalled);
         database.close();
     }
 
@@ -154,9 +156,14 @@ public class DBHelperTest {
     }
 
     /** test of listItems. */
-    @Ignore("gradle coverage won't work on failure.")
     @Test
     public void listItems() {
-        fail("Implement me!!!!");
+        String title = "debug alarm";
+        int type = Items.TYPE_ALARM;
+        Items newItem = new Items(-1, title, type, "here", "12:30", "13:00", "04/17/2022", "04/17/2022");
+        databaseHelper.addItem(newItem);
+
+        ArrayList<Items> allItems = databaseHelper.listItems();
+        assertNotNull(allItems);
     }
 }
