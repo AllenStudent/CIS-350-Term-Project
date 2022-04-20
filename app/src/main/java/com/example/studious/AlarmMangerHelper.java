@@ -190,7 +190,7 @@ public class AlarmMangerHelper {
      * @param item instance of Items class.
      * @return true if successful. false on error.
      */
-    public boolean processItem(Items item)  {
+    public boolean processItem(Items item) {
         Log.d(TAG, "processItem " + item);
 
         int id = item.getId();
@@ -219,7 +219,8 @@ public class AlarmMangerHelper {
         }
         catch (ParseException e)
         {
-            e.printStackTrace();
+            return false;
+//            e.printStackTrace();
         }
 
         switch (type)

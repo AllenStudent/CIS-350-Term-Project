@@ -14,6 +14,7 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowAlarmManager;
 import org.robolectric.shadows.ShadowLog;
 
+import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -362,6 +363,93 @@ public class AlarmMangerHelperTest {
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
         alarmMangerHelper.processItem(item);
         assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 1);
+        Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id));
+        alarmMangerHelper.cancelAlarm(id);
+    }
+
+    @Test
+    public void processItemBadId() {
+        int id = -1;
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.HOUR, 1);
+        final String startD = (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        final String startT = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        final String endT = (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        final String endD = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+
+        Items item = new Items(id, "Test", Items.TYPE_ALARM, "ALARM",
+                startT, endT, startD, endD);
+
+        assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
+        boolean result = alarmMangerHelper.processItem(item);
+        assertFalse(result);
+        assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
+    }
+
+    @Test
+    public void processItemBadType() {
+        int id = 17;
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.HOUR, 1);
+        final String startD = (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        final String startT = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        final String endT = (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        final String endD = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+
+        Items item = new Items(id, "Test", -1, "ALARM",
+                startT, endT, startD, endD);
+
+        assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
+        boolean result = alarmMangerHelper.processItem(item);
+        assertFalse(result);
+        assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
+    }
+
+    @Test
+    public void processItemParseError() {
+        int id = 17;
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.HOUR, 1);
+        final String startD = "xx/xx/xx";
+        final String startT = "yy:yy";
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        final String endT = (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        final String endD = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+
+        Items item = new Items(id, "Test", Items.TYPE_ALARM, "ALARM",
+                startT, endT, startD, endD);
+        boolean result = alarmMangerHelper.processItem(item);
+        assertFalse(result);
+    }
+
+    @Test
+    public void processItemAlarmExist() {
+        int id = 17;
+
+        Calendar c = Calendar.getInstance();
+        c.add(Calendar.HOUR, 1);
+        final String startD = (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        final String startT = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+        c.add(Calendar.DAY_OF_MONTH, 1);
+        final String endT = (c.get(Calendar.MONTH) + 1) + "/" + c.get(Calendar.DAY_OF_MONTH) + "/" + c.get(Calendar.YEAR);
+        final String endD = c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE);
+
+        Items item = new Items(id, "Test", Items.TYPE_ALARM, "ALARM",
+                startT, endT, startD, endD);
+
+        assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 0);
+
+        alarmMangerHelper.processItem(item);
+        assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 1);
+
+        alarmMangerHelper.processItem(item);
+        assertEquals(shadowAlarmManager.getScheduledAlarms().size(), 1);
+
         Assert.assertNotNull(alarmMangerHelper.findPendingIntent(id));
         alarmMangerHelper.cancelAlarm(id);
     }
