@@ -96,7 +96,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
                 + COL_STARTDATE + " TEXT, "
                 + COL_ENDDATE + " TEXT"
                 + ")";
-        System.out.println(createTableStatement);
         db.execSQL(createTableStatement);
     }
 
@@ -125,7 +124,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
      * @param items data to be inserted
      * @return row id newly inserted row, -1 if and error occurred.
      */
-    public long addItem(Items items) {
+    public int addItem(Items items) {
         /* class to store values */
         ContentValues cv = new ContentValues();
 
@@ -140,7 +139,7 @@ public class DataBaseHelper extends SQLiteOpenHelper {
 
         /* open database. locks database? */
         SQLiteDatabase db = this.getWritableDatabase();
-        return db.insert(TABLE_ITEMS, null, cv);
+        return (int)db.insert(TABLE_ITEMS, null, cv);
     }
 
     /**

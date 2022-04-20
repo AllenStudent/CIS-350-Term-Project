@@ -203,10 +203,6 @@ public class AlarmMangerHelper {
             return false;
 
         boolean alarmExist = !(null == findPendingIntent(id));
-//        Log.d(TAG, "alarmExist " + alarmExist);
-        //  process item attributes to see if it needs an alarm
-        boolean needsAlarm = false; // check if item should have active alarm
-
         if (alarmExist)
         {
             Log.d(TAG, "alarmExist cancel");
@@ -219,22 +215,12 @@ public class AlarmMangerHelper {
         try
         {
             date = formatter.parse(item.getItemStartDate() + " " + item.getItemStartTime());
-//            System.out.println(date);
             c.setTime(date);
         }
         catch (ParseException e)
         {
             e.printStackTrace();
         }
-//        System.out.println(c.get(Calendar.YEAR));
-//        System.out.println(c.get(Calendar.MONTH)+1); // month is zero based
-//        System.out.println(c.get(Calendar.DAY_OF_MONTH));
-//        System.out.println(c.get(Calendar.HOUR_OF_DAY));
-//        System.out.println(c.get(Calendar.HOUR));
-//        System.out.println(c.get(Calendar.MINUTE));
-
-
-
 
         switch (type)
         {
@@ -258,25 +244,6 @@ public class AlarmMangerHelper {
                 /* bad */
                 return false;
         }
-
-//        if (needsAlarm && !alarmExist)
-//        {
-//            // create alarm
-//        }
-//        else if (!needsAlarm && alarmExist)
-//        {
-//            cancelAlarm(id);
-//        }
-//        else if (needsAlarm && alarmExist)
-//        {
-//            // is same data
-//            // do nothing
-//
-//            // updated data
-//            // update alarm
-//
-//            // or delete and recreate.
-//        }
         return true;
     }
 
@@ -333,11 +300,6 @@ public class AlarmMangerHelper {
 }
 
 
-//    Calendar c = Calendar.getInstance();
-//    c.set(Calendar.HOUR_OF_DAY, hourOfDay);
-//    c.set(Calendar.MINUTE, minute);
-//    c.set(Calendar.SECOND, 0);
-// c.get(Calendar.DAY_OF_MONTH);
 
 
     /*  set()

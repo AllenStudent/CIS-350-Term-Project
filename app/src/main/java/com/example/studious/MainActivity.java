@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -14,9 +16,6 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -31,34 +30,9 @@ import java.util.Calendar;
  */
 
 public class MainActivity extends AppCompatActivity {
-
-
-    /*
-        Three moving parts here:
-        1) On disk storage in sqlite database. Manipulation of this is
-            through the DatabaseHelper class.
-        2) In-memory copy of data. This is stored in the ItemAdaptor class.
-            In ArrayList<Items> called listItems.
-        3) RecyclerView. This displays the data in the activity.
-
-        dataBaseHelper.listItems() loads a copy of the data from the database.
-
-        new ItemAdaptor(MainActivity.this, allItems) creates a new adapter
-            and is passed the loaded data.
-
-            It is responsible to provide recycler view data items the format
-            defined int items_list.xml backed by ItemViewHolder class.
-
-        dbAdapter.updateDataset(dataBaseHelper.listItems()); update the
-            in memory list and notifies the adapter the data has changed.
-
-        RecyclerView. responsible for displaying data as you scroll on screen.
-
-     */
-
-
     /** helps manage database. */
     private DataBaseHelper dataBaseHelper;
+
     /** current data adapter for recyclerView */
     private ItemAdaptor dbAdapter;
 
@@ -80,8 +54,6 @@ public class MainActivity extends AppCompatActivity {
 
         /* initialize alarm manger helper */
         alarmMangerHelper = new AlarmMangerHelper(this);
-
-
 
         /* render to screen */
         // call first before findViewById or nothing to find
@@ -299,7 +271,7 @@ public class MainActivity extends AppCompatActivity {
                         Items newItem = new Items(-1, title, type, notes, startT, endT, startD, endD);
 
                         /* add to database */
-                        int id = (int)dataBaseHelper.addItem(newItem);
+                        int id = dataBaseHelper.addItem(newItem);
 
                         /* update dataset in adapter */
                         dbAdapter.updateDataset(dataBaseHelper.listItems());

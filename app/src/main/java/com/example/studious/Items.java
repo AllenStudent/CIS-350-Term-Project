@@ -30,7 +30,7 @@ public class Items {
     private String itemTitle;
     /** item type **/
     private int type;
-    /**item notes **/
+    /** item notes **/
     private String itemNotes;
     /** Item start time. **/
     private String itemStartTime;
@@ -86,7 +86,7 @@ public class Items {
 
         Items o = (Items) obj;
 
-        /** Note: does not compare Notes and Duration, as they're irrelevant to showing it is the same exact item. **/
+        /* Note: does not compare Notes and Duration, as they're irrelevant to showing it is the same exact item. */
         return o.itemTitle.equals(this.itemTitle)
                 && o.type == this.type;
     }
@@ -141,7 +141,7 @@ public class Items {
      *
      * @return itemNotes
      */
-    public String getItemNotes () {
+    public String getItemNotes() {
         return itemNotes;
     }
 
@@ -162,6 +162,7 @@ public class Items {
     public String getItemStartTime() {
         return itemStartTime;
     }
+
     /**
      * Set the start date of item.
      *
@@ -197,6 +198,7 @@ public class Items {
     public String getItemEndTime() {
         return itemEndTime;
     }
+
     /**
      * Set the end date of item.
      *

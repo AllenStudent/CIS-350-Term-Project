@@ -56,8 +56,6 @@ public class DataBaseHelperTest {
     /** Create a temporary database. */
     @Before
     public void setUp() {
-        //        getApplicationContext().deleteDatabase(DataBaseHelper.DATABASE_NAME);
-        //        databaseHelper = new DataBaseHelper(getApplicationContext());
         getApplicationContext().deleteDatabase(DATABASE_NAME);
         // create shiny new test database
         databaseHelper = new DataBaseHelper(
@@ -127,7 +125,7 @@ public class DataBaseHelperTest {
     public void addItem() {
         String title = "debug alarm";
         int type = Items.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, "here", "12:30", "13:00","04/15/2022","04/16/2022");
+        Items newItem = new Items(-1, title, type, "here", "12:30", "13:00", "04/15/2022", "04/16/2022");
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
     }
@@ -138,7 +136,7 @@ public class DataBaseHelperTest {
         // add
         String title = "debug alarm";
         int type = Items.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, "here","12:30", "13:00","04/15/2022","04/16/2022");
+        Items newItem = new Items(-1, title, type, "here", "12:30", "13:00", "04/15/2022", "04/16/2022");
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
         // get
@@ -165,7 +163,7 @@ public class DataBaseHelperTest {
         // add
         String title = "debug alarm";
         int type = Items.TYPE_ALARM;
-        Items newItem = new Items(-1, title, type, "here","12:30", "13:00","04/15/2022","04/16/2022");
+        Items newItem = new Items(-1, title, type, "here", "12:30", "13:00", "04/15/2022", "04/16/2022");
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
 
@@ -178,7 +176,7 @@ public class DataBaseHelperTest {
     public void getItem() {
         String title = "debug cal";
         int type = Items.TYPE_CALENDAR;
-        Items newItem = new Items(-1, title, type, "here","12:30", "13:00","04/15/2022","04/16/2022");
+        Items newItem = new Items(-1, title, type, "here", "12:30", "13:00", "04/15/2022", "04/16/2022");
         long row_id = databaseHelper.addItem(newItem);
         assertNotEquals(row_id, -1);
 

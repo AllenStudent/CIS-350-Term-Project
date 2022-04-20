@@ -14,7 +14,6 @@ import org.robolectric.RuntimeEnvironment;
 import org.robolectric.shadows.ShadowAlarmManager;
 import org.robolectric.shadows.ShadowLog;
 
-import java.text.ParseException;
 import java.util.Calendar;
 import java.util.List;
 
@@ -46,16 +45,12 @@ public class AlarmMangerHelperTest {
 
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Log.d(TAG, "setUp was triggered");
         context = RuntimeEnvironment.getApplication();
         alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         shadowAlarmManager = shadowOf(alarmManager);
         alarmMangerHelper = new AlarmMangerHelper(context);
-    }
-
-    @After
-    public void tearDown() throws Exception {
     }
 
     @Test
@@ -70,9 +65,6 @@ public class AlarmMangerHelperTest {
     public void testForReceiver() {
         Intent intent = new Intent(context, AlertReceiver.class);
         assertNotNull(intent);
-        //        int id1 = 1;
-        //        Calendar c = Calendar.getInstance();
-        //        alarmMangerHelper.createAlarm(c, id1);
 
         PackageManager packageManager = context.getPackageManager();
         assertNotNull(packageManager);
@@ -82,10 +74,6 @@ public class AlarmMangerHelperTest {
         assertNotNull(receivers);
         assertEquals(1, receivers.size());
         Assert.assertFalse(receivers.isEmpty());
-
-        //        alarmMangerHelper.cancelAlarm(c, id1);
-
-
     }
 
     @Test

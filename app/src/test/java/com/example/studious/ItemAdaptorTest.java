@@ -3,7 +3,7 @@ package com.example.studious;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 /**
  * Unit tests for the ItemAdapter Class

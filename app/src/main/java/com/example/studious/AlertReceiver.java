@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.Toast;
 
 
 /**
@@ -29,7 +28,6 @@ public class AlertReceiver extends BroadcastReceiver {
             AlarmMangerHelper helper = new AlarmMangerHelper(context);
             helper.handleCallback(id);
         }
-
 
 
     }

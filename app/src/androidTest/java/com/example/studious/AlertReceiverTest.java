@@ -47,8 +47,8 @@ public class AlertReceiverTest {
     public void ReBootReceiver() throws InterruptedException {
         Log.d(TAG, "alertReBootReceiver was triggered");
         Context context = ApplicationProvider.getApplicationContext();
-        AlarmMangerHelper alarmMangerHelper = new AlarmMangerHelper(context);
-        Intent intent = new Intent(context, ReBootReceiver.class);
+//        AlarmMangerHelper alarmMangerHelper = new AlarmMangerHelper(context);
+//        Intent intent = new Intent(context, ReBootReceiver.class);
 
 
         // backup/get current state of receiver>
