@@ -41,14 +41,20 @@ public class Items {
     /** Item end date. **/
     private String itemEndDate;
 
+
     /**
      * Constructor of the Items class.
      *
-     * @param id        database row id for item. -1 is fine for item to be added
-     *                  to database.
-     * @param itemTitle Title or description of item.
-     * @param type      Type of item to be added. See MainActivity for item
-     *                  types.
+     * @param id            database row id for item. -1 is fine for item to be added
+     *                      *                  to database.
+     * @param itemTitle     Title or description of item.
+     * @param type          Type of item to be added. See MainActivity for item
+     *                      *                  types.
+     * @param itemNotes
+     * @param itemStartTime
+     * @param itemEndTime
+     * @param itemStartDate
+     * @param itemEndDate
      */
     public Items(int id, String itemTitle, int type, String itemNotes,
                  String itemStartTime,

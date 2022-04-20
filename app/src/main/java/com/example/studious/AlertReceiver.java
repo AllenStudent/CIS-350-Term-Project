@@ -11,7 +11,9 @@ import android.util.Log;
  * Receive broadcast for AlarmManager
  */
 public class AlertReceiver extends BroadcastReceiver {
+    /** */
     private static final String TAG = "AlertReceiver";
+    /** */
     public static int utid = -1; // for unit tests
 
     @Override

@@ -22,6 +22,7 @@ import static org.junit.Assert.assertFalse;
 public class AlertReceiverTest {
     private static final String TAG = "AlertReceiverTest";
 
+//    @Ignore("Temp disable")
     @Test
     public void AlertReceiver() throws InterruptedException {
         Log.d(TAG, "AlertReceiver");

@@ -15,7 +15,9 @@ import java.util.Date;
  * Class to help with setting system Alarms through AlarmManager
  */
 public class AlarmMangerHelper {
+    /** */
     private static final String TAG = "AlarmMangerHelper";
+    /** */
     public static int utid = -1; // for unit tests
 
     /** Manager of system alarms. **/
@@ -119,7 +121,8 @@ public class AlarmMangerHelper {
      * Sets system alarm Icon.
      * Will fire if phone is in doze mode.
      *
-     * @param c Calendar item with date and time information.
+     * @param c  Calendar item with date and time information.
+     * @param id database rowid of item
      */
     public void createAlarm(Calendar c, int id) {
         Log.d(TAG, "createAlarm was triggered");
@@ -143,7 +146,8 @@ public class AlarmMangerHelper {
      * Does not set system alarm Icon.
      * Will fire if phone is in doze mode.
      *
-     * @param c Calendar item with date and time information.
+     * @param c  Calendar item with date and time information.
+     * @param id database rowid of item
      */
     public void createCalendarAlert(Calendar c, int id) {
         Log.d(TAG, "createCalendarAlert was triggered");
@@ -161,7 +165,8 @@ public class AlarmMangerHelper {
      * System will batch these together.
      * May be delayed until system convenient
      *
-     * @param c Calendar item with date and time information.
+     * @param c  Calendar item with date and time information.
+     * @param id database rowid of item
      */
     public void createAlert(Calendar c, int id) {
         PendingIntent pendingIntent = createPendingIntent(id);
@@ -216,11 +221,10 @@ public class AlarmMangerHelper {
         {
             date = formatter.parse(item.getItemStartDate() + " " + item.getItemStartTime());
             c.setTime(date);
-        }
-        catch (ParseException e)
+        } catch (ParseException e)
         {
             return false;
-//            e.printStackTrace();
+            //            e.printStackTrace();
         }
 
         switch (type)
@@ -230,7 +234,7 @@ public class AlarmMangerHelper {
                 createAlarm(c, id);
                 break;
             case Items.TYPE_CALENDAR:
-                Log.d(TAG, "create calendar alert " );
+                Log.d(TAG, "create calendar alert ");
                 createCalendarAlert(c, id);
                 break;
             case Items.TYPE_TODO:

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.util.Log;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.platform.app.InstrumentationRegistry;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -47,6 +48,7 @@ public class NotificationHelperTest {
         notificationHelper.sendAlarmNotification(item);
     }
 
+//    @Ignore("Temp disable")
     @Test
     public void fullStackCalendar() throws InterruptedException {
         Log.d(TAG, "fullStackCalendar");
@@ -72,6 +74,7 @@ public class NotificationHelperTest {
         assertEquals(row_id, AlarmMangerHelper.utid);
     }
 
+//    @Ignore("Temp disable")
     @Test
     public void fullStackReminder() throws InterruptedException {
         Log.d(TAG, "fullStackReminder");
@@ -97,6 +100,7 @@ public class NotificationHelperTest {
         assertEquals(row_id, AlarmMangerHelper.utid);
     }
 
+//    @Ignore("Temp disable")
     @Test
     public void fullStackAlarm() throws InterruptedException {
         Log.d(TAG, "fullStackAlarm");
@@ -122,6 +126,7 @@ public class NotificationHelperTest {
         assertEquals(row_id, AlarmMangerHelper.utid);
     }
 
+//    @Ignore("Temp disable")
     @Test
     public void fullStackTodo() throws InterruptedException {
         Log.d(TAG, "fullStackTodo");

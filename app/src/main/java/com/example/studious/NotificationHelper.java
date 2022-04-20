@@ -8,24 +8,39 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+/**
+ *
+ */
 public class NotificationHelper {
+    /** */
     private static final String TAG = "NotificationHelper";
 
+    /** */
     public static final String CHANNEL_CAL = "calender notification";
+    /** */
     public static final String CHANNEL_TODO = "todo notification";
+    /** */
     public static final String CHANNEL_REMINDER = "reminder notification";
+    /** */
     public static final String CHANNEL_ALARM = "alarm notification";
 
     private final NotificationManager manager;
     private final NotificationManagerCompat managerCompat;
     private final Context context;
 
+    /**
+     *
+     * @param context
+     */
     public NotificationHelper(Context context) {
         this.context = context.getApplicationContext();
         manager = (NotificationManager) this.context.getSystemService(Context.NOTIFICATION_SERVICE);
         managerCompat = NotificationManagerCompat.from(this.context);
     }
 
+    /**
+     *
+     */
     public void createNotificationChannels() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
         {
@@ -46,6 +61,11 @@ public class NotificationHelper {
         }
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public Notification sendCalendarNotification(Items item) {
         // do something when notification is pressed.
         // https://www.youtube.com/watch?v=CZ575BuLBo4&list=PLrnPJCHvNZuCN52QwGu7YTSLIMrjCF0gM&index=2
@@ -69,6 +89,11 @@ public class NotificationHelper {
         return notification;
     }
 
+    /**
+     * Send notificaton for todo items
+     * @param item
+     * @return
+     */
     public Notification sendTodoNotification(Items item) {
         Notification notification = new NotificationCompat.Builder(this.context, CHANNEL_TODO)
                 .setSmallIcon(R.drawable.ic_outline_check_circle_24)
@@ -83,6 +108,11 @@ public class NotificationHelper {
         return notification;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public Notification sendReminderNotification(Items item) {
         Notification notification = new NotificationCompat.Builder(this.context, CHANNEL_REMINDER)
                 .setSmallIcon(R.drawable.ic_outline_circle_notifications_24)
@@ -97,6 +127,11 @@ public class NotificationHelper {
         return notification;
     }
 
+    /**
+     *
+     * @param item
+     * @return
+     */
     public Notification sendAlarmNotification(Items item) {
         Notification notification = new NotificationCompat.Builder(this.context, CHANNEL_ALARM)
                 .setSmallIcon(R.drawable.ic_outline_access_alarm_24)
@@ -111,6 +146,10 @@ public class NotificationHelper {
         return notification;
     }
 
+    /**
+     *
+     * @param id
+     */
     public void cancelNotification(int id) {
         managerCompat.cancel(id);
     }

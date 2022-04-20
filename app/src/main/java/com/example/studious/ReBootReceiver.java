@@ -20,7 +20,9 @@ import android.util.Log;
  *  adb reboot
  */
 public class ReBootReceiver extends BroadcastReceiver {
+    /** */
     private static final String TAG = "ReBootReceiver";
+    /** */
     public static boolean called  = false;
 
     @Override
