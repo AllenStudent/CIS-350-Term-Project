@@ -4,6 +4,6 @@
  * @author Ben Allen
  * @author Devin Elenbaase
  * @author Bryan VanDyke
- * @version Release 1
+ * @version Release 2
  */
 package com.example.studious;

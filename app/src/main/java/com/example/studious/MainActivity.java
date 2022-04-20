@@ -26,7 +26,7 @@ import java.util.Calendar;
  * @author Ben Allen
  * @author Devin Elenbaase
  * @author Bryan VanDyke
- * @version Release 1
+ * @version Release 2
  */
 
 public class MainActivity extends AppCompatActivity {

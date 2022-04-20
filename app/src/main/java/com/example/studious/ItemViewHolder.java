@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * @author Ben Allen
  * @author Devin Elenbaase
  * @author Bryan VanDyke
- * @version Release 1
+ * @version Release 2
  */
 public class ItemViewHolder extends RecyclerView.ViewHolder {
     /** Textview for title in items_list activity. **/

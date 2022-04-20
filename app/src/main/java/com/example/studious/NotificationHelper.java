@@ -9,7 +9,7 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 /**
- *
+ * Class to generate android notifications.
  */
 public class NotificationHelper {
     /** */

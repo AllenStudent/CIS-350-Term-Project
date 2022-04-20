@@ -18,7 +18,7 @@ import java.util.ArrayList;
  * @author Ben Allen
  * @author Devin Elenbaase
  * @author Bryan VanDyke
- * @version Release 1
+ * @version Release 2
  */
 public class ItemAdaptor extends RecyclerView.Adapter<ItemViewHolder> {
     /** data the recycler is displaying **/

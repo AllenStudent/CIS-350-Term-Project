@@ -15,7 +15,7 @@ import java.util.ArrayList;
  * @author Ben Allen
  * @author Devin Elenbaase
  * @author Bryan VanDyke
- * @version Release 1
+ * @version Release 2
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
     /** record if onCreate was called **/
